@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170.169" height="107.302" viewBox="0 0 170.169 107.302">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_4970" data-name="Rectangle 4970" width="170.169" height="107.302" rx="9" transform="translate(0 0)" fill="#e2e2e2"/>
+    </clipPath>
+  </defs>
+  <g id="visa" clip-path="url(#clip-path)">
+    <g id="Visa-2" data-name="Visa" transform="translate(-2.63 -1.052)">
+      <rect id="Rectangle_4973" data-name="Rectangle 4973" width="176" height="109" rx="4" transform="translate(-0.37 0.052)" fill="#00579f"/>
+      <g id="Group_10487" data-name="Group 10487" transform="translate(29.456 35.768)">
+        <path id="Path_4973" data-name="Path 4973" d="M35.371,53.139H25.99l5.868-36.281h9.381Z" transform="translate(14.812 -16.201)" fill="#fff"/>
+        <path id="Path_4974" data-name="Path 4974" d="M60.562,18.126a23.12,23.12,0,0,0-8.414-1.544c-9.264,0-15.788,4.94-15.828,12-.077,5.211,4.671,8.105,8.222,9.843,3.629,1.775,4.863,2.934,4.863,4.517-.037,2.431-2.933,3.551-5.634,3.551a18.672,18.672,0,0,1-8.8-1.93l-1.235-.58-1.313,8.144A28.553,28.553,0,0,0,42.884,54.06c9.843,0,16.252-4.864,16.327-12.39.037-4.13-2.469-7.295-7.874-9.881-3.281-1.66-5.29-2.779-5.29-4.478.038-1.544,1.7-3.126,5.4-3.126a15.939,15.939,0,0,1,6.988,1.389l.849.385Z" transform="translate(23.624 -16.581)" fill="#fff"/>
+        <path id="Path_4975" data-name="Path 4975" d="M57.948,40.286c.773-2.084,3.745-10.151,3.745-10.151-.039.078.771-2.123,1.234-3.473l.656,3.126s1.776,8.685,2.162,10.5Zm11.58-23.428H62.271c-2.238,0-3.938.656-4.9,3.01L43.434,53.139h9.843s1.62-4.478,1.969-5.442H67.29c.269,1.274,1.119,5.442,1.119,5.442H77.1Z" transform="translate(38.712 -16.201)" fill="#fff"/>
+        <path id="Path_4976" data-name="Path 4976" d="M36.073,16.858,26.886,41.6l-1-5.017c-1.7-5.79-7.025-12.08-12.97-15.208L21.327,53.1h9.92L45.993,16.858Z" transform="translate(-3.108 -16.201)" fill="#fff"/>
+        <path id="Path_4977" data-name="Path 4977" d="M24.023,16.858H8.93l-.154.733C20.549,20.6,28.346,27.86,31.55,36.582L28.269,19.908C27.729,17.591,26.069,16.935,24.023,16.858Z" transform="translate(-8.775 -16.201)" fill="#faa61a"/>
+      </g>
+    </g>
+  </g>
+</svg>

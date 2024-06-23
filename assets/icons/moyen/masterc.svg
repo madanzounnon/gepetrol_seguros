@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170.169" height="107.302" viewBox="0 0 170.169 107.302">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_4977" data-name="Rectangle 4977" width="170.169" height="107.302" rx="9" transform="translate(0 0)" fill="#e2e2e2"/>
+    </clipPath>
+  </defs>
+  <g id="masterc" clip-path="url(#clip-path)">
+    <g id="Mastercard" transform="translate(0 -4.734)">
+      <rect id="Rectangle_4972" data-name="Rectangle 4972" width="170.169" height="116.687" rx="4"/>
+      <path id="Path_4970" data-name="Path 4970" d="M67.7,69.107a32.823,32.823,0,0,1-21.52,8.017,33.564,33.564,0,0,1,0-67.124A32.822,32.822,0,0,1,67.7,18.018,32.822,32.822,0,0,1,89.217,10a33.564,33.564,0,0,1,0,67.124A32.823,32.823,0,0,1,67.7,69.107Z" transform="translate(18.603 14.31)" fill="#ed0006" fill-rule="evenodd"/>
+      <path id="Path_4971" data-name="Path 4971" d="M35.5,69.107a33.817,33.817,0,0,0,0-51.089A32.822,32.822,0,0,1,57.02,10a33.564,33.564,0,0,1,0,67.124A32.823,32.823,0,0,1,35.5,69.107Z" transform="translate(50.8 14.31)" fill="#f9a000" fill-rule="evenodd"/>
+      <path id="Path_4972" data-name="Path 4972" d="M42.362,13.3a33.818,33.818,0,0,1,0,51.089,33.818,33.818,0,0,1,0-51.089Z" transform="translate(43.939 19.029)" fill="#ff5e00" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>
