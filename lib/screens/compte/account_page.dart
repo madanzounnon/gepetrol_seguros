@@ -128,17 +128,16 @@ class _AccountPageState extends State<AccountPage> {
                                     clipBehavior: Clip.none,
                                     children: [
                                       if (user != null)
-                                        if (user!.photo != null)
-                                          if (user!.photo!.upload != null)
-                                            ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(100),
-                                                child: Image.network(
-                                                  "https://webapp.africabourse-am.net/backend/photos/${user!.photo!.upload!}",
-                                                  width: 200,
-                                                  height: 200,
-                                                  fit: BoxFit.cover,
-                                                )),
+                                        if (user!.profile_picture != null)
+                                          ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              child: Image.network(
+                                                "https://webapp.africabourse-am.net/backend/photos/${user!.profile_picture}",
+                                                width: 200,
+                                                height: 200,
+                                                fit: BoxFit.cover,
+                                              )),
                                       if (photoprofile != null)
                                         ClipRRect(
                                             borderRadius:
@@ -150,19 +149,18 @@ class _AccountPageState extends State<AccountPage> {
                                               fit: BoxFit.cover,
                                             )),
                                       if (photoprofile == null)
-                                        if (user!.photo != null)
-                                          if (user!.photo!.upload == null)
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              child: const Icon(
-                                                FontAwesomeIcons.userCircle,
-                                                size: 100,
-                                                color: kTextColor,
-                                              ),
+                                        if (user!.profile_picture == null)
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: const Icon(
+                                              FontAwesomeIcons.userCircle,
+                                              size: 100,
+                                              color: kTextColor,
                                             ),
+                                          ),
                                       if (photoprofile == null)
-                                        if (user!.photo == null)
+                                        if (user!.profile_picture == null)
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(100),
@@ -192,13 +190,13 @@ class _AccountPageState extends State<AccountPage> {
                                                       204, 221, 245, 1),
                                             ),
                                             onPressed: () {
-                                              // setState(() async {
-                                              //   photoprofile =
-                                              //       await Utile.getImage();
-                                              //   if (photoprofile != null) {
-                                              //     submitphoto({});
-                                              //   }
-                                              // });
+                                              setState(() async {
+                                                photoprofile =
+                                                    await Utile.getImage();
+                                                if (photoprofile != null) {
+                                                  submitphoto({});
+                                                }
+                                              });
                                               setState(() {});
                                             },
                                             child: const Text(
@@ -429,12 +427,11 @@ class _AccountPageState extends State<AccountPage> {
                             fit: StackFit.expand,
                             clipBehavior: Clip.none,
                             children: [
-                              if (user!.photo != null &&
-                                  user!.photo!.upload != null)
+                              if (user!.profile_picture != null)
                                 ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.network(
-                                      "https://webapp.africabourse-am.net/backend/photos/${user!.photo!.upload!}",
+                                      "https://webapp.africabourse-am.net/backend/photos/${user!.profile_picture!}",
                                       width: 200,
                                       height: 200,
                                       fit: BoxFit.cover,
@@ -449,8 +446,7 @@ class _AccountPageState extends State<AccountPage> {
                                       fit: BoxFit.cover,
                                     )),
                               if (photoprofile == null &&
-                                  user!.photo == null &&
-                                  user!.photo!.upload == null)
+                                  user!.profile_picture == null)
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: const Icon(

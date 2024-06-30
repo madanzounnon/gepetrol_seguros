@@ -24,8 +24,8 @@ class LoginSuccess {
   factory LoginSuccess.fromMap(Map<String, dynamic> map) {
     return LoginSuccess(
       success: map['success'] as bool,
-      user: User.fromMap(map['user'] as Map<String, dynamic>),
-      token: map['token'] as String,
+      user: User.fromMap(map['response']['user'] as Map<String, dynamic>),
+      token: map['response']['token'] as String,
     );
   }
 

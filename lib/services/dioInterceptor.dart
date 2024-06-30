@@ -12,6 +12,8 @@ class DioInterceptor extends Interceptor {
     options.headers.addAll({
       "Content-Type": "application/json",
       "Connection": "keep-alive",
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate, br"
     });
     // get token from the storage
     if (token != null) {
@@ -73,5 +75,11 @@ class DioInterceptor extends Interceptor {
 }
 
 class DioInstence {
-  Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.137.1:3001/api"));
+  Dio dio = Dio(BaseOptions(
+    baseUrl: "https://seguros.fifonsi.net/api",
+    followRedirects: true,
+    validateStatus: (status) {
+      return status! < 500; // Accepte les codes d'état inférieurs à 500
+    },
+  ));
 }

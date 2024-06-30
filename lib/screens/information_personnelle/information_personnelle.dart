@@ -86,18 +86,17 @@ class _InformationPersonnelleScreenState
                           fit: StackFit.expand,
                           clipBehavior: Clip.none,
                           children: [
-                            if (user.photo != null &&
-                                user.photo!.upload != null)
+                            if (user != null && user.profile_picture != null)
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.network(
-                                    "https://webapp.africabourse-am.net/backend/photos/${user!.photo!.upload!}",
+                                    "https://webapp.africabourse-am.net/backend/photos/${user!.profile_picture!}",
                                     width: 200,
                                     height: 200,
                                     fit: BoxFit.cover,
                                   )),
-                            if (user.photo != null)
-                              if (user.photo!.upload == null)
+                            if (user != null)
+                              if (user.profile_picture == null)
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: const Icon(
@@ -106,7 +105,7 @@ class _InformationPersonnelleScreenState
                                     color: kTextColor,
                                   ),
                                 ),
-                            if (user.photo == null)
+                            if (user == null)
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
                                 child: const Icon(
@@ -189,12 +188,11 @@ class _InformationPersonnelleScreenState
               SizedBox(
                 height: getProportionateScreenHeight(8),
               ),
-              if (user.first_subscription == 1 && user.phone != null)
-                ItemElement(
-                  cle: 'Num de Tél',
-                  textcolor: pPrimaryColor,
-                  valeur: user.phone!.mobile_phone,
-                ),
+              ItemElement(
+                cle: 'Num de Tél',
+                textcolor: pPrimaryColor,
+                valeur: user.phone,
+              ),
               SizedBox(
                 height: getProportionateScreenHeight(8),
               ),
@@ -252,7 +250,7 @@ class _InformationPersonnelleScreenState
               ItemElement(
                 cle: 'Civilité',
                 textcolor: pPrimaryColor,
-                valeur: user.gender,
+                valeur: user.sex,
               ),
               SizedBox(
                 height: getProportionateScreenHeight(8),
@@ -260,7 +258,7 @@ class _InformationPersonnelleScreenState
               ItemElement(
                 cle: 'Téléphone"',
                 textcolor: pPrimaryColor,
-                valeur: user.gender,
+                valeur: user.phone,
               ),
             ])),
       ),

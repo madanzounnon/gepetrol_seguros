@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:gepetrol_eguros/components/custom_surfix_icon.dart';
@@ -118,16 +119,19 @@ class _SouscrireState extends State<Souscrire> {
     //KeyboardUtil.hideKeyboard(context);
   }
 
-  Future<bool> sendCode(String country, String email) async {
+  Future<bool> sendCode(String email) async {
     Utile.loarder(context);
     StoreAuth().restoreUser();
-    Response res = await Auth().sendVerifyCode(country, email);
-    if (res.statusCode == 200) {
-      print(res.data);
-      setState(() {
-        estEnvoyer = res.data["success"];
-        codeEnvoyer = res.data["verification_code"];
-      });
+    http.Response? res = await Auth().sendVerifyCode(email);
+    print("fffffffffffffffffffffffffff");
+    print(res);
+    print(res?.body);
+    if (res?.statusCode == 200) {
+      print(res);
+      // setState(() {
+      //   estEnvoyer = res?.body;
+      //   codeEnvoyer = res?.body["response"];
+      // });
       print(codeEnvoyer);
 
       Navigator.of(context).pop();
@@ -137,8 +141,8 @@ class _SouscrireState extends State<Souscrire> {
     } else {
       Navigator.of(context).pop();
       print(res);
-      ApiError apiError = ApiError.fromMap(res.data);
-      Utile.messageErro(context, '${apiError.message}');
+      //ApiError apiError = ApiError.fromMap(res.data);
+      //Utile.messageErro(context, '${apiError.message}');
       return false;
     }
   }
@@ -355,9 +359,8 @@ class _SouscrireState extends State<Souscrire> {
                                     color: Colors.grey,
                                   ),
                                   decoration: const InputDecoration(
-                                    labelText: "Numéro de téléphone",
-                                    hintText:
-                                        "Entrez votre numéro de téléphone",
+                                    labelText: "Teléfono",
+                                    hintText: "Teléfono",
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.always,
                                     filled: false,
@@ -556,7 +559,7 @@ class _SouscrireState extends State<Souscrire> {
                                     // OTP code resend
                                   },
                                   child: const Text(
-                                    "Renvoyer un nouveau code",
+                                    "Reenviar un nuevo código",
                                     style: TextStyle(
                                         color: pPrimaryColor,
                                         fontWeight: FontWeight.bold),
@@ -583,7 +586,7 @@ class _SouscrireState extends State<Souscrire> {
                                     //mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        "Definir votre mot de passe et\nvotre nom utilisateur",
+                                        "Establece tu contraseña y \nnombre de usuario",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize:
@@ -600,7 +603,7 @@ class _SouscrireState extends State<Souscrire> {
                                 inputForm(
                                   controller: usernameCtl,
                                   validInput: true,
-                                  labeltext: "Nom d'utilisateur",
+                                  labeltext: "Nombre del usuario",
                                 ),
 
                                 buildPasswordFormField(),
@@ -613,7 +616,7 @@ class _SouscrireState extends State<Souscrire> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        "Votre mot de passe doit comporter:",
+                                        "Su contraseña debe incluir:",
                                         style: TextStyle(
                                             color: pPrimaryColor,
                                             fontWeight: FontWeight.bold),
@@ -636,9 +639,9 @@ class _SouscrireState extends State<Souscrire> {
                                             width:
                                                 getProportionateScreenWidth(10),
                                           ),
-                                          const Text("au mois "),
+                                          const Text("Al menos "),
                                           const Text(
-                                            "8 caractères",
+                                            "8 carácteres",
                                             style:
                                                 TextStyle(color: kPrimaryColor),
                                           ),
@@ -660,9 +663,9 @@ class _SouscrireState extends State<Souscrire> {
                                             width:
                                                 getProportionateScreenWidth(10),
                                           ),
-                                          const Text("des lettres "),
+                                          const Text("letras "),
                                           const Text(
-                                            "majuscules et minuscules ",
+                                            "mayúsculas y minúsculas ",
                                             style:
                                                 TextStyle(color: kPrimaryColor),
                                           ),
@@ -684,9 +687,9 @@ class _SouscrireState extends State<Souscrire> {
                                             width:
                                                 getProportionateScreenWidth(10),
                                           ),
-                                          const Text("au mois "),
+                                          const Text("al menos "),
                                           const Text(
-                                            "un chiffre",
+                                            "un dígito",
                                             style:
                                                 TextStyle(color: kPrimaryColor),
                                           ),
@@ -695,27 +698,27 @@ class _SouscrireState extends State<Souscrire> {
                                       SizedBox(
                                           height:
                                               getProportionateScreenHeight(7)),
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            "assets/icons/Error.svg",
-                                            height:
-                                                getProportionateScreenWidth(15),
-                                            width:
-                                                getProportionateScreenWidth(15),
-                                          ),
-                                          SizedBox(
-                                            width:
-                                                getProportionateScreenWidth(10),
-                                          ),
-                                          const Text("au mois "),
-                                          const Text(
-                                            "un caractère special(@, #, &,...)",
-                                            style:
-                                                TextStyle(color: kPrimaryColor),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     SvgPicture.asset(
+                                      //       "assets/icons/Error.svg",
+                                      //       height:
+                                      //           getProportionateScreenWidth(15),
+                                      //       width:
+                                      //           getProportionateScreenWidth(15),
+                                      //     ),
+                                      //     SizedBox(
+                                      //       width:
+                                      //           getProportionateScreenWidth(10),
+                                      //     ),
+                                      //     const Text("au mois "),
+                                      //     const Text(
+                                      //       "un caractère special(@, #, &,...)",
+                                      //       style:
+                                      //           TextStyle(color: kPrimaryColor),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ]),
                                 SizedBox(
                                     height: getProportionateScreenHeight(20)),
@@ -739,7 +742,7 @@ class _SouscrireState extends State<Souscrire> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "J’ai lu et accepté ",
+                                          "He leído y aceptado ",
                                           style: TextStyle(
                                               fontSize:
                                                   getProportionateScreenWidth(
@@ -750,7 +753,7 @@ class _SouscrireState extends State<Souscrire> {
                                               context,
                                               TermeCondictionScreen.routeName),
                                           child: Text(
-                                            "les termes et conditions générales.",
+                                            "los términos y condiciones generales.",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -800,15 +803,13 @@ class _SouscrireState extends State<Souscrire> {
     switch (current) {
       case 0:
         {
-          //print(current);
-          if (email != null && pays != null) {
+          if (email != null) {
             print(email);
-            print(pays);
             print(codeEnvoyer);
             print(estEnvoyer);
             if (_formKey1.currentState!.validate()) {
               _formKey1.currentState!.save();
-              estvalide = await sendCode(pays!, email!);
+              estvalide = await sendCode(email!);
               //estvalide = _formKey1.currentState!.validate();
             }
           }
@@ -897,8 +898,8 @@ class _SouscrireState extends State<Souscrire> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Confirmez le mot de passe*",
-        hintText: "Entrez à nouveau votre mot de passe",
+        labelText: "Confirmar Contraseña*",
+        hintText: "Confirmar Contraseña",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -929,8 +930,8 @@ class _SouscrireState extends State<Souscrire> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Mot de passe*",
-        hintText: "Tapez votre mot de passe",
+        labelText: "Contraseña*",
+        hintText: "Contraseña",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -958,70 +959,12 @@ class _SouscrireState extends State<Souscrire> {
             }
           : null,
       decoration: const InputDecoration(
-        labelText: "E-mail*",
-        hintText: "Entrer votre Email",
+        labelText: "Correo Electronico*",
+        hintText: "Correo Electronico",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildAddressFormField() {
-    return TextFormField(
-      controller: addressCtl,
-      onSaved: (newValue) => addressCtl.text = newValue!,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          address = value;
-          removeError(error: kAddressNullError);
-        }
-        address = value;
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return kAddressNullError;
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        labelText: "Ville de résidence*",
-        hintText: "Entrez votre adresse",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon:
-            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
-      ),
-    );
-  }
-
-  TextFormField buildPieceNumberFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.number,
-      onSaved: (newValue) => numpiece = newValue as int,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kPieceNumberNullError);
-        }
-        numpiece = value as int;
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return kPieceNumberNullError;
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-        labelText: "Numéro de la pièce*",
-        hintText: "Entrez votre numéro de la pièce",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
       ),
     );
   }
@@ -1044,54 +987,13 @@ class _SouscrireState extends State<Souscrire> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Nom*",
-        hintText: "Entrez votre nom",
+        labelText: "Nombre*",
+        hintText: "Introduzca su nombre",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
-    );
-  }
-
-  TextFormField buildDateNaiFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.datetime,
-      controller: dateCtl,
-      onSaved: (newValue) => initialDate = (newValue as DateTime?)!,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kDateNailNullError);
-        }
-        initialDate = value as DateTime;
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return kDateNailNullError;
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Date de naissance*",
-        hintText: "Entrez date de naissance",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Padding(
-            padding: EdgeInsets.fromLTRB(
-              getProportionateScreenWidth(20),
-              getProportionateScreenWidth(20),
-              getProportionateScreenWidth(3),
-              getProportionateScreenWidth(20),
-            ),
-            child: const FaIcon(FontAwesomeIcons.calendar)),
-        //CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-      //onTap:(() => _showDate(context)),
-      onTap: () async {
-        await _showDate(context);
-      },
     );
   }
 
@@ -1113,43 +1015,13 @@ class _SouscrireState extends State<Souscrire> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Prénom(s)*",
-        hintText: "Entrez vos prénoms",
+        labelText: "Apellidos*",
+        hintText: "Introduzca su apellidos",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
-    );
-  }
-
-  Widget buildSingleCountry() {
-    onTap() async {
-      final country = await Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const CountryPage()),
-      );
-
-      if (country == null) return;
-
-      setState(() {
-        this.country = country;
-        var pre = country.prefix;
-        this.prefix = '+$pre';
-        this.pays = this.country!.name;
-        countryCtl.text = country!.name;
-      });
-    }
-
-    return buildCountryPicker(
-      title: 'Selectionnez le pays',
-      child: country == null
-          ? buildListTile(title: 'Selectionnez le pays', onTap: onTap)
-          : buildListTile(
-              title: country!.name,
-              leading: FlagWidget(code: country!.code),
-              onTap: onTap,
-            ),
     );
   }
 
@@ -1294,48 +1166,6 @@ class _SouscrireState extends State<Souscrire> {
               DropdownMenuItem(child: Text("Masculin"), value: "Male"),
               DropdownMenuItem(child: Text("Féminim"), value: "Female"),
               // DropdownMenuItem(child: Text("Mademoiselle"), value: "Mdme"),
-            ])
-      ],
-    );
-  }
-
-  Widget buildTypepiece(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        DropdownButtonFormField(
-            decoration: const InputDecoration(
-              labelText: "Type de pièce*",
-              hintText: "Selectionnez le type de pièce",
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Bell.svg"),
-              filled: true,
-              //fillColor: Colors.blueAccent,
-            ),
-            //dropdownColor: Colors.blueAccent,
-            value: typepiece,
-            onChanged: (String? newValue) {
-              if (newValue!.isNotEmpty) {
-                removeError(error: KtypepiecelNullError);
-              }
-              setState(() {
-                typepiece = newValue;
-              });
-            },
-            validator: (value) {
-              if (value == null) {
-                return KtypepiecelNullError;
-              }
-              return null;
-            },
-            items: const [
-              DropdownMenuItem(child: Text("CIP"), value: "CIP."),
-              DropdownMenuItem(
-                  child: Text("Pièce d'identité national"),
-                  value: "Pièce d'identité national"),
-              DropdownMenuItem(
-                  child: Text("Carte Biométrique"), value: "Carte Biométrique"),
-              DropdownMenuItem(child: Text("Passport"), value: "Passport"),
             ])
       ],
     );

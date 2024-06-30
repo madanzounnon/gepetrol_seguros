@@ -61,7 +61,7 @@ class _SignFormState extends State<SignForm> {
       if (res.statusCode == 200) {
         StoreAuth().restoreUser();
         LoginSuccess loginSuccess = LoginSuccess.fromMap(res.data);
-        StoreAuth().saveUser(res.data["user"]);
+        StoreAuth().saveUser(res.data["response"]["user"]);
         StoreAuth().saveToken(loginSuccess.token);
         Navigator.of(context).pop();
         KeyboardUtil.hideKeyboard(context);
@@ -69,7 +69,7 @@ class _SignFormState extends State<SignForm> {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => EntryPoint()),
             (route) => false);
-        Utile.messageSuccess(context, "Bonjour, Merci de vous revoir");
+        Utile.messageSuccess(context, "Hola, gracias por verte de nuevo.");
       } else {
         Navigator.of(context).pop();
         ApiError apiError = ApiError.fromMap(res.data);
@@ -106,7 +106,7 @@ class _SignFormState extends State<SignForm> {
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
-                  "Mot de passe oublié",
+                  "¿Olvidé mi contraseña ?",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: pPrimaryColor),
@@ -117,7 +117,7 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "S'identifier",
+            text: "Iniciar Sesión",
             press: () {
               loginUser(emailCt.text.trim(), passwordCt.text.trim());
             },
@@ -151,8 +151,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Mot de passe*",
-        hintText: "Tapez votre mot de passe",
+        labelText: "Contraseña*",
+        hintText: "Contraseña",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -199,8 +199,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "E-mail*",
-        hintText: "Entrer votre Email",
+        labelText: "Correo Electronico*",
+        hintText: "Correo Electronico",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
