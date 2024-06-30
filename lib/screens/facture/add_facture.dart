@@ -26,7 +26,7 @@ import 'providerTypeVehicule/type_vehicule_provider_page.dart';
 
 class AddFactureScreen extends StatefulWidget {
   const AddFactureScreen({super.key});
-  static String routeName = "/addabonnement";
+  static String routeName = "/addfacture";
   @override
   State<AddFactureScreen> createState() => _AddFactureScreenState();
 }
@@ -52,8 +52,8 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   TextEditingController powerCtl = TextEditingController();
 
   final ApiService apiService = ApiService();
-  List<String> abonnements = [];
-  late List<Accessorie> accessorie;
+  List<String> factures = [];
+  List<Accessorie> accessorie = [];
 
   int typeVehiculeId = 0;
   int categorieId = 0;
@@ -78,10 +78,13 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   Future<void> getAccessories() async {
     Utile.loarder(context);
     final response = await apiService.getAccessories();
-    if (response!.statusCode == 200) {
+    print(response!.data["response"]);
+    if (response.statusCode == 200) {
       final maps = response.data["response"];
-      accessorie = List.generate(maps.length, (i) {
-        return Accessorie.fromMap(maps[i]);
+      setState(() {
+        accessorie = List.generate(maps.length, (i) {
+          return Accessorie.fromMap(maps[i]);
+        });
       });
       Navigator.of(context).pop();
     } else {
@@ -145,7 +148,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   }
 
   continued() {
-    final islast = _currentStep == 1;
+    final islast = _currentStep == 2;
     bool isValid = validestape(_currentStep);
     if (isValid) {
       if (islast) {
@@ -153,7 +156,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
           total = int.parse(montant.text.trim());
         });
       } else {
-        _currentStep < 1 ? setState(() => _currentStep += 1) : _currentStep;
+        _currentStep < 2 ? setState(() => _currentStep += 1) : _currentStep;
       }
     }
   }
@@ -192,8 +195,8 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                         SecondaryButton(
                           width: 100,
                           textcolor: Colors.white,
-                          text: _currentStep == 1
-                              ? 'Faire un abonnement'.toUpperCase()
+                          text: _currentStep == 2
+                              ? 'Faire un facture'.toUpperCase()
                               : 'Suivant'.toUpperCase(),
                           backcolor: kSecondaryColor,
                           press: details.onStepContinue,
@@ -203,7 +206,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                   },
                   steps: <Step>[
                 Step(
-                  title: const Text('Informations.', maxLines: 1),
+                  title: const Text('01.', maxLines: 1),
                   content: Form(
                     key: _formKey1,
                     child: Column(
@@ -251,7 +254,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                       : StepState.disabled,
                 ),
                 Step(
-                  title: const Text('Tarifs Annuel', maxLines: 1),
+                  title: const Text('02', maxLines: 1),
                   content: Form(
                     key: _formKey2,
                     child: Column(
@@ -277,7 +280,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                       : StepState.disabled,
                 ),
                 Step(
-                  title: const Text('accesorios', maxLines: 1),
+                  title: const Text('03', maxLines: 1),
                   content: Form(
                       key: _formKey3,
                       child: Column(children: [

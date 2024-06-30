@@ -48,7 +48,8 @@ class MarqueListTileWidget extends StatelessWidget {
             )
           : CircleAvatar(
               radius: 30,
-              backgroundImage: NetworkImage(marque.image!),
+              backgroundImage:
+                  NetworkImage("https://seguros.fifonsi.net/${marque.image}"),
               backgroundColor: color.withOpacity(0.30),
               child: Text(
                 marque.title.split('')[0],

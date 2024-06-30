@@ -15,7 +15,7 @@ class NoAccountText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Vous n'avez pas de compte ? ",
+          "¿Aún no eres cliente? ? ",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
@@ -23,7 +23,7 @@ class NoAccountText extends StatelessWidget {
           onTap: () => Navigator.pushNamed(context, Souscrire.routeName),
           //Navigator.pushNamed(context, SignUpScreen.routeName),
           child: Text(
-            "Ouvrez un compte",
+            "Registrarte",
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(17),
                 color: pPrimaryColor,

@@ -21,6 +21,7 @@ import 'package:gepetrol_eguros/screens/splash/splash_screen.dart';
 import 'package:gepetrol_eguros/screens/splash_screen.dart';
 import 'package:gepetrol_eguros/screens/test/test.dart';
 
+import 'screens/facture/add_facture.dart';
 import 'screens/sign_up/sign_up_screen.dart';
 
 // We use name route
@@ -29,7 +30,7 @@ final Map<String, WidgetBuilder> routes = {
   Souscrire.routeName: (context) => Souscrire(),
   SplashScreen.routeName: (context) => SplashScreen(),
   SplashScreen1.routeName: (context) => SplashScreen1(
-        title: 'AfriquaBource AM',
+        title: 'Gepetrol Seguros',
       ),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
@@ -51,5 +52,6 @@ final Map<String, WidgetBuilder> routes = {
   CodePinConrfirmerScreen.routeName: (context) => CodePinConrfirmerScreen(),
   CodePinLoginScreen.routeName: (context) => CodePinLoginScreen(),
   TermeCondictionScreen.routeName: (context) => TermeCondictionScreen(),
+  AddFactureScreen.routeName: (context) => const AddFactureScreen(),
   // CountryPage.routeName:(context) => CountryPage(),
 };

@@ -101,7 +101,7 @@ class ApiService {
   Future<Response?> getAccessories() async {
     addInterceptors();
     try {
-      final response = await dio.get('/me');
+      final response = await dio.get('/accessories');
       print(response);
       return response;
     } on DioError catch (e) {

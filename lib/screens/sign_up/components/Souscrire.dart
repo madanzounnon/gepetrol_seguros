@@ -152,17 +152,13 @@ class _SouscrireState extends State<Souscrire> {
 
     Map<String, dynamic>? userData = {
       "email": email,
-      "country": pays,
-      "verification_code": codeEnvoyer,
+      "code": codeEnvoyer,
       "first_name": firstnameCtl.text.trim(),
       "last_name": lastnameCtl.text.trim(),
       "username": usernameCtl.text.trim(),
-      "mobile_phone": telephoneCtl.text.trim(),
-      "gender": civiliteCtl.text.trim(),
-      "city": addressCtl.text.trim(),
-      "birthday": dateCtl.text.trim(),
+      "phone": telephoneCtl.text.trim(),
+      "sex": civiliteCtl.text.trim(),
       "password": passwordCtl.text,
-      "birth_place": birthPlaceCtl.text.trim(),
     };
 
     Response res = await Auth().register(userData);
@@ -173,7 +169,7 @@ class _SouscrireState extends State<Souscrire> {
       Navigator.of(context).pop();
       KeyboardUtil.hideKeyboard(context);
       Navigator.pushReplacementNamed(context, SignInScreen.routeName);
-      Utile.messageSuccess(context, "Votre compte a été créé avec succès");
+      Utile.messageSuccess(context, "Su cuenta ha sido creada con éxito");
     } else {
       Navigator.of(context).pop();
       ApiError apiError = ApiError.fromMap(res.data);
@@ -273,14 +269,14 @@ class _SouscrireState extends State<Souscrire> {
                     onStepCancel: cancel,
                     controlsBuilder:
                         (BuildContext context, ControlsDetails details) {
-                      final isLast = _currentStep == 3;
+                      final isLast = _currentStep == 2;
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           SecondaryButton(
                             width: 100,
                             textcolor: Colors.white,
-                            text: isLast ? 'Enregistrer' : 'Continuer',
+                            text: isLast ? 'Registrar' : 'Siguiente',
                             backcolor: pPrimaryColor,
                             press: details.onStepContinue,
                           ),
@@ -289,7 +285,7 @@ class _SouscrireState extends State<Souscrire> {
                             SecondaryButton(
                               width: 100,
                               textcolor: Colors.white,
-                              text: 'Retourner',
+                              text: 'Anterior',
                               backcolor: kPrimaryColor,
                               press: details.onStepCancel,
                             ),
@@ -322,22 +318,11 @@ class _SouscrireState extends State<Souscrire> {
                                               getProportionateScreenHeight(100),
                                         ),
                                       ),
-                                      //SizedBox(height: getProportionateScreenHeight(20)),
-                                      // Text(
-                                      //   "Merci de nous  rejoindre",
-                                      //   textAlign: TextAlign.center,
-                                      //   style: TextStyle(
-                                      //     fontSize:
-                                      //         getProportionateScreenWidth(28),
-                                      //     color: pPrimaryColor,
-                                      //     fontWeight: FontWeight.bold,
-                                      //   ),
-                                      // ),
                                       SizedBox(
                                           height:
                                               getProportionateScreenHeight(10)),
                                       const Text(
-                                          "Veuillez fournir les informations",
+                                          "Sírvase proporcionar la información",
                                           textAlign: TextAlign.center),
                                     ]),
                                 SizedBox(
@@ -404,7 +389,7 @@ class _SouscrireState extends State<Souscrire> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.screenHeight * 0.04),
-                                const Text("Veuillez insérer le code envoyé à",
+                                const Text("Introduzca el código enviado a",
                                     textAlign: TextAlign.center),
                                 Text(
                                   " $email ",
@@ -417,7 +402,7 @@ class _SouscrireState extends State<Souscrire> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                        "Ce code expirera dans 15min (900s) "),
+                                        "Este código expirará en 15min (900s) "),
                                     TweenAnimationBuilder(
                                       tween: Tween(begin: 15, end: 0.0),
                                       duration: const Duration(seconds: 900),
@@ -578,7 +563,7 @@ class _SouscrireState extends State<Souscrire> {
                             : StepState.disabled,
                       ),
                       Step(
-                        title: new Text('Mp'),
+                        title: new Text('MP'),
                         content: Form(
                             key: _formKey3,
                             child: Column(
@@ -593,13 +578,13 @@ class _SouscrireState extends State<Souscrire> {
                                         style: TextStyle(
                                           fontSize:
                                               getProportionateScreenWidth(18),
-                                          color: pPrimaryColor,
+                                          // color: pPrimaryColor,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       SizedBox(
                                           height:
-                                              getProportionateScreenHeight(10)),
+                                              getProportionateScreenHeight(30)),
                                       //Text("Veuillez fournir les informations \n ci-dessous.", textAlign:TextAlign.center),
                                     ]),
                                 inputForm(
@@ -607,7 +592,6 @@ class _SouscrireState extends State<Souscrire> {
                                   validInput: true,
                                   labeltext: "Nombre del usuario",
                                 ),
-
                                 buildPasswordFormField(),
                                 SizedBox(
                                     height: getProportionateScreenHeight(20)),
@@ -700,77 +684,7 @@ class _SouscrireState extends State<Souscrire> {
                                       SizedBox(
                                           height:
                                               getProportionateScreenHeight(7)),
-                                      // Row(
-                                      //   children: [
-                                      //     SvgPicture.asset(
-                                      //       "assets/icons/Error.svg",
-                                      //       height:
-                                      //           getProportionateScreenWidth(15),
-                                      //       width:
-                                      //           getProportionateScreenWidth(15),
-                                      //     ),
-                                      //     SizedBox(
-                                      //       width:
-                                      //           getProportionateScreenWidth(10),
-                                      //     ),
-                                      //     const Text("au mois "),
-                                      //     const Text(
-                                      //       "un caractère special(@, #, &,...)",
-                                      //       style:
-                                      //           TextStyle(color: kPrimaryColor),
-                                      //     ),
-                                      //   ],
-                                      // ),
                                     ]),
-                                SizedBox(
-                                    height: getProportionateScreenHeight(20)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Checkbox(
-                                      value: termecondition,
-                                      activeColor: pPrimaryColor,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          termecondition = value;
-                                        });
-                                      },
-                                    ),
-                                    Expanded(
-                                        child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "He leído y aceptado ",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  getProportionateScreenWidth(
-                                                      15)),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => Navigator.pushNamed(
-                                              context,
-                                              TermeCondictionScreen.routeName),
-                                          child: Text(
-                                            "los términos y condiciones generales.",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: pPrimaryColor,
-                                                fontSize:
-                                                    getProportionateScreenWidth(
-                                                        15)),
-                                          ),
-                                        )
-                                      ],
-                                    ))
-                                  ],
-                                ),
-
-                                /// FormError(errors: errors),
                                 SizedBox(
                                     height: getProportionateScreenHeight(20)),
                               ],
@@ -811,8 +725,8 @@ class _SouscrireState extends State<Souscrire> {
             print(estEnvoyer);
             if (_formKey1.currentState!.validate()) {
               _formKey1.currentState!.save();
-              estvalide = await sendCode(email!);
-              //estvalide = _formKey1.currentState!.validate();
+              //estvalide = await sendCode(email!);
+              estvalide = _formKey1.currentState!.validate();
             }
           }
         }
@@ -826,11 +740,12 @@ class _SouscrireState extends State<Souscrire> {
             print(codes!.length);
             print(codes!.compareTo(codeEnvoyer.toString()));
             print(codes!.trim() == codeEnvoyer.toString().trim());
-            if (codes!.compareTo(codeEnvoyer.toString()) == 0) {
-              estvalide = _formKey2.currentState!.validate();
-            } else {
-              Utile.messageErro(context, "Le code est incorrect");
-            }
+            // if (codes!.compareTo(codeEnvoyer.toString()) == 0) {
+            //   estvalide = _formKey2.currentState!.validate();
+            // } else {
+            //   Utile.messageErro(context, "Le code est incorrect");
+            // }
+            estvalide = _formKey2.currentState!.validate();
           }
         }
         break;
@@ -840,14 +755,6 @@ class _SouscrireState extends State<Souscrire> {
             _formKey3.currentState!.save();
           }
           estvalide = _formKey3.currentState!.validate();
-        }
-        break;
-      case 3:
-        {
-          if (_formKey4.currentState!.validate()) {
-            _formKey4.currentState!.save();
-          }
-          estvalide = _formKey4.currentState!.validate();
         }
         break;
     }
@@ -1140,8 +1047,8 @@ class _SouscrireState extends State<Souscrire> {
       children: [
         DropdownButtonFormField(
             decoration: const InputDecoration(
-              labelText: "civilité*",
-              hintText: "Selectionnez votre civilité",
+              labelText: "Civilidad*",
+              hintText: "Elige tu propia civilidad",
               floatingLabelBehavior: FloatingLabelBehavior.always,
               //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Bell.svg"),
               filled: true,
@@ -1165,8 +1072,8 @@ class _SouscrireState extends State<Souscrire> {
               return null;
             },
             items: const [
-              DropdownMenuItem(child: Text("Masculin"), value: "Male"),
-              DropdownMenuItem(child: Text("Féminim"), value: "Female"),
+              DropdownMenuItem(child: Text("Masculin"), value: "Masculin"),
+              DropdownMenuItem(child: Text("Féminim"), value: "Féminim"),
               // DropdownMenuItem(child: Text("Mademoiselle"), value: "Mdme"),
             ])
       ],
