@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Column(children: [
-            Text("AFRICABOURSE ASSET MANAGEMENT",
+            Text("GEPetrol Seguros",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: getProportionateScreenWidth(20),
@@ -23,7 +23,7 @@ class Body extends StatelessWidget {
                     fontWeight: FontWeight.w900)),
 
             Text(
-                "Vous avez une question, des réclamations, des suggestions ? Parlons-en !",
+                "¿Tienes una pregunta, quejas, sugerencias? ¡Hablemos de ello!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: getProportionateScreenWidth(18),

@@ -31,7 +31,6 @@ class _CaburantProviderPageState extends State<CaburantProviderPage> {
 
   @override
   void initState() {
-    print("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
     super.initState();
     selectedbureaux = widget.bureaux;
     getAllCaburants();
@@ -40,7 +39,7 @@ class _CaburantProviderPageState extends State<CaburantProviderPage> {
   getAllCaburants() async {
     final res = await apiService.getAllCaburant();
     if (res!.statusCode != null && res.statusCode == 200) {
-      final maps = res.data["data"];
+      final maps = res.data["response"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {
           return Caburant.fromMap(maps[i]);

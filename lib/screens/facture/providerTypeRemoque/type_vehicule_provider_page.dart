@@ -39,7 +39,7 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
   getAllTypeRemoques() async {
     final res = await apiService.getAllTypeRemoque();
     if (res!.statusCode != null && res.statusCode == 200) {
-      final maps = res.data["data"];
+      final maps = res.data["response"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {
           return TypeRemoque.fromMap(maps[i]);

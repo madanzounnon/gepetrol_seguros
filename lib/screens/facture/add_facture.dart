@@ -6,7 +6,9 @@ import '../../components/secondary_button.dart';
 import '../../constants.dart';
 import '../../helper/form.dart';
 import '../../helper/utile.dart';
+import '../../models/accessorie.dart';
 import '../../models/api_error.dart';
+import '../../models/accessorie.dart';
 import '../../models/carburant.dart';
 import '../../models/categories.dart';
 import '../../models/marque.dart';
@@ -22,14 +24,14 @@ import 'providerPower/power_provider_page.dart';
 import 'providerTypeRemoque/type_vehicule_provider_page.dart';
 import 'providerTypeVehicule/type_vehicule_provider_page.dart';
 
-class AddAbonnementScreen extends StatefulWidget {
-  const AddAbonnementScreen({super.key});
+class AddFactureScreen extends StatefulWidget {
+  const AddFactureScreen({super.key});
   static String routeName = "/addabonnement";
   @override
-  State<AddAbonnementScreen> createState() => _AddAbonnementScreenState();
+  State<AddFactureScreen> createState() => _AddFactureScreenState();
 }
 
-class _AddAbonnementScreenState extends State<AddAbonnementScreen> {
+class _AddFactureScreenState extends State<AddFactureScreen> {
   TextEditingController montant = TextEditingController();
   TextEditingController loyer = TextEditingController();
   TextEditingController montantRemise = TextEditingController();
@@ -51,6 +53,8 @@ class _AddAbonnementScreenState extends State<AddAbonnementScreen> {
 
   final ApiService apiService = ApiService();
   List<String> abonnements = [];
+  late List<Accessorie> accessorie;
+
   int typeVehiculeId = 0;
   int categorieId = 0;
   int marqueId = 0;
@@ -67,18 +71,21 @@ class _AddAbonnementScreenState extends State<AddAbonnementScreen> {
   @override
   void initState() {
     total = 0;
-    montantRemise.text = "0";
-    typeCategories.text = "Ordinaire";
+    getAccessories();
     super.initState();
   }
 
-  Future<void> getAccessories(int caburant) async {
+  Future<void> getAccessories() async {
     Utile.loarder(context);
     final response = await apiService.getAccessories();
-    if (response.statusCode == 200) {
+    if (response!.statusCode == 200) {
+      final maps = response.data["response"];
+      accessorie = List.generate(maps.length, (i) {
+        return Accessorie.fromMap(maps[i]);
+      });
       Navigator.of(context).pop();
     } else {
-      ApiError apiError = ApiError.fromMap(response.data);
+      ApiError apiError = ApiError.fromMap(response.data.response);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('${apiError.message}'),
         backgroundColor: Colors.red.shade300,
@@ -107,15 +114,6 @@ class _AddAbonnementScreenState extends State<AddAbonnementScreen> {
       //Utile.loarder(context);
       Response res = await apiService.addFacture(factureMap);
       if (res.statusCode == 201) {
-        //Navigator.of(context).pop();
-
-        /* Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => EntryPoint(
-                    currentPage: 2,
-                  )),
-        );*/
         Utile.messageSuccess(context, res.data["message"]);
       } else {
         Navigator.of(context).pop();
@@ -279,23 +277,25 @@ class _AddAbonnementScreenState extends State<AddAbonnementScreen> {
                       : StepState.disabled,
                 ),
                 Step(
-                  title: const Text('Tarifs Annuel', maxLines: 1),
+                  title: const Text('accesorios', maxLines: 1),
                   content: Form(
-                    key: _formKey3,
-                    child: Column(
-                      children: List.generate(_isChecked.length, (index) {
-                        return CheckboxListTile(
-                          title: Text('Item $index'),
-                          value: _isChecked[index],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isChecked[index] = value ?? false;
-                            });
-                          },
-                        );
-                      }),
-                    ),
-                  ),
+                      key: _formKey3,
+                      child: Column(children: [
+                        Text("¿Quieres incluir algún accesorios?"),
+                        Column(
+                          children: List.generate(accessorie.length, (index) {
+                            return CheckboxListTile(
+                              title: Text('${accessorie[index].title}'),
+                              value: accessorie[index].isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  accessorie[index].isChecked = value ?? false;
+                                });
+                              },
+                            );
+                          }),
+                        ),
+                      ])),
                   isActive: _currentStep >= 1,
                   state: _currentStep >= 2
                       ? StepState.complete

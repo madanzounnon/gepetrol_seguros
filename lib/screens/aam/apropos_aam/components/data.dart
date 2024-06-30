@@ -9,21 +9,15 @@ List data = [
   //   "color": Colors.black,
   // },
   {
-    "name": "AFRICABOURSE a pour Vision est:",
-    'subtitle':
-        "d'être une société leader en matière de courtage, oeuvrant pour la création de richesse, à travers son professionnalisme et l'intégrité, tout en assurant un service de qualité.",
+    "name": "Visión",
+    'subtitle': "Ser líder en el mercado de Seguros en Guinea Ecuatorial.",
     "icon": FontAwesomeIcons.backwardStep,
     "color": Colors.black,
   },
   {
-    "name": "AFRICABOURSE a pour mission:",
+    "name": "Misión",
     'subtitle':
-        """Les missions dédiées à l'atteinte de notre objectif central, sont les suivantes:
-Négocier les ordres d'achat et de vente en bourse ;
-Assurer la garde des titres ;
-Participer au placement des titres émis par les entreprises faisant appel public à l'épargne ou emprunt privé ;
-Gérer les portefeuilles des valeurs mobilières en vertu d’un mandat ;
-Conduire des études et produire des documents de recherche sur l'ensemble du marché.""",
+        """Promover y desarrollar la cultura del seguro en Guinea Ecuatorial. Crear una relación de confianza con nuestros clientes con la personalización de nuestros servicios y productos..""",
     "icon": FontAwesomeIcons.code,
     "color": Colors.black,
   },

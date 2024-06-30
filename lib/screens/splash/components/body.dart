@@ -17,39 +17,39 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Bienvenue chez \n AAM",
+      "text": "Bienvenida che\n GEPetrol Seguros",
       "content":
-          "AFRICABOURCE ASSET MANAGEMENT \n Le marché financier avec vous partout, à travers nos FCP​",
+          "Gepetrol Seguros, S.A. es la primera empresa de seguros de derecho Nacional en Guinea Ecuatorial, con Autorizaciones Nacionales e Internacionales.​",
       "image": "assets/images/bienvenu.png"
     },
     {
-      "text": "C’est quoi un FCP ?\n AAM",
-      "content":
-          "Un Fonds Commun de placement (FCP) est un ensemble de ressources collectées auprès d’une multitude d’investisseurs et investies collectivement pour leur compte sur le marché par un gestionnaire d’actifs.",
+      "text": "GEPetrol Seguros",
+      "content": "TU SEGURO DE CONFIANZA HOY, MAÑANA Y SIEMPRE",
       "image": "assets/images/2.png"
     },
     {
-      "text": "Investissez en \n un clic ",
-      "content":
-          "Les FCP offrent un accès simplifié à la bourse et un suivi professionnel de votre portefeuille. ",
+      "text": "Seguro Médico",
+      "content": "Una vida sin Seguro Médico, es una vida sin tranquilidad  ",
       "image": "assets/images/3.png"
     },
     {
-      "text": "Avec moins \n de frais ",
-      "content":
-          "Les seuls frais prélevés sont ceux de souscription et de rachat, ce qui réduit les frais supportés par l’investisseur.",
+      "text": "Seguros de Automóvil",
+      "content": "¿Quieres Asegurar tu vehículo sin tener que desplazarte?",
       "image": "assets/images/4.png"
     },
     {
       "text": "Un investissement \n multiple ",
-      "content":
-          "En investissant dans un FCP, vous investissez simultanément dans un panier de titre et bénéficiez de leurs avantages.",
+      "content": """Cuyas garantias son:
+Responsabilidad civil,
+Accidentes ocurridos en el centro y extraescolares,
+Accidentes en el trayecto entre la casa y el colegio,
+Gastos medicos""",
       "image": "assets/images/5.png"
     },
     {
-      "text": "Avec une garantie \n  assurée ",
+      "text": "SEGURO MULTIRIESGO HOGAR",
       "content":
-          "Les parts des FCP peuvent être mise en garantie auprès d’un établissement financier afin d’obtenir un prêt.",
+          "Este seguro cubre la reparación de los daños que sufra su inmueble (vivienda) a consecuencia de:Incendio,Robo, Filtración de agua, Responsabilidad civil",
       "image": "assets/images/6.png"
     },
   ];

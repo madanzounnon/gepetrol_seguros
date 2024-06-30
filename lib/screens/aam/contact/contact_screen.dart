@@ -7,7 +7,7 @@ class ContactsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Contactez-nous"),
+        title: const Text("Contáctenos"),
         automaticallyImplyLeading: true,
         centerTitle: true,
       ),

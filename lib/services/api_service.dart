@@ -88,7 +88,15 @@ class ApiService {
     }
   }
 
-  Future<Response?> addFacture(Map<String, dynamic> abonnementMap) async {}
+  Future<Response> addFacture(Map<String, dynamic> facturetMap) async {
+    addInterceptors();
+    try {
+      final response = await dio.post('/abonnements/M', data: facturetMap);
+      return response;
+    } on DioError catch (e) {
+      return e.response!;
+    }
+  }
 
   Future<Response?> getAccessories() async {
     addInterceptors();

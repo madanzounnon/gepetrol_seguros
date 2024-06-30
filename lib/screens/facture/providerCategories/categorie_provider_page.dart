@@ -37,7 +37,7 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
   getAllCategories() async {
     final res = await apiService.getAllCategorie();
     if (res!.statusCode != null && res.statusCode == 200) {
-      final maps = res.data["data"];
+      final maps = res.data["response"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {
           return Categorie.fromMap(maps[i]);

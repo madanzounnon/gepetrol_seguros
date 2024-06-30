@@ -15,15 +15,11 @@ class Body extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Column(children: [
-            Text("Africa Bourse",
+            Text("GEPetrol Seguros",
                 style: TextStyle(
                     fontSize: getProportionateScreenWidth(25),
                     color: pPrimaryColor,
                     fontWeight: FontWeight.w900)),
-            Text(" Assets Management",
-                style: TextStyle(
-                    fontSize: getProportionateScreenWidth(20),
-                    fontWeight: FontWeight.bold)),
             SizedBox(height: getProportionateScreenWidth(18)),
             Row(
               children: [
@@ -34,14 +30,14 @@ class Body extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                      "La SGI AFRICABOURSE SA est un établissement financier spécialisé,membre de la Bourse Régionale des Valeurs Mobilières (BRVM).",
+                      "GEPetrol Seguros, S.A. es la primera empresa de seguros de derecho nacional en Guinea Ecuatorial.",
                       style:
                           TextStyle(fontSize: getProportionateScreenWidth(13))),
                 )
               ],
             ),
             Text(
-                " Elle est créée en 2005 et agréée par l'Autorité des Marchés Financiers de l’Union Monétaire Ouest Africaine sous le N° SGI- 021/2005...",
+                " Creación de GEPETROL SEGUROS S.A por GEPETROL, S.A. mediante Decreto presidencial número 56/2007. NIF. 01983GS-21. Registro de comercio Núm. 2794. Capital social 5.000.000.000 FCFA....",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(13),
