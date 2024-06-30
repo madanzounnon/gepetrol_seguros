@@ -10,11 +10,9 @@ import 'type_remoque_listtile_widget.dart';
 
 class TypeRemoqueProviderPage extends StatefulWidget {
   final List<TypeRemoque> bureaux;
-  final int communeId;
   const TypeRemoqueProviderPage({
     Key? key,
     this.bureaux = const [],
-    required this.communeId,
   }) : super(key: key);
 
   @override
@@ -35,12 +33,12 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
   void initState() {
     super.initState();
     selectedbureaux = widget.bureaux;
-    getAllTypeRemoques(widget.communeId);
+    getAllTypeRemoques();
   }
 
-  getAllTypeRemoques(int bureauId) async {
+  getAllTypeRemoques() async {
     final res = await apiService.getAllTypeRemoque();
-    if (res.statusCode != null && res.statusCode == 200) {
+    if (res!.statusCode != null && res.statusCode == 200) {
       final maps = res.data["data"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {
@@ -97,7 +95,7 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title: Text('selectionnez le typeRemoque',
+      title: Text('selectionnez le type de Remorque',
           style: TextStyle(
               color: Colors.white, fontSize: getProportionateScreenWidth(20))),
       actions: [

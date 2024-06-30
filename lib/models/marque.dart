@@ -2,11 +2,13 @@
 import 'dart:convert';
 
 class Marque {
+  final int id;
   final String title;
   final String? description;
   final String? image;
   final int? most_used;
   Marque({
+    required this.id,
     required this.title,
     this.description,
     this.image,
@@ -15,6 +17,7 @@ class Marque {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'title': title,
       'description': description,
       'image': image,
@@ -24,6 +27,7 @@ class Marque {
 
   factory Marque.fromMap(Map<String, dynamic> map) {
     return Marque(
+      id: map['id'] as int,
       title: map['title'] as String,
       description:
           map['description'] != null ? map['description'] as String : null,

@@ -41,15 +41,21 @@ class MarqueListTileWidget extends StatelessWidget {
       onTap: () => {
         onSelectedMarque(marque),
       },
-      leading: CircleAvatar(
-        radius: 30,
-        backgroundColor: color.withOpacity(0.30),
-        child: Text(
-          marque.title.split('')[0],
-          style: TextStyle(
-              fontSize: getProportionateScreenHeight(20), color: color),
-        ),
-      ),
+      leading: (marque.image != null)
+          ? CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(marque.image!),
+            )
+          : CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(marque.image!),
+              backgroundColor: color.withOpacity(0.30),
+              child: Text(
+                marque.title.split('')[0],
+                style: TextStyle(
+                    fontSize: getProportionateScreenHeight(20), color: color),
+              ),
+            ),
       title: Text(
         "${marque.title}",
         style: style,

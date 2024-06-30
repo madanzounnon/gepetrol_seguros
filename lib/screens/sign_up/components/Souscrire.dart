@@ -278,6 +278,7 @@ class _SouscrireState extends State<Souscrire> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           SecondaryButton(
+                            width: 100,
                             textcolor: Colors.white,
                             text: isLast ? 'Enregistrer' : 'Continuer',
                             backcolor: pPrimaryColor,
@@ -286,6 +287,7 @@ class _SouscrireState extends State<Souscrire> {
                           SizedBox(height: getProportionateScreenHeight(20)),
                           if (_currentStep > 0)
                             SecondaryButton(
+                              width: 100,
                               textcolor: Colors.white,
                               text: 'Retourner',
                               backcolor: kPrimaryColor,

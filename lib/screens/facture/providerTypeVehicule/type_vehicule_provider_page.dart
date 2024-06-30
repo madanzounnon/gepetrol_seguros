@@ -10,11 +10,9 @@ import 'type_vehicule_listtile_widget.dart';
 
 class TypeVehiculeProviderPage extends StatefulWidget {
   final List<TypeVehicule> bureaux;
-  final int communeId;
   const TypeVehiculeProviderPage({
     Key? key,
     this.bureaux = const [],
-    required this.communeId,
   }) : super(key: key);
 
   @override
@@ -35,12 +33,12 @@ class _TypeVehiculeProviderPageState extends State<TypeVehiculeProviderPage> {
   void initState() {
     super.initState();
     selectedbureaux = widget.bureaux;
-    getAllTypeVehicules(widget.communeId);
+    getAllTypeVehicules();
   }
 
-  getAllTypeVehicules(int bureauId) async {
+  getAllTypeVehicules() async {
     final res = await apiService.getAllTypeVehicule();
-    if (res.statusCode != null && res.statusCode == 200) {
+    if (res!.statusCode != null && res.statusCode == 200) {
       final maps = res.data["data"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {

@@ -10,27 +10,29 @@ class SecondaryButton extends StatelessWidget {
     this.backcolor,
     this.textcolor,
     this.press,
+    required this.width,
   }) : super(key: key);
   final String? text;
   final Color? backcolor;
   final Color? textcolor;
   final Function? press;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: SizeConfig.screenWidth * width,
       height: getProportionateScreenHeight(56),
       child: TextButton(
         style: TextButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          //primary: pPrimaryColor,
+          //primary: kPrimaryColor,
           backgroundColor: backcolor,
         ),
         onPressed: press as void Function()?,
         child: Text(
-          text!,
+          text!.toUpperCase(),
           style: TextStyle(
             fontSize: getProportionateScreenWidth(18),
             color: textcolor,

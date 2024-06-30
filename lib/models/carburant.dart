@@ -2,10 +2,12 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Caburant {
+  final int id;
   final String title;
   final String code;
   final String? description;
   Caburant({
+    required this.id,
     required this.title,
     required this.code,
     this.description,
@@ -13,6 +15,7 @@ class Caburant {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'title': title,
       'code': code,
       'description': description,
@@ -21,6 +24,7 @@ class Caburant {
 
   factory Caburant.fromMap(Map<String, dynamic> map) {
     return Caburant(
+      id: map['id'] as int,
       title: map['title'] as String,
       code: map['code'] as String,
       description:

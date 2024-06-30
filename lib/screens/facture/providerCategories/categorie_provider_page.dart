@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import '../../../constants.dart';
-import '../../../models/carburant.dart';
 import '../../../models/categories.dart';
 import '../../../services/api_service.dart';
 import '../../../size_config.dart';
@@ -11,11 +8,9 @@ import 'categorie_listtile_widget.dart';
 
 class CategorieProviderPage extends StatefulWidget {
   final List<Categorie> bureaux;
-  final int communeId;
   const CategorieProviderPage({
     Key? key,
     this.bureaux = const [],
-    required this.communeId,
   }) : super(key: key);
   //static String routeName ="categorie";
 
@@ -36,12 +31,12 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
   void initState() {
     super.initState();
     selectedbureaux = widget.bureaux;
-    getAllCategories(widget.communeId);
+    getAllCategories();
   }
 
-  getAllCategories(int bureauId) async {
+  getAllCategories() async {
     final res = await apiService.getAllCategorie();
-    if (res.statusCode != null && res.statusCode == 200) {
+    if (res!.statusCode != null && res.statusCode == 200) {
       final maps = res.data["data"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {

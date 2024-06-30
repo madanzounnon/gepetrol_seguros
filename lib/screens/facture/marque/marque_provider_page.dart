@@ -10,11 +10,9 @@ import 'marque_listtile_widget.dart';
 
 class MarqueProviderPage extends StatefulWidget {
   final List<Marque> bureaux;
-  final int communeId;
   const MarqueProviderPage({
     Key? key,
     this.bureaux = const [],
-    required this.communeId,
   }) : super(key: key);
 
   @override
@@ -34,12 +32,12 @@ class _MarqueProviderPageState extends State<MarqueProviderPage> {
   void initState() {
     super.initState();
     selectedbureaux = widget.bureaux;
-    getAllMarques(widget.communeId);
+    getAllMarques();
   }
 
-  getAllMarques(int bureauId) async {
+  getAllMarques() async {
     final res = await apiService.getAllMarque();
-    if (res.statusCode != null && res.statusCode == 200) {
+    if (res!.statusCode != null && res.statusCode == 200) {
       final maps = res.data["data"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {

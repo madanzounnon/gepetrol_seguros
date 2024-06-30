@@ -33,13 +33,82 @@ class ApiService {
     }
   }
 
-  getAllCaburant() {}
+  Future<Response?> getAllCaburant() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/fuel-types');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 
-  getAllCategorie() {}
+  Future<Response?> getAllCategorie() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/car-categories');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 
-  getAllTypeVehicule() {}
+  Future<Response?> getAllTypeVehicule() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/type-cars');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 
-  getAllTypeRemoque() {}
+  Future<Response?> getAllTypeRemoque() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/trailers');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 
-  getAllMarque() {}
+  Future<Response?> getAllMarque() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/brands');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  Future<Response?> addFacture(Map<String, dynamic> abonnementMap) async {}
+
+  Future<Response?> getAccessories() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/me');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  Future<Response?> getPowerByCaburant(int caburantId) async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/get-powers/$caburantId');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 }

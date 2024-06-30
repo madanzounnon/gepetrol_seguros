@@ -1,0 +1,588 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../components/secondary_button.dart';
+import '../../constants.dart';
+import '../../helper/form.dart';
+import '../../helper/utile.dart';
+import '../../models/api_error.dart';
+import '../../models/carburant.dart';
+import '../../models/categories.dart';
+import '../../models/marque.dart';
+import '../../models/power.dart';
+import '../../models/typeRemoque.dart';
+import '../../models/typeVehicule.dart';
+import '../../services/api_service.dart';
+import '../../size_config.dart';
+import 'marque/marque_provider_page.dart';
+import 'providerCaburant/carburant_provider_page.dart';
+import 'providerCategories/categorie_provider_page.dart';
+import 'providerPower/power_provider_page.dart';
+import 'providerTypeRemoque/type_vehicule_provider_page.dart';
+import 'providerTypeVehicule/type_vehicule_provider_page.dart';
+
+class AddAbonnementScreen extends StatefulWidget {
+  const AddAbonnementScreen({super.key});
+  static String routeName = "/addabonnement";
+  @override
+  State<AddAbonnementScreen> createState() => _AddAbonnementScreenState();
+}
+
+class _AddAbonnementScreenState extends State<AddAbonnementScreen> {
+  TextEditingController montant = TextEditingController();
+  TextEditingController loyer = TextEditingController();
+  TextEditingController montantRemise = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController lastNameCtl = TextEditingController();
+
+  TextEditingController firstNameCtl = TextEditingController();
+  TextEditingController phoneCtl = TextEditingController();
+  TextEditingController typeCategories = TextEditingController();
+  TextEditingController typeVehiculeCtl = TextEditingController();
+  TextEditingController caburantCtl = TextEditingController();
+  TextEditingController marqueCtl = TextEditingController();
+  TextEditingController categorie = TextEditingController();
+  TextEditingController typeRemoqueT = TextEditingController();
+  TextEditingController placeNumberCtl = TextEditingController();
+  TextEditingController regisNumberCtl = TextEditingController();
+  TextEditingController modeloCtl = TextEditingController();
+  TextEditingController powerCtl = TextEditingController();
+
+  final ApiService apiService = ApiService();
+  List<String> abonnements = [];
+  int typeVehiculeId = 0;
+  int categorieId = 0;
+  int marqueId = 0;
+  int caburantId = 0;
+  int typeRemoqueId = 0;
+  int powerId = 0;
+  int _currentStep = 0;
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
+  final _formKey3 = GlobalKey<FormState>();
+
+  List<String>? userInfos;
+  int total = 0;
+  @override
+  void initState() {
+    total = 0;
+    montantRemise.text = "0";
+    typeCategories.text = "Ordinaire";
+    super.initState();
+  }
+
+  Future<void> getAccessories(int caburant) async {
+    Utile.loarder(context);
+    final response = await apiService.getAccessories();
+    if (response.statusCode == 200) {
+      Navigator.of(context).pop();
+    } else {
+      ApiError apiError = ApiError.fromMap(response.data);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('${apiError.message}'),
+        backgroundColor: Colors.red.shade300,
+      ));
+    }
+  }
+
+  Future<void> addFacture(response, redirectTo, btnText) async {
+    if (_formKey1.currentState!.validate() &&
+        _formKey1.currentState!.validate()) {
+      Map<String, dynamic> factureMap = {
+        "fuel_type": caburantId,
+        'brands': marqueId,
+        "power": powerId,
+        "type_car": typeVehiculeId,
+        "category": categorieId,
+        "place_number": placeNumberCtl.text,
+        "trailer": typeRemoqueId,
+        "regis_number": regisNumberCtl.text,
+        "model": modeloCtl.text,
+        "first_name": firstNameCtl.text,
+        "last_name": lastNameCtl.text,
+        "email": email.text,
+        "phone": phoneCtl.text,
+      };
+      //Utile.loarder(context);
+      Response res = await apiService.addFacture(factureMap);
+      if (res.statusCode == 201) {
+        //Navigator.of(context).pop();
+
+        /* Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => EntryPoint(
+                    currentPage: 2,
+                  )),
+        );*/
+        Utile.messageSuccess(context, res.data["message"]);
+      } else {
+        Navigator.of(context).pop();
+        ApiError apiError = ApiError.fromMap(res.data);
+        Utile.messageErro(context, '${apiError.message}');
+      }
+    }
+  }
+
+  tapped(int step) {
+    setState(() => _currentStep = step);
+  }
+
+  validestape(int current) {
+    bool estVal = false;
+    switch (current) {
+      case 0:
+        estVal = _formKey1.currentState!.validate();
+        break;
+      case 1:
+        estVal = _formKey2.currentState!.validate();
+        break;
+    }
+    return estVal;
+  }
+
+  bool isDetailComplete() {
+    return false;
+  }
+
+  continued() {
+    final islast = _currentStep == 1;
+    bool isValid = validestape(_currentStep);
+    if (isValid) {
+      if (islast) {
+        setState(() {
+          total = int.parse(montant.text.trim());
+        });
+      } else {
+        _currentStep < 1 ? setState(() => _currentStep += 1) : _currentStep;
+      }
+    }
+  }
+
+  cancel() {
+    _currentStep > 0 ? setState(() => _currentStep -= 1) : _currentStep;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: buildAppBar(context),
+        body: Column(children: [
+          Expanded(
+              child: Stepper(
+                  type: StepperType.horizontal,
+                  physics: const ScrollPhysics(),
+                  currentStep: _currentStep,
+                  onStepTapped: (step) => tapped(step),
+                  onStepContinue: continued,
+                  onStepCancel: cancel,
+                  controlsBuilder:
+                      (BuildContext context, ControlsDetails details) {
+                    return Column(
+                      children: [
+                        if (_currentStep > 0)
+                          SecondaryButton(
+                            width: 100,
+                            textcolor: Colors.white,
+                            text: 'Précédent'.toLowerCase(),
+                            backcolor: kPrimaryColor,
+                            press: details.onStepCancel,
+                          ),
+                        if (_currentStep > 0)
+                          SizedBox(height: getProportionateScreenWidth(10)),
+                        SecondaryButton(
+                          width: 100,
+                          textcolor: Colors.white,
+                          text: _currentStep == 1
+                              ? 'Faire un abonnement'.toUpperCase()
+                              : 'Suivant'.toUpperCase(),
+                          backcolor: kSecondaryColor,
+                          press: details.onStepContinue,
+                        ),
+                      ],
+                    );
+                  },
+                  steps: <Step>[
+                Step(
+                  title: const Text('Informations.', maxLines: 1),
+                  content: Form(
+                    key: _formKey1,
+                    child: Column(
+                      children: [
+                        buildSingleMarque(),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                        inputForm(
+                            name: 'modelo',
+                            controller: modeloCtl,
+                            labeltext: "¿Y el modelo? ",
+                            validInput: true,
+                            estreadonly: false),
+                        inputForm(
+                          name: 'regisNumberCtl',
+                          controller: regisNumberCtl,
+                          labeltext: "¿Cuál es la matrícula de tu coche? *",
+                          hintText: "ej. AN - 252 - AZ",
+                          validInput: true,
+                          estreadonly: false,
+                        ),
+                        inputForm(
+                          name: 'placeNumberCtl',
+                          type: TextInputType.number,
+                          controller: placeNumberCtl,
+                          labeltext: "¿Cuántas puertas tiene tu coche? *",
+                          hintText: "ej. 1",
+                          validInput: true,
+                          estreadonly: false,
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(30),
+                        ),
+                        buildSingleCategories(),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                      ],
+                    ),
+                  ),
+                  isActive: _currentStep >= 0,
+                  state: _currentStep >= 0
+                      ? StepState.complete
+                      : StepState.disabled,
+                ),
+                Step(
+                  title: const Text('Tarifs Annuel', maxLines: 1),
+                  content: Form(
+                    key: _formKey2,
+                    child: Column(
+                      children: [
+                        buildSingleTypeVehicule(),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                        buildSingleCaburant(),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                        buildSingleTypeRemoque(),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                      ],
+                    ),
+                  ),
+                  isActive: _currentStep >= 0,
+                  state: _currentStep >= 1
+                      ? StepState.complete
+                      : StepState.disabled,
+                ),
+                Step(
+                  title: const Text('Tarifs Annuel', maxLines: 1),
+                  content: Form(
+                    key: _formKey3,
+                    child: Column(
+                      children: List.generate(_isChecked.length, (index) {
+                        return CheckboxListTile(
+                          title: Text('Item $index'),
+                          value: _isChecked[index],
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _isChecked[index] = value ?? false;
+                            });
+                          },
+                        );
+                      }),
+                    ),
+                  ),
+                  isActive: _currentStep >= 1,
+                  state: _currentStep >= 2
+                      ? StepState.complete
+                      : StepState.disabled,
+                ),
+              ]))
+        ]));
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: true,
+      centerTitle: true,
+      title: Text(
+        "Créer une Facture",
+        style: TextStyle(
+            fontSize: getProportionateScreenWidth(20),
+            fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget buildSingleCategories() {
+    onTap() async {
+      Categorie categories = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CategorieProviderPage()),
+      );
+      if (categorie == null) return;
+      setState(() {
+        categorie.text = "${categories.code_category} [${categories.title}]";
+        categorieId = categories.id;
+      });
+    }
+
+    return buildCategoriesFormField(onTap);
+  }
+
+  TextFormField buildCategoriesFormField(VoidCallback onTap) {
+    return TextFormField(
+      controller: categorie,
+      onTap: onTap,
+      enabled: true,
+      onSaved: (newValue) => categorie.text = newValue!,
+      onChanged: (value) {
+        setState(() {
+          categorie.text = value;
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Veuillez selectionner une boîte';
+        }
+        return null;
+      },
+      readOnly: true,
+      decoration: const InputDecoration(
+          labelText: "Boîte",
+          hintText: "Veuillez selectionner une boîte",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.chevron_right)),
+    );
+  }
+
+  Widget buildSingleMarque() {
+    onTap() async {
+      Marque marque = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MarqueProviderPage()),
+      );
+      if (categorie == null) return;
+      setState(() {
+        marqueCtl.text = "${marque.title}";
+        marqueId = marque.id;
+      });
+    }
+
+    return buildMarqueFormField(onTap);
+  }
+
+  TextFormField buildMarqueFormField(VoidCallback onTap) {
+    return TextFormField(
+      controller: marqueCtl,
+      onTap: onTap,
+      enabled: true,
+      onSaved: (newValue) => marqueCtl.text = newValue!,
+      onChanged: (value) {
+        setState(() {
+          marqueCtl.text = value;
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Veuillez selectionner une boîte';
+        }
+        return null;
+      },
+      readOnly: true,
+      decoration: const InputDecoration(
+          labelText: "Ma",
+          hintText: "Veuillez selectionner une boîte",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.chevron_right)),
+    );
+  }
+
+  Widget buildSingleCaburant() {
+    onTap() async {
+      Caburant caburant = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CaburantProviderPage()),
+      );
+      if (caburant == null) return;
+      setState(() {
+        caburantCtl.text = "${caburant.code} [${caburant.title}]";
+        caburantId = caburant.id;
+      });
+      caburantCtl.text = "${caburant.code} [${caburant.title}]";
+    }
+
+    return buildCaburantFormField(onTap);
+  }
+
+  TextFormField buildCaburantFormField(VoidCallback onTap) {
+    return TextFormField(
+      controller: caburantCtl,
+      onTap: onTap,
+      onSaved: (newValue) => caburantCtl.text = newValue!,
+      onChanged: (value) {
+        setState(() {
+          print(value);
+          caburantCtl.text = value;
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Veuillez selectionner un modele';
+        }
+        return null;
+      },
+      readOnly: true,
+      decoration: const InputDecoration(
+          labelText: "Caburant de Boîte",
+          hintText: "Veuillez selectionner un modele de Boîte",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.chevron_right)),
+    );
+  }
+
+  Widget buildSingleTypeRemoque() {
+    onTap() async {
+      TypeRemoque typeRemoque = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TypeRemoqueProviderPage()),
+      );
+      if (typeRemoque == null) return;
+      setState(() {
+        typeRemoqueT.text = "${typeRemoque.title}]";
+        typeRemoqueId = typeRemoque.id;
+      });
+      typeRemoqueT.text = "${typeRemoque.title}";
+    }
+
+    return buildTypeRemoqueFormField(onTap);
+  }
+
+  TextFormField buildTypeRemoqueFormField(VoidCallback onTap) {
+    return TextFormField(
+      controller: typeRemoqueT,
+      onTap: onTap,
+      onSaved: (newValue) => typeRemoqueT.text = newValue!,
+      onChanged: (value) {
+        setState(() {
+          print(value);
+          typeRemoqueT.text = value;
+          //produit.agenceName = value;
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Veuillez selectionner une typeRemoque';
+        }
+        return null;
+      },
+      readOnly: true,
+      decoration: const InputDecoration(
+          labelText: "TypeRemoque",
+          hintText: "Veuillez selectionner une typeRemoque",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.chevron_right)),
+    );
+  }
+
+  Widget buildSingleTypeVehicule() {
+    onTap() async {
+      TypeVehicule typeVehicule = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const TypeVehiculeProviderPage()),
+      );
+      if (typeVehicule == null) return;
+      setState(() {
+        typeVehiculeCtl.text = "${typeVehicule.title}";
+        typeVehiculeId = typeVehicule.id;
+      });
+      typeVehiculeCtl.text = "${typeVehicule.title}";
+    }
+
+    return buildTypeVehiculeFormField(onTap);
+  }
+
+  TextFormField buildTypeVehiculeFormField(VoidCallback onTap) {
+    return TextFormField(
+      controller: typeVehiculeCtl,
+      onTap: onTap,
+      onSaved: (newValue) => typeVehiculeCtl.text = newValue!,
+      onChanged: (value) {
+        setState(() {
+          print(value);
+          typeVehiculeCtl.text = value;
+          //produit.agenceName = value;
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Veuillez selectionner un bureau';
+        }
+        return null;
+      },
+      readOnly: true,
+      decoration: const InputDecoration(
+          labelText: "Bureau",
+          hintText: "Veuillez selectionner un Bureau",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.chevron_right)),
+    );
+  }
+
+  Widget buildSinglePower(int carburantId) {
+    onTap() async {
+      if (carburantId > 0) {
+        Power powers = await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PowerProviderPage(
+                    carburantId: carburantId,
+                  )),
+        );
+        if (powers == null) return;
+        setState(() {
+          powerCtl.text = "${powers.min_power} CV - ${powers.max_power} ";
+          powerId = powers.id;
+        });
+      } else {
+        Utile.messageErro(
+            context, "Selectionnez d'abord un bureau et un modèle de boîte");
+      }
+    }
+
+    return buildPowerFormField(onTap);
+  }
+
+  TextFormField buildPowerFormField(VoidCallback onTap) {
+    return TextFormField(
+      controller: powerCtl,
+      onTap: onTap,
+      enabled: true,
+      onSaved: (newValue) => powerCtl.text = newValue!,
+      onChanged: (value) {
+        setState(() {
+          print(value);
+          powerCtl.text = value;
+          //produit.agenceName = value;
+        });
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Veuillez selectionner une boîte';
+        }
+        return null;
+      },
+      readOnly: true,
+      decoration: const InputDecoration(
+          labelText: "Boîte",
+          hintText: "Veuillez selectionner une boîte",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.chevron_right)),
+    );
+  }
+}

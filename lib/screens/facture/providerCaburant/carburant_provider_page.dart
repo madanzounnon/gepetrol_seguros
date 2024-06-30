@@ -10,11 +10,9 @@ import 'carburant_listtile_widget.dart';
 
 class CaburantProviderPage extends StatefulWidget {
   final List<Caburant> bureaux;
-  final int communeId;
   const CaburantProviderPage({
     Key? key,
     this.bureaux = const [],
-    required this.communeId,
   }) : super(key: key);
   //static String routeName ="caburant";
 
@@ -36,12 +34,12 @@ class _CaburantProviderPageState extends State<CaburantProviderPage> {
     print("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
     super.initState();
     selectedbureaux = widget.bureaux;
-    getAllCaburants(widget.communeId);
+    getAllCaburants();
   }
 
-  getAllCaburants(int bureauId) async {
+  getAllCaburants() async {
     final res = await apiService.getAllCaburant();
-    if (res.statusCode != null && res.statusCode == 200) {
+    if (res!.statusCode != null && res.statusCode == 200) {
       final maps = res.data["data"];
       setState(() {
         allbureaux = List.generate(maps.length, (i) {

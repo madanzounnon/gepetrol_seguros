@@ -56,7 +56,7 @@ class SuccessScreen extends StatelessWidget {
               ),
               SizedBox(height: getProportionateScreenHeight(20)),
               SecondaryButton(
-                //text: btnText,
+                width: 100,
                 textcolor: const Color.fromARGB(255, 0, 0, 0),
                 backcolor: Color.fromRGBO(208, 248, 238, 1),
                 text: "Retour à l'accueil",

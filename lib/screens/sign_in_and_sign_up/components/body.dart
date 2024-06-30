@@ -44,6 +44,7 @@ class Body extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 SecondaryButton(
+                  width: 100,
                   textcolor: Colors.white,
                   text: "Ouvrir un compte",
                   backcolor: kPrimaryColor,
