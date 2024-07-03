@@ -65,11 +65,11 @@ class _SplashScreenState extends State<SplashScreen1> {
     SizeConfig().init(context);
     return Container(
       decoration: const BoxDecoration(
-        color: pPrimaryColor,
+        color: kPrimaryColor,
       ),
       child: AnimatedOpacity(
         opacity: _isVisible ? 1.0 : 0,
-        duration: const Duration(milliseconds: 1200),
+        duration: const Duration(milliseconds: 1500),
         child: Center(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -85,12 +85,13 @@ class _SplashScreenState extends State<SplashScreen1> {
                   color: Colors.white,
                 ),
                 const SizedBox(height: 5),
-                const Text("Tu Seguro de confianza Hoy, Mañana y Siempre",
+                const Text("Tu Seguro de confianza Hoy,\n Mañana y Siempre",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.white,
-                      //fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.bold,
                     )) //put your logo here
               ],
             )),

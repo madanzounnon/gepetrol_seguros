@@ -44,7 +44,7 @@ class DiscountBanner extends StatelessWidget {
                 horizontal: getProportionateScreenWidth(70),
                 vertical: getProportionateScreenHeight(15)),
             child: SvgPicture.asset(
-              'assets/images/Logo_Logo_inverse.svg',
+              'assets/images/logo.svg',
               height: getProportionateScreenHeight(50),
               width: getProportionateScreenHeight(50),
             ),
@@ -55,7 +55,7 @@ class DiscountBanner extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
                 children: [
                   TextSpan(
-                    text: "QUI SOMMES-NOUS?\n",
+                    text: "¿Quiénes somos?\n",
                     style: TextStyle(
                         fontSize: getProportionateScreenWidth(20),
                         fontWeight: FontWeight.bold),
@@ -64,7 +64,7 @@ class DiscountBanner extends StatelessWidget {
                       style:
                           TextStyle(fontSize: getProportionateScreenWidth(13)),
                       text:
-                          "Société de Gestion d'OPCVM agréée sous N°SG/2012-03/CREPMEF 36 milliards FCFA d'actifs sous gestion."),
+                          "GEPetrol Seguros, S.A. es la primera empresa de seguros de derecho nacional en Guinea Ecuatorial. Disponemos de la licencia CIMA obtenida en diciembre del 2018 y nuestra sede se encuentra en Malabo."),
                 ],
               ),
             ),

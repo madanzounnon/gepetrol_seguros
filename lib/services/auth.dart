@@ -24,9 +24,9 @@ class Auth {
   final Future<SharedPreferences> _sharedPreferences =
       SharedPreferences.getInstance();
 
-  Future<http.Response?> sendVerifyCode(String email) async {
+  Future<http.Response?> sendVerifyCodes(String email) async {
     try {
-      var url = Uri.parse('https://seguros.fifonsi.net/api/check-email/');
+      var url = Uri.parse('https://seguros.fifonsi.net/api/check-email');
 
       // Les données que vous souhaitez envoyer
       Map<String, String> headers = {
@@ -74,27 +74,18 @@ class Auth {
     }
   }
 
-  makePostRequest() async {
-    // L'URL de votre endpoint API
-    var url = Uri.parse('https://seguros.fifonsi.net/api/check-email');
-
-    // Les données que vous souhaitez envoyer
-    Map<String, String> headers = {"Content-type": "application/json"};
-    String json = jsonEncode({"email": "foo"});
-
-    // Faire la requête POST
-    var response = await http.post(url, headers: headers, body: json);
-
-    // Vérifier le statut de la réponse
-    if (response.statusCode == 201) {
-      // Si la requête est réussie, traiter la réponse
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+  Future<Response> sendVerifyCode(String email) async {
+    addInterceptors();
+    print(email);
+    try {
+      final response = await dio.post('/check-email', data: {
+        'email': email,
+      });
+      print("response responseresponseresponse");
+      print(response);
       return response;
-    } else {
-      // Si la requête échoue, afficher le code de statut
-      print('Failed to make POST request. Status code: ${response.statusCode}');
-      return response;
+    } on DioError catch (e) {
+      return e.response!;
     }
   }
 
@@ -102,7 +93,7 @@ class Auth {
     addInterceptors();
     print(email);
     try {
-      final response = await dio.post('/auth/reset-password-code', data: {
+      final response = await dio.post('/forget-password', data: {
         'email': email,
       });
       print("response responseresponseresponse");
@@ -132,9 +123,9 @@ class Auth {
   Future<Response> resetPassword(String email, String password) async {
     addInterceptors();
     try {
-      final response = await dio.post('/auth/reset-password', data: {
+      final response = await dio.post('/reset-password', data: {
         'email': email,
-        'password': password,
+        'new_password': password,
       });
       print(response);
       return response;
@@ -145,8 +136,7 @@ class Auth {
 
   Future<Response> register(Map<String, dynamic>? userData) async {
     try {
-      final response =
-          await dio.post('/auth/verify-code-register', data: userData);
+      final response = await dio.post('/validate-account', data: userData);
       print(response);
       return response;
     } on DioError catch (e) {

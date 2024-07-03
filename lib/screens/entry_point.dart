@@ -72,7 +72,7 @@ class _EntryPointState extends State<EntryPoint> {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Accueil',
+            label: 'Acogida',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -91,7 +91,7 @@ class _EntryPointState extends State<EntryPoint> {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Opération',
+            label: 'Ayuda',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -110,7 +110,7 @@ class _EntryPointState extends State<EntryPoint> {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Portefeuille',
+            label: 'Factura',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -129,7 +129,7 @@ class _EntryPointState extends State<EntryPoint> {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Historique',
+            label: 'Lista Factura',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -148,7 +148,7 @@ class _EntryPointState extends State<EntryPoint> {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Compte',
+            label: 'Cuenta',
           ),
         ],
       ),

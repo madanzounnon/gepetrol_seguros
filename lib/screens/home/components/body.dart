@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gepetrol_eguros/screens/home/components/actualites.dart';
+import 'package:gepetrol_eguros/screens/home/components/chart.dart';
 
 import '../../../size_config.dart';
 import 'discount_banner.dart';
@@ -13,9 +14,9 @@ class Body extends StatelessWidget {
           children: [
             DiscountBanner(),
             SizedBox(height: getProportionateScreenHeight(20)),
-            // ChartClient(),
+            ChartClient(),
             //SizedBox(height: getProportionateScreenWidth(10)),
-            //DiscountBanner(),
+            // DiscountBanner(),
             SizedBox(height: getProportionateScreenHeight(10)),
             // Categories(),
             // PopularProducts(),

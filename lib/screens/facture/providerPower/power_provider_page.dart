@@ -55,7 +55,7 @@ class _PowerProviderPageState extends State<PowerProviderPage> {
   bool containsSearchText(Power power) {
     final name = power.min_power;
     final textLower = text.toLowerCase();
-    final powerLower = name.toLowerCase();
+    final powerLower = name.toString().toLowerCase();
     return powerLower.contains(textLower);
   }
 

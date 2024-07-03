@@ -38,12 +38,9 @@ class _BodyState extends State<Body> {
       "image": "assets/images/4.png"
     },
     {
-      "text": "Un investissement \n multiple ",
-      "content": """Cuyas garantias son:
-Responsabilidad civil,
-Accidentes ocurridos en el centro y extraescolares,
-Accidentes en el trayecto entre la casa y el colegio,
-Gastos medicos""",
+      "text": "SEGURO MULTIRIESGO HOGAR",
+      "content":
+          """Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares, Accidentes en el trayecto entre la casa y el colegio, Gastos medicos""",
       "image": "assets/images/5.png"
     },
     {

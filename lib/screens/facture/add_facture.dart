@@ -198,7 +198,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           text: _currentStep == 2
                               ? 'Faire un facture'.toUpperCase()
                               : 'Suivant'.toUpperCase(),
-                          backcolor: kSecondaryColor,
+                          backcolor: pPrimaryColor,
                           press: details.onStepContinue,
                         ),
                       ],
@@ -211,6 +211,25 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                     key: _formKey1,
                     child: Column(
                       children: [
+                        Text(
+                          "Datos del vehículo",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(18),
+                            color: pPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Por favor, completa los siguientes datos. ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(15),
+                            // color: pPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(30)),
                         buildSingleMarque(),
                         SizedBox(
                           height: getProportionateScreenHeight(20),
@@ -238,9 +257,6 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           validInput: true,
                           estreadonly: false,
                         ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(30),
-                        ),
                         buildSingleCategories(),
                         SizedBox(
                           height: getProportionateScreenHeight(20),
@@ -259,11 +275,34 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                     key: _formKey2,
                     child: Column(
                       children: [
+                        Text(
+                          "Datos del vehículo",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(18),
+                            color: pPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Por favor, completa los siguientes datos. ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(15),
+                            // color: pPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: getProportionateScreenHeight(30)),
                         buildSingleTypeVehicule(),
                         SizedBox(
                           height: getProportionateScreenHeight(20),
                         ),
                         buildSingleCaburant(),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                        buildSinglePower(caburantId),
                         SizedBox(
                           height: getProportionateScreenHeight(20),
                         ),
@@ -284,6 +323,15 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                   content: Form(
                       key: _formKey3,
                       child: Column(children: [
+                        Text(
+                          "Accesorios Opcional",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(18),
+                            color: pPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         Text("¿Quieres incluir algún accesorios?"),
                         Column(
                           children: List.generate(accessorie.length, (index) {
@@ -350,14 +398,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Veuillez selectionner une boîte';
+          return 'Seleccione un tipo de vehículo';
         }
         return null;
       },
       readOnly: true,
       decoration: const InputDecoration(
-          labelText: "Boîte",
-          hintText: "Veuillez selectionner une boîte",
+          labelText: "¿Qué uso das al coche?*",
+          hintText: "Seleccionar",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );
@@ -392,14 +440,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Veuillez selectionner une boîte';
+          return 'Por favor, seleccione una marca';
         }
         return null;
       },
       readOnly: true,
       decoration: const InputDecoration(
-          labelText: "Ma",
-          hintText: "Veuillez selectionner une boîte",
+          labelText: "Marca",
+          hintText: "seleccione una marca",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );
@@ -435,14 +483,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Veuillez selectionner un modele';
+          return 'Por favor, seleccionar';
         }
         return null;
       },
       readOnly: true,
       decoration: const InputDecoration(
-          labelText: "Caburant de Boîte",
-          hintText: "Veuillez selectionner un modele de Boîte",
+          labelText: "¿Qué combustible usa tu coche?",
+          hintText: "Por favor, seleccionar",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );
@@ -479,14 +527,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Veuillez selectionner une typeRemoque';
+          return 'Por favor, seleccione un tipo';
         }
         return null;
       },
       readOnly: true,
       decoration: const InputDecoration(
-          labelText: "TypeRemoque",
-          hintText: "Veuillez selectionner une typeRemoque",
+          labelText: "Tipo de Remolque",
+          hintText: "Por favor, seleccione un tipo",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );
@@ -524,14 +572,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Veuillez selectionner un bureau';
+          return 'por favor seleccione';
         }
         return null;
       },
       readOnly: true,
       decoration: const InputDecoration(
-          labelText: "Bureau",
-          hintText: "Veuillez selectionner un Bureau",
+          labelText: "Tipo de Coche*",
+          hintText: "Tipo de Coche*",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );
@@ -553,8 +601,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
           powerId = powers.id;
         });
       } else {
-        Utile.messageErro(
-            context, "Selectionnez d'abord un bureau et un modèle de boîte");
+        Utile.messageErro(context, "Seleccione primero el tipo de combustible");
       }
     }
 
@@ -576,14 +623,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Veuillez selectionner une boîte';
+          return 'Por favor seleccione una potencia';
         }
         return null;
       },
       readOnly: true,
       decoration: const InputDecoration(
-          labelText: "Boîte",
-          hintText: "Veuillez selectionner une boîte",
+          labelText: "¿Conoces la potencia de tu coche en",
+          hintText: "Seleccionar",
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );

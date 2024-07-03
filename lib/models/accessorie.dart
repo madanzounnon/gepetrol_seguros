@@ -7,7 +7,7 @@ class Accessorie {
   final String? description;
   final int value;
   final int accessory;
-  bool isChecked;
+  bool isChecked = false;
   Accessorie({
     required this.id,
     required this.title,
@@ -36,7 +36,6 @@ class Accessorie {
           map['description'] != null ? map['description'] as String : null,
       value: map['value'] as int,
       accessory: map['accessory'] as int,
-      isChecked: map['isChecked'] as bool,
     );
   }
 

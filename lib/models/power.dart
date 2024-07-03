@@ -3,8 +3,8 @@ import 'dart:convert';
 
 class Power {
   final int id;
-  final String min_power;
-  final String max_power;
+  final int min_power;
+  final int max_power;
   Power({
     required this.id,
     required this.min_power,
@@ -22,8 +22,8 @@ class Power {
   factory Power.fromMap(Map<String, dynamic> map) {
     return Power(
       id: map['id'] as int,
-      min_power: map['min_power'] as String,
-      max_power: map['max_power'] as String,
+      min_power: map['min_power'] as int,
+      max_power: map['max_power'] as int,
     );
   }
 

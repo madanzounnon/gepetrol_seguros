@@ -8,10 +8,9 @@ class ChartClient extends StatelessWidget {
   ChartClient({Key? key}) : super(key: key);
 
   Map<String, double> dataMap = {
-    "Depôt": 19000,
-    "Solde": 15000,
-    "Retrait": 6000,
-    "Gain": 5000,
+    "Factura": 3,
+    "Mensaje": 5,
+    "Facture payé": 4,
   };
 
   @override
@@ -31,7 +30,7 @@ class ChartClient extends StatelessWidget {
         child: Column(
           children: [
             SectionTitle(
-              title: "Mes Statistiques",
+              title: "Mis estadísticas",
               press: () {},
             ),
             SizedBox(height: getProportionateScreenHeight(10)),

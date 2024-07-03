@@ -17,8 +17,6 @@ import 'package:gepetrol_eguros/helper/utile.dart';
 import 'package:gepetrol_eguros/models/api_error.dart';
 import 'package:gepetrol_eguros/models/country.dart';
 import 'package:gepetrol_eguros/models/login_success.dart';
-import 'package:gepetrol_eguros/screens/country/component/flag_widget.dart';
-import 'package:gepetrol_eguros/screens/country/country_page.dart';
 import 'package:gepetrol_eguros/services/auth.dart';
 import 'package:gepetrol_eguros/size_config.dart';
 import 'package:gepetrol_eguros/components/form_error.dart';
@@ -35,7 +33,7 @@ class Souscrire extends StatefulWidget {
 class _SouscrireState extends State<Souscrire> {
   Country? country;
   // List<Country> countries = [];
-  int? codeEnvoyer;
+  String? codeEnvoyer = "";
   bool estEnvoyer = false;
 
   int _currentStep = 0;
@@ -43,8 +41,6 @@ class _SouscrireState extends State<Souscrire> {
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _formKey3 = GlobalKey<FormState>();
-  final _formKey4 = GlobalKey<FormState>();
-  final _formKey5 = GlobalKey<FormState>();
 
   String? firstName = '';
   String? lastName = '';
@@ -122,27 +118,23 @@ class _SouscrireState extends State<Souscrire> {
   Future<bool> sendCode(String email) async {
     Utile.loarder(context);
     StoreAuth().restoreUser();
-    http.Response? res = await Auth().sendVerifyCode(email);
-    print("fffffffffffffffffffffffffff");
-    print(res);
-    print(res?.body);
-    if (res?.statusCode == 200) {
-      print(res);
-      // setState(() {
-      //   estEnvoyer = res?.body;
-      //   codeEnvoyer = res?.body["response"];
-      // });
+    Response res = await Auth().sendVerifyCode(email);
+    if (res.statusCode == 201) {
+      setState(() {
+        estEnvoyer = res.data["success"];
+        codeEnvoyer = res.data["response"];
+      });
       print(codeEnvoyer);
-
       Navigator.of(context).pop();
-      KeyboardUtil.hideKeyboard(context);
+      FocusScopeNode currentFocus = FocusScope.of(context);
+      currentFocus.unfocus();
+      //KeyboardUtil.hideKeyboard(context);
+      Utile.messageSuccess(context, res.data["message"]);
       return true;
-      // Utile.messageSuccess(context, loginSuccess.message);
     } else {
       Navigator.of(context).pop();
-      print(res);
-      //ApiError apiError = ApiError.fromMap(res.data);
-      //Utile.messageErro(context, '${apiError.message}');
+      ApiError apiError = ApiError.fromMap(res.data);
+      Utile.messageErro(context, '${apiError.message}');
       return false;
     }
   }
@@ -158,14 +150,13 @@ class _SouscrireState extends State<Souscrire> {
       "username": usernameCtl.text.trim(),
       "phone": telephoneCtl.text.trim(),
       "sex": civiliteCtl.text.trim(),
-      "password": passwordCtl.text,
+      "password": passwordCtl.text.trim(),
     };
 
     Response res = await Auth().register(userData);
-    if (res.statusCode == 200) {
+    if (res.statusCode == 201) {
       Navigator.of(context).pop();
       StoreAuth().restoreUser();
-      LoginSuccess loginSuccess = LoginSuccess.fromMap(res.data);
       Navigator.of(context).pop();
       KeyboardUtil.hideKeyboard(context);
       Navigator.pushReplacementNamed(context, SignInScreen.routeName);
@@ -721,12 +712,12 @@ class _SouscrireState extends State<Souscrire> {
         {
           if (email != null) {
             print(email);
-            print(codeEnvoyer);
+            print(codeEnvoyer!);
             print(estEnvoyer);
             if (_formKey1.currentState!.validate()) {
               _formKey1.currentState!.save();
-              //estvalide = await sendCode(email!);
-              estvalide = _formKey1.currentState!.validate();
+              estvalide = await sendCode(email!);
+              //estvalide = _formKey1.currentState!.validate();
             }
           }
         }
@@ -736,16 +727,16 @@ class _SouscrireState extends State<Souscrire> {
           if (_formKey2.currentState!.validate()) {
             codes = "$code1$code2$code3$code4$code5";
             print("$code1$code2$code3$code4$code5");
-            print(codeEnvoyer.toString().length);
+            print(codeEnvoyer!.length);
             print(codes!.length);
-            print(codes!.compareTo(codeEnvoyer.toString()));
-            print(codes!.trim() == codeEnvoyer.toString().trim());
-            // if (codes!.compareTo(codeEnvoyer.toString()) == 0) {
-            //   estvalide = _formKey2.currentState!.validate();
-            // } else {
-            //   Utile.messageErro(context, "Le code est incorrect");
-            // }
-            estvalide = _formKey2.currentState!.validate();
+            print(codes!.compareTo(codeEnvoyer!));
+            print(codes!.trim() == codeEnvoyer);
+            if (codes!.compareTo(codeEnvoyer!) == 0) {
+              estvalide = _formKey2.currentState!.validate();
+            } else {
+              Utile.messageErro(context, "Le code est incorrect");
+            }
+            //estvalide = _formKey2.currentState!.validate();
           }
         }
         break;
