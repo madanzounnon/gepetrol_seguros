@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gepetrol_eguros/constants.dart';
 import 'package:gepetrol_eguros/screens/compte/account_page.dart';
 import 'package:gepetrol_eguros/screens/facture/add_facture.dart';
+import 'package:gepetrol_eguros/screens/facture/facture_screens.dart';
 import 'package:gepetrol_eguros/screens/home/home_screen.dart';
 import 'package:gepetrol_eguros/size_config.dart';
 
@@ -30,8 +31,7 @@ class _EntryPointState extends State<EntryPoint> {
     HomeScreen(),
     const AccountPage(),
     const AddFactureScreen(),
-    HomeScreen(),
-    //const AccountPage(),
+    const FactureScreen(),
     ProfileScreen()
   ];
   @override

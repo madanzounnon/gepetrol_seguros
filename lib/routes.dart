@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:gepetrol_eguros/screens/aam/terme_condiction/terme_condiction.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gepetrol_eguros/screens/aam/apropos_aam/apropos_screen.dart';

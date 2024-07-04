@@ -44,10 +44,8 @@ class _MarqueProviderPageState extends State<MarqueProviderPage> {
           return Marque.fromMap(maps[i]);
         });
         toutbureau = getPrioritizedbureaux(allbureaux);
-        print('allbureaux');
         print(allbureaux);
         toutbureaux = toutbureau.where(containsSearchText).toList();
-        print("toutbureaux.toString()");
         print(toutbureaux.toString());
       });
     }
