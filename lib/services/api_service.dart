@@ -91,7 +91,9 @@ class ApiService {
   Future<Response> addFacture(Map<String, dynamic> facturetMap) async {
     addInterceptors();
     try {
-      final response = await dio.post('/abonnements/M', data: facturetMap);
+      print('/brands/${facturetMap["brands"]}/invoice');
+      final response = await dio
+          .post('/brands/${facturetMap["brands"]}/invoice', data: facturetMap);
       return response;
     } on DioError catch (e) {
       return e.response!;
@@ -119,4 +121,6 @@ class ApiService {
       return e.response;
     }
   }
+
+  getFactureById() {}
 }

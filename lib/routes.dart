@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:gepetrol_eguros/screens/aam/terme_condiction/terme_condiction.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gepetrol_eguros/screens/aam/apropos_aam/apropos_screen.dart';
@@ -22,6 +24,8 @@ import 'package:gepetrol_eguros/screens/splash_screen.dart';
 import 'package:gepetrol_eguros/screens/test/test.dart';
 
 import 'screens/facture/add_facture.dart';
+import 'screens/facture/facture_screens.dart';
+import 'screens/profile/profile_screen.dart';
 import 'screens/sign_up/sign_up_screen.dart';
 
 // We use name route
@@ -53,5 +57,6 @@ final Map<String, WidgetBuilder> routes = {
   CodePinLoginScreen.routeName: (context) => CodePinLoginScreen(),
   TermeCondictionScreen.routeName: (context) => TermeCondictionScreen(),
   AddFactureScreen.routeName: (context) => const AddFactureScreen(),
-  // CountryPage.routeName:(context) => CountryPage(),
+  ProfileScreen.routeName: (context) => ProfileScreen(),
+  FactureScreen.routeName: (context) => const FactureScreen()
 };

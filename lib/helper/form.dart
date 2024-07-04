@@ -87,6 +87,11 @@ class _inputFormState extends State<inputForm> {
                 if (value!.isEmpty) {
                   return "${widget.labeltext} est ${widget.isNotEmptyMessage}";
                 }
+                if (widget.regExp != null) {
+                  if (!widget.regExp!.hasMatch(value)) {
+                    return widget.regExpmessage;
+                  }
+                }
                 return null;
               }
             : null,

@@ -9,10 +9,6 @@ class Auth {
 
   Dio dio = Dio(BaseOptions(
     baseUrl: "https://seguros.fifonsi.net/api",
-    followRedirects: true,
-    validateStatus: (status) {
-      return status! < 500; // Accepte les codes d'état inférieurs à 500
-    },
   ));
   addInterceptors() {
     dio.options.validateStatus = (status) {
@@ -96,8 +92,6 @@ class Auth {
       final response = await dio.post('/forget-password', data: {
         'email': email,
       });
-      print("response responseresponseresponse");
-      print(response);
       return response;
     } on DioError catch (e) {
       return e.response!;
@@ -105,8 +99,6 @@ class Auth {
   }
 
   Future<Response> authenticate(String email, String password) async {
-    print(email);
-    print(password);
     addInterceptors();
     try {
       final response = await dio.post('/login', data: {
@@ -145,12 +137,4 @@ class Auth {
       return e.response!;
     }
   }
-
-  // Future<Response> getUserDetails(String userId) async {
-  //   try {
-
-  //   }catch {
-
-  //   }
-  // }
 }

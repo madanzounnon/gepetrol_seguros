@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 import '../../components/secondary_button.dart';
 import '../../constants.dart';
@@ -8,7 +8,6 @@ import '../../helper/form.dart';
 import '../../helper/utile.dart';
 import '../../models/accessorie.dart';
 import '../../models/api_error.dart';
-import '../../models/accessorie.dart';
 import '../../models/carburant.dart';
 import '../../models/categories.dart';
 import '../../models/marque.dart';
@@ -54,7 +53,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   final ApiService apiService = ApiService();
   List<String> factures = [];
   List<Accessorie> accessorie = [];
-
+  final maskedController = MaskedTextController(mask: 'AA-000-AA');
   int typeVehiculeId = 0;
   int categorieId = 0;
   int marqueId = 0;
@@ -65,28 +64,29 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _formKey3 = GlobalKey<FormState>();
+  List<int> accessoireValue = [];
 
   List<String>? userInfos;
   int total = 0;
   @override
   void initState() {
+    super.initState();
     total = 0;
     getAccessories();
-    super.initState();
   }
 
   Future<void> getAccessories() async {
-    Utile.loarder(context);
+    //Utile.loarder(context);
     final response = await apiService.getAccessories();
     print(response!.data["response"]);
     if (response.statusCode == 200) {
       final maps = response.data["response"];
-      setState(() {
-        accessorie = List.generate(maps.length, (i) {
-          return Accessorie.fromMap(maps[i]);
-        });
+      //setState(() {
+      accessorie = List.generate(maps.length, (i) {
+        return Accessorie.fromMap(maps[i]);
+        // });
       });
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     } else {
       ApiError apiError = ApiError.fromMap(response.data.response);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -96,9 +96,15 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
     }
   }
 
-  Future<void> addFacture(response, redirectTo, btnText) async {
+  Future<void> addFacture() async {
     if (_formKey1.currentState!.validate() &&
-        _formKey1.currentState!.validate()) {
+        _formKey2.currentState!.validate()) {
+      List.generate(accessorie.length, (i) {
+        if (accessorie[i].isChecked == true) {
+          accessoireValue.add(accessorie[i].id);
+        }
+      });
+
       Map<String, dynamic> factureMap = {
         "fuel_type": caburantId,
         'brands': marqueId,
@@ -107,12 +113,13 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
         "category": categorieId,
         "place_number": placeNumberCtl.text,
         "trailer": typeRemoqueId,
-        "regis_number": regisNumberCtl.text,
+        "regis_number": maskedController.text,
         "model": modeloCtl.text,
         "first_name": firstNameCtl.text,
         "last_name": lastNameCtl.text,
         "email": email.text,
         "phone": phoneCtl.text,
+        "accessory": accessoireValue
       };
       //Utile.loarder(context);
       Response res = await apiService.addFacture(factureMap);
@@ -153,7 +160,8 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
     if (isValid) {
       if (islast) {
         setState(() {
-          total = int.parse(montant.text.trim());
+          addFacture();
+          //total = int.parse(montant.text.trim());
         });
       } else {
         _currentStep < 2 ? setState(() => _currentStep += 1) : _currentStep;
@@ -186,7 +194,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           SecondaryButton(
                             width: 100,
                             textcolor: Colors.white,
-                            text: 'Précédent'.toLowerCase(),
+                            text: 'Anterior'.toLowerCase(),
                             backcolor: kPrimaryColor,
                             press: details.onStepCancel,
                           ),
@@ -196,8 +204,8 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           width: 100,
                           textcolor: Colors.white,
                           text: _currentStep == 2
-                              ? 'Faire un facture'.toUpperCase()
-                              : 'Suivant'.toUpperCase(),
+                              ? 'Facturar'.toUpperCase()
+                              : 'Siguiente'.toUpperCase(),
                           backcolor: pPrimaryColor,
                           press: details.onStepContinue,
                         ),
@@ -211,6 +219,15 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                     key: _formKey1,
                     child: Column(
                       children: [
+                        // Text(
+                        //   "Créer une Facture",
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontSize: getProportionateScreenWidth(20),
+                        //     //color: pPrimaryColor,
+                        //     fontWeight: FontWeight.w900,
+                        //   ),
+                        // ),
                         Text(
                           "Datos del vehículo",
                           textAlign: TextAlign.center,
@@ -241,13 +258,16 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                             validInput: true,
                             estreadonly: false),
                         inputForm(
-                          name: 'regisNumberCtl',
-                          controller: regisNumberCtl,
-                          labeltext: "¿Cuál es la matrícula de tu coche? *",
-                          hintText: "ej. AN - 252 - AZ",
-                          validInput: true,
-                          estreadonly: false,
-                        ),
+                            name: 'regisNumberCtl',
+                            controller: regisNumberCtl,
+                            labeltext: "¿Cuál es la matrícula de tu coche? *",
+                            hintText: "ej. AN - 252 - AZ",
+                            validInput: true,
+                            estreadonly: false,
+                            regExp: RegExp(
+                                r'^[A-Z]{2}\s*-\s*[0-9]{3}\s*-\s*[A-Z]{1,2}$'),
+                            regExpmessage:
+                                "Formato no válido.Formato esperado: XX-000-XX"),
                         inputForm(
                           name: 'placeNumberCtl',
                           type: TextInputType.number,
@@ -333,10 +353,14 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           ),
                         ),
                         Text("¿Quieres incluir algún accesorios?"),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
                         Column(
                           children: List.generate(accessorie.length, (index) {
                             return CheckboxListTile(
-                              title: Text('${accessorie[index].title}'),
+                              title: Text(
+                                  '${accessorie[index].title}(${accessorie[index].value}F)'),
                               value: accessorie[index].isChecked,
                               onChanged: (bool? value) {
                                 setState(() {
@@ -345,6 +369,9 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                               },
                             );
                           }),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
                         ),
                       ])),
                   isActive: _currentStep >= 1,
@@ -361,7 +388,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       automaticallyImplyLeading: true,
       centerTitle: true,
       title: Text(
-        "Créer une Facture",
+        "Crear una factura",
         style: TextStyle(
             fontSize: getProportionateScreenWidth(20),
             fontWeight: FontWeight.bold),

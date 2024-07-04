@@ -8,6 +8,8 @@ import 'package:gepetrol_eguros/screens/facture/add_facture.dart';
 import 'package:gepetrol_eguros/screens/home/home_screen.dart';
 import 'package:gepetrol_eguros/size_config.dart';
 
+import 'profile/profile_screen.dart';
+
 class EntryPoint extends StatefulWidget {
   int currentPage;
   EntryPoint({
@@ -29,7 +31,8 @@ class _EntryPointState extends State<EntryPoint> {
     const AccountPage(),
     const AddFactureScreen(),
     HomeScreen(),
-    const AccountPage(),
+    //const AccountPage(),
+    ProfileScreen()
   ];
   @override
   void initState() {

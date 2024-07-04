@@ -27,14 +27,14 @@ class Body extends StatelessWidget {
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
-                        Container(
+                        SizedBox(
                             width: double.infinity,
                             height: getProportionateScreenHeight(300),
                             child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                       width: double.infinity,
                                       height: getProportionateScreenHeight(300),
                                       child: Padding(
