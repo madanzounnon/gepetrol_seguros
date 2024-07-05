@@ -4,6 +4,7 @@ import 'package:gepetrol_eguros/screens/home/components/chart.dart';
 
 import '../../../size_config.dart';
 import 'discount_banner.dart';
+import 'special_offers.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -12,18 +13,13 @@ class Body extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            DiscountBanner(),
+            const DiscountBanner(),
             SizedBox(height: getProportionateScreenHeight(20)),
             ChartClient(),
-            //SizedBox(height: getProportionateScreenWidth(10)),
-            // DiscountBanner(),
-            SizedBox(height: getProportionateScreenHeight(10)),
-            // Categories(),
-            // PopularProducts(),
-            //SizedBox(height: getProportionateScreenWidth(20)),
-            //SpecialOffers(),
             SizedBox(height: getProportionateScreenHeight(20)),
-            Actualites()
+            const SpecialOffers(),
+            SizedBox(height: getProportionateScreenHeight(20)),
+            // Actualites()
             //SizedBox(height: getProportionateScreenHeight(10)),
             //Carouseelhome()
           ],

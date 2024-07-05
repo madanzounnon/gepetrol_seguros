@@ -48,8 +48,8 @@ class MarqueListTileWidget extends StatelessWidget {
             )
           : CircleAvatar(
               radius: 30,
-              backgroundImage:
-                  NetworkImage("https://seguros.fifonsi.net${marque.image}"),
+              // backgroundImage:
+              //     NetworkImage("https://seguros.fifonsi.net${marque.image}"),
               backgroundColor: color.withOpacity(0.30),
               child: Text(
                 marque.title.split('')[0],
@@ -61,10 +61,10 @@ class MarqueListTileWidget extends StatelessWidget {
         "${marque.title}",
         style: style,
       ),
-      subtitle: const Text(
-        "",
-        maxLines: 1,
-      ),
+      // subtitle: const Text(
+      //   "",
+      //   maxLines: 1,
+      // ),
       trailing:
           isSelected ? Icon(Icons.check, color: selectedColor, size: 26) : null,
     );

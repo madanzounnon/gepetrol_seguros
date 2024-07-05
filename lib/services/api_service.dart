@@ -91,9 +91,15 @@ class ApiService {
   Future<Response> addFacture(Map<String, dynamic> facturetMap) async {
     addInterceptors();
     try {
+      final SharedPreferences sharedPreferences = await _sharedPreferences;
+      final abonneId = sharedPreferences.getString("userId");
+      print(abonneId);
+      (abonneId != null) ? facturetMap["user_id"] = abonneId : null;
+      print(facturetMap);
       print('/brands/${facturetMap["brands"]}/invoice');
       final response = await dio
           .post('/brands/${facturetMap["brands"]}/invoice', data: facturetMap);
+      print(response);
       return response;
     } on DioError catch (e) {
       return e.response!;
@@ -122,5 +128,24 @@ class ApiService {
     }
   }
 
-  getFactureById() {}
+  getFactureById() async {
+    try {
+      print('/invoice');
+      final response = await dio.get('/invoice');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response!;
+    }
+  }
+
+  getAllPlainteByClient() async {
+    try {
+      final response = await dio.get('/complaints');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response!;
+    }
+  }
 }

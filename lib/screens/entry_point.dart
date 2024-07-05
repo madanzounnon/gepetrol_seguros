@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:gepetrol_eguros/constants.dart';
-import 'package:gepetrol_eguros/screens/compte/account_page.dart';
 import 'package:gepetrol_eguros/screens/facture/add_facture.dart';
 import 'package:gepetrol_eguros/screens/facture/facture_screens.dart';
 import 'package:gepetrol_eguros/screens/home/home_screen.dart';
 import 'package:gepetrol_eguros/size_config.dart';
 
+import 'plainte/plainte.dart';
 import 'profile/profile_screen.dart';
 
 class EntryPoint extends StatefulWidget {
@@ -29,7 +28,7 @@ class _EntryPointState extends State<EntryPoint> {
   int _currentPage = 0;
   final List _pages = [
     HomeScreen(),
-    const AccountPage(),
+    const PlainteScreen(),
     const AddFactureScreen(),
     const FactureScreen(),
     ProfileScreen()

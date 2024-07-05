@@ -63,9 +63,9 @@ class _SouscrireState extends State<Souscrire> {
   TextEditingController emailCtl = TextEditingController();
   TextEditingController firstnameCtl = TextEditingController();
   TextEditingController lastnameCtl = TextEditingController();
+  TextEditingController telephoneCtl = TextEditingController();
   TextEditingController bithdayCtl = TextEditingController();
   TextEditingController civiliteCtl = TextEditingController();
-  TextEditingController telephoneCtl = TextEditingController();
   TextEditingController addressCtl = TextEditingController();
   TextEditingController countryCtl = TextEditingController();
   TextEditingController birthPlaceCtl = TextEditingController();

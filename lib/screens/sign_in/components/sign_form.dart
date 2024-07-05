@@ -105,7 +105,7 @@ class _SignFormState extends State<SignForm> {
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
-                child: Text(
+                child: const Text(
                   "¿Olvidé mi contraseña ?",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
@@ -198,7 +198,7 @@ class _SignFormState extends State<SignForm> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         labelText: "Correo Electronico*",
         hintText: "Correo Electronico",
         // If  you are using latest version of flutter then lable text and hint text shown like this

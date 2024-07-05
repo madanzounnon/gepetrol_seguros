@@ -31,10 +31,10 @@ class SuccessScreen extends StatelessWidget {
           padding: EdgeInsets.all(getProportionateScreenHeight(20)),
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.08),
+              SizedBox(height: SizeConfig.screenHeight * 0.04),
               Image.asset(
                 "assets/images/3.png",
-                height: SizeConfig.screenHeight * 0.45, //50%
+                height: SizeConfig.screenHeight * 0.30, //50%
               ),
               SizedBox(height: getProportionateScreenHeight(20)),
               Text(
@@ -59,10 +59,10 @@ class SuccessScreen extends StatelessWidget {
                 width: 100,
                 textcolor: const Color.fromARGB(255, 0, 0, 0),
                 backcolor: Color.fromRGBO(208, 248, 238, 1),
-                text: "Retour à l'accueil",
+                text: btnText,
                 press: () {
                   //Navigator.pushReplacementNamed(context, redirectTo);
-                  Navigator.pushReplacementNamed(context, EntryPoint.routeName);
+                  Navigator.pushReplacementNamed(context, redirectTo);
                 },
               ),
             ],

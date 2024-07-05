@@ -23,6 +23,7 @@ import 'package:gepetrol_eguros/screens/test/test.dart';
 
 import 'screens/facture/add_facture.dart';
 import 'screens/facture/facture_screens.dart';
+import 'screens/plainte/plainte.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/sign_up/sign_up_screen.dart';
 
@@ -56,5 +57,6 @@ final Map<String, WidgetBuilder> routes = {
   TermeCondictionScreen.routeName: (context) => TermeCondictionScreen(),
   AddFactureScreen.routeName: (context) => const AddFactureScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
-  FactureScreen.routeName: (context) => const FactureScreen()
+  FactureScreen.routeName: (context) => const FactureScreen(),
+  PlainteScreen.routeName: (context) => const PlainteScreen(),
 };

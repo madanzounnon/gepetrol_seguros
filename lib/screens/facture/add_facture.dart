@@ -1,7 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../../components/custom_surfix_icon.dart';
+import '../../components/form_error.dart';
 import '../../components/secondary_button.dart';
 import '../../constants.dart';
 import '../../helper/form.dart';
@@ -16,6 +21,7 @@ import '../../models/typeRemoque.dart';
 import '../../models/typeVehicule.dart';
 import '../../services/api_service.dart';
 import '../../size_config.dart';
+import '../success_ecran/success_screen.dart';
 import 'marque/marque_provider_page.dart';
 import 'providerCaburant/carburant_provider_page.dart';
 import 'providerCategories/categorie_provider_page.dart';
@@ -34,10 +40,10 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   TextEditingController montant = TextEditingController();
   TextEditingController loyer = TextEditingController();
   TextEditingController montantRemise = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController lastNameCtl = TextEditingController();
-
-  TextEditingController firstNameCtl = TextEditingController();
+  TextEditingController emailCtl = TextEditingController();
+  TextEditingController firstnameCtl = TextEditingController();
+  TextEditingController lastnameCtl = TextEditingController();
+  TextEditingController telephoneCtl = TextEditingController();
   TextEditingController phoneCtl = TextEditingController();
   TextEditingController typeCategories = TextEditingController();
   TextEditingController typeVehiculeCtl = TextEditingController();
@@ -50,6 +56,10 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   TextEditingController modeloCtl = TextEditingController();
   TextEditingController powerCtl = TextEditingController();
 
+  final _formKey4 = GlobalKey<FormState>();
+  String? email = '';
+  String? firstName = '';
+  String? lastName = '';
   final ApiService apiService = ApiService();
   List<String> factures = [];
   List<Accessorie> accessorie = [];
@@ -65,6 +75,22 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   final _formKey2 = GlobalKey<FormState>();
   final _formKey3 = GlobalKey<FormState>();
   List<int> accessoireValue = [];
+
+  void addError({String? error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
+
+  final List<String?> errors = [];
+
+  void removeError({String? error}) {
+    if (errors.contains(error))
+      setState(() {
+        errors.remove(error);
+      });
+  }
 
   List<String>? userInfos;
   int total = 0;
@@ -97,8 +123,12 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   }
 
   Future<void> addFacture() async {
+    print("ssssssssssssssssssss");
+    print(_formKey1.currentState!.validate());
+    print(_formKey2.currentState!.validate());
     if (_formKey1.currentState!.validate() &&
         _formKey2.currentState!.validate()) {
+      accessoireValue.clear();
       List.generate(accessorie.length, (i) {
         if (accessorie[i].isChecked == true) {
           accessoireValue.add(accessorie[i].id);
@@ -113,20 +143,31 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
         "category": categorieId,
         "place_number": placeNumberCtl.text,
         "trailer": typeRemoqueId,
-        "regis_number": maskedController.text,
+        "regis_number": regisNumberCtl.text,
         "model": modeloCtl.text,
-        "first_name": firstNameCtl.text,
-        "last_name": lastNameCtl.text,
-        "email": email.text,
-        "phone": phoneCtl.text,
+        "first_name": firstnameCtl.text,
+        "last_name": lastnameCtl.text,
+        "email": emailCtl.text,
+        "phone": telephoneCtl.text,
         "accessory": accessoireValue
       };
       //Utile.loarder(context);
       Response res = await apiService.addFacture(factureMap);
-      if (res.statusCode == 201) {
+      if (res.statusCode == 200) {
         Utile.messageSuccess(context, res.data["message"]);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SuccessScreen(
+              redirectTo: "/factures",
+              btnText: "Lista de las facturas",
+              message:
+                  "Informations de la factures \n Precio Inicial = ${res.data['response']['initial_price']} F CFA \n Precio Accesorios = ${res.data['response']['accessories_price']} F CFA \n Precio Atestación = ${res.data['response']['attestation_price']} F CFA  \n Sub-total = ${res.data['response']['sub_total']} F CFA \n VAT=${res.data['response']['vat']} F CFA\n Total = ${res.data['response']['total']} F CFA",
+            ),
+          ),
+        );
       } else {
-        Navigator.of(context).pop();
         ApiError apiError = ApiError.fromMap(res.data);
         Utile.messageErro(context, '${apiError.message}');
       }
@@ -146,6 +187,12 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       case 1:
         estVal = _formKey2.currentState!.validate();
         break;
+      case 2:
+        estVal = _formKey3.currentState!.validate();
+        break;
+      case 3:
+        estVal = true;
+        break;
     }
     return estVal;
   }
@@ -155,16 +202,16 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   }
 
   continued() {
-    final islast = _currentStep == 2;
+    final islast = _currentStep == 3;
     bool isValid = validestape(_currentStep);
     if (isValid) {
+      print("isValidisValidisValid");
       if (islast) {
-        setState(() {
-          addFacture();
-          //total = int.parse(montant.text.trim());
-        });
+        print("z2zz2z22z2z22z2z2z22z");
+        addFacture();
+        //total = int.parse(montant.text.trim());
       } else {
-        _currentStep < 2 ? setState(() => _currentStep += 1) : _currentStep;
+        _currentStep < 3 ? setState(() => _currentStep += 1) : _currentStep;
       }
     }
   }
@@ -203,7 +250,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                         SecondaryButton(
                           width: 100,
                           textcolor: Colors.white,
-                          text: _currentStep == 2
+                          text: _currentStep == 3
                               ? 'Facturar'.toUpperCase()
                               : 'Siguiente'.toUpperCase(),
                           backcolor: pPrimaryColor,
@@ -333,15 +380,81 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                       ],
                     ),
                   ),
-                  isActive: _currentStep >= 0,
+                  isActive: _currentStep >= 1,
                   state: _currentStep >= 1
                       ? StepState.complete
                       : StepState.disabled,
                 ),
                 Step(
-                  title: const Text('03', maxLines: 1),
+                  title: new Text('03'),
                   content: Form(
                       key: _formKey3,
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                // Container(
+                                //   alignment: Alignment.center,
+                                //   padding: EdgeInsets.symmetric(
+                                //       horizontal:
+                                //           getProportionateScreenWidth(50)),
+                                //   child: SvgPicture.asset(
+                                //     'assets/images/logo.svg',
+                                //     height: getProportionateScreenHeight(100),
+                                //     width: getProportionateScreenHeight(100),
+                                //   ),
+                                // ),
+                                SizedBox(
+                                    height: getProportionateScreenHeight(10)),
+                                const Text(
+                                    "Sírvase proporcionar la información",
+                                    textAlign: TextAlign.center),
+                              ]),
+                          SizedBox(height: getProportionateScreenHeight(20)),
+                          buildFirstNameFormField(),
+                          SizedBox(height: getProportionateScreenHeight(20)),
+                          buildLastNameFormField(),
+                          SizedBox(height: getProportionateScreenHeight(20)),
+                          IntlPhoneField(
+                            //controller: telephoneCtl,
+                            onSaved: (newValue) =>
+                                telephoneCtl.text = newValue!.number,
+                            showCountryFlag: true,
+                            dropdownIcon: const Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.grey,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: "Teléfono",
+                              hintText: "Teléfono",
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              filled: false,
+                              suffixIcon: Icon(FontAwesomeIcons.phone),
+                            ),
+                            initialCountryCode: 'BJ',
+                            onChanged: (text) => setState(() {
+                              if (text.isValidNumber()) {
+                                telephoneCtl.text = text.number;
+                              }
+                            }),
+                          ),
+                          buildEmailFormField(),
+                          FormError(errors: errors),
+                          SizedBox(height: getProportionateScreenHeight(20)),
+                        ],
+                      )),
+                  isActive: _currentStep >= 2,
+                  state: _currentStep >= 2
+                      ? StepState.complete
+                      : StepState.disabled,
+                ),
+                Step(
+                  title: const Text('04', maxLines: 1),
+                  content: Form(
+                      key: _formKey4,
                       child: Column(children: [
                         Text(
                           "Accesorios Opcional",
@@ -374,8 +487,8 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           height: getProportionateScreenHeight(20),
                         ),
                       ])),
-                  isActive: _currentStep >= 1,
-                  state: _currentStep >= 2
+                  isActive: _currentStep >= 3,
+                  state: _currentStep >= 3
                       ? StepState.complete
                       : StepState.disabled,
                 ),
@@ -392,6 +505,89 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
         style: TextStyle(
             fontSize: getProportionateScreenWidth(20),
             fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  TextFormField buildEmailFormField() {
+    return TextFormField(
+      controller: emailCtl,
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        email = value;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kEmailNullError;
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          return kInvalidEmailError;
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        labelText: "Correo Electronico*",
+        hintText: "Correo Electronico",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildLastNameFormField() {
+    return TextFormField(
+      controller: lastnameCtl,
+      onSaved: (newValue) => lastnameCtl.text = newValue!,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        lastName = value;
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kNamelNullError;
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        labelText: "Nombre*",
+        hintText: "Introduzca su nombre",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      controller: firstnameCtl,
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kFirstNamelNullError);
+        }
+        firstName = value;
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return kFirstNamelNullError;
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        labelText: "Apellidos*",
+        hintText: "Introduzca su apellidos",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );
   }

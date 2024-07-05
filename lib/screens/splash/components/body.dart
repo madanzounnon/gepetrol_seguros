@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gepetrol_eguros/constants.dart';
 import 'package:gepetrol_eguros/screens/sign_in/sign_in_screen.dart';
-import 'package:gepetrol_eguros/screens/sign_in_and_sign_up/sign_in_and_sign_up_ecran.dart';
 import 'package:gepetrol_eguros/size_config.dart';
 
 // This is the best practice
@@ -9,6 +8,8 @@ import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
 
 class Body extends StatefulWidget {
+  const Body({super.key});
+
   @override
   _BodyState createState() => _BodyState();
 }
