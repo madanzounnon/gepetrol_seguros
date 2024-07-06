@@ -56,31 +56,31 @@ class _SpecialOffersState extends State<SpecialOffers> {
           scrollDirection: Axis.horizontal,
           child: Row(children: [
             SpecialOfferCard(
-              image: "assets/images/1.jpg",
+              image: "assets/images/o1.jpg",
               category: "Seguro Médico",
               numOfBrands:
-                  "Una vida sin Seguro Médico, es una vida sin tranquilidad",
+                  "Este seguro cubre a los asegurados en caso de enfermedad. La aseguradora pagará al asegurado los siguientes gastos",
               //press: () {},
             ),
             SpecialOfferCard(
-              image: "assets/images/1.jpg",
+              image: "assets/images/o2.jpg",
               category: "Seguros de Automóvil",
               numOfBrands:
-                  "¿Quieres Asegurar tu vehículo sin tener que desplazarte?",
+                  "Cubre los daños causados a terceros (daños materiales y corporales) y los que sufra el vehículo asegurado...",
               //press: () {},
             ),
             SpecialOfferCard(
-              image: "assets/images/1.jpg",
+              image: "assets/images/o4.jpg",
               category: "SEGURO MULTIRIESGO HOGAR",
               numOfBrands:
                   "Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares, Accidentes en el trayecto entre la casa y el colegio, Gastos medicos",
               // press: () {},
             ),
             SpecialOfferCard(
-              image: "assets/images/1.jpg",
-              category: "SEGURO MULTIRIESGO HOGAR",
+              image: "assets/images/o3.jpg",
+              category: "SEGURO DE ACCIDENTES",
               numOfBrands:
-                  "Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares, Accidentes en el trayecto entre la casa y el colegio, Gastos medicos",
+                  "Este seguro cubre los accidentes sufridos por el asegurado, bien sea en el ámbito privado como en el profesional.",
               // press: () {},
             )
           ]),
@@ -124,13 +124,13 @@ class SpecialOfferCard extends StatelessWidget {
                   width: getProportionateScreenWidth(308),
                   height: getProportionateScreenWidth(180),
                   child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
                           width: getProportionateScreenWidth(308),
                           height: getProportionateScreenWidth(180),
                           decoration: const BoxDecoration(
-                              color: Color.fromRGBO(7, 43, 75, 0.72),
+                              color: Color.fromRGBO(0, 117, 90, 0.80),
                               borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(20),
                                   bottomRight: Radius.circular(20))),

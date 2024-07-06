@@ -3,6 +3,8 @@ import 'components/body.dart';
 
 class ContactsScreen extends StatelessWidget {
   static String routeName = "/contacts";
+
+  const ContactsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

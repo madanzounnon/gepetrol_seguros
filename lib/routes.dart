@@ -4,7 +4,6 @@ import 'package:gepetrol_eguros/screens/aam/apropos_aam/apropos_screen.dart';
 import 'package:gepetrol_eguros/screens/aam/contact/contact_screen.dart';
 import 'package:gepetrol_eguros/screens/complete_profile/complete_profile_screen.dart';
 import 'package:gepetrol_eguros/screens/compte/account_page.dart';
-import 'package:gepetrol_eguros/screens/contact/contact.dart';
 import 'package:gepetrol_eguros/screens/entry_point.dart';
 import 'package:gepetrol_eguros/screens/forgot_password/forgot_password_screen.dart';
 import 'package:gepetrol_eguros/screens/home/home_screen.dart';
@@ -21,6 +20,7 @@ import 'package:gepetrol_eguros/screens/splash/splash_screen.dart';
 import 'package:gepetrol_eguros/screens/splash_screen.dart';
 import 'package:gepetrol_eguros/screens/test/test.dart';
 
+import 'screens/contact/contact.dart';
 import 'screens/facture/add_facture.dart';
 import 'screens/facture/facture_screens.dart';
 import 'screens/plainte/plainte.dart';

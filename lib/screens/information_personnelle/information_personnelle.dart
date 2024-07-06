@@ -149,7 +149,7 @@ class _InformationPersonnelleScreenState
             horizontal: getProportionateScreenWidth(20),
             vertical: getProportionateScreenHeight(10)),
         child: Text(
-          'Compte',
+          'Mi cuenta',
           style: TextStyle(
               fontSize: getProportionateScreenHeight(18),
               fontWeight: FontWeight.bold),
@@ -173,7 +173,7 @@ class _InformationPersonnelleScreenState
                 bottom: getProportionateScreenHeight(20)),
             child: Column(children: [
               ItemElement(
-                cle: "Non d'utilisateur",
+                cle: "Usuario no",
                 textcolor: pPrimaryColor,
                 valeur: user.username,
               ),
@@ -181,7 +181,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Email',
+                cle: 'Correo electrónico',
                 textcolor: pPrimaryColor,
                 valeur: user.email,
               ),
@@ -196,8 +196,9 @@ class _InformationPersonnelleScreenState
               SizedBox(
                 height: getProportionateScreenHeight(8),
               ),
+              // ignore: prefer_const_constructors
               ItemElement(
-                cle: 'Mot de passe',
+                cle: 'Contraseña',
                 textcolor: pPrimaryColor,
                 valeur: '***********',
               ),
@@ -211,7 +212,7 @@ class _InformationPersonnelleScreenState
             horizontal: getProportionateScreenWidth(20),
             vertical: getProportionateScreenHeight(10)),
         child: Text(
-          'Information personnelle',
+          'Información personal',
           style: TextStyle(
               fontSize: getProportionateScreenHeight(18),
               fontWeight: FontWeight.bold),
@@ -232,7 +233,7 @@ class _InformationPersonnelleScreenState
                 bottom: getProportionateScreenHeight(20)),
             child: Column(children: [
               ItemElement(
-                cle: 'Prénom',
+                cle: 'Apellido',
                 textcolor: pPrimaryColor,
                 valeur: user.first_name,
               ),
@@ -240,7 +241,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Nom',
+                cle: 'Nombre',
                 textcolor: pPrimaryColor,
                 valeur: user.last_name,
               ),
@@ -248,7 +249,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Civilité',
+                cle: 'Civilidad',
                 textcolor: pPrimaryColor,
                 valeur: user.sex,
               ),
@@ -256,7 +257,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Téléphone"',
+                cle: 'Teléfono"',
                 textcolor: pPrimaryColor,
                 valeur: user.phone,
               ),
@@ -271,11 +272,11 @@ class _InformationPersonnelleScreenState
         title:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            "Information personnelle",
+            "Información personal",
             style: TextStyle(
-                fontSize: getProportionateScreenWidth(20),
-                fontWeight: FontWeight.bold,
-                color: pPrimaryColor),
+              fontSize: getProportionateScreenWidth(20),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Container(
             height: 30,

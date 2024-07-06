@@ -35,7 +35,7 @@ class _PlainteScreenState extends State<PlainteScreen> {
   Future<void> getAllPlainteByClient() async {
     final res = await apiService.getAllPlainteByClient();
     if (res.statusCode == 200) {
-      final maps = res.data["response"];
+      final maps = res.data["complaints"];
       setState(() {
         plaintes = List.generate(maps.length, (i) {
           return Plainte.fromMap(maps[i]);
@@ -140,7 +140,7 @@ AppBar buildAppBar(BuildContext context) {
     automaticallyImplyLeading: false,
     centerTitle: true,
     title: Text(
-      "lista de denuncias",
+      "Lista de denuncias",
       style: TextStyle(
           fontSize: getProportionateScreenWidth(20),
           fontWeight: FontWeight.bold),

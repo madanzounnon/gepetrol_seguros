@@ -41,12 +41,12 @@ class DiscountBanner extends StatelessWidget {
           Container(
               child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(70),
+                horizontal: getProportionateScreenWidth(10),
                 vertical: getProportionateScreenHeight(15)),
             child: SvgPicture.asset(
-              'assets/images/logo.svg',
-              height: getProportionateScreenHeight(50),
-              width: getProportionateScreenHeight(50),
+              'assets/images/logo2.svg',
+              height: getProportionateScreenHeight(70),
+              // width: getProportionateScreenHeight(50),
             ),
           )),
           Expanded(

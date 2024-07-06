@@ -4,7 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gepetrol_eguros/helper/utile.dart';
+import 'package:gepetrol_eguros/screens/facture/facture_screens.dart';
 import 'package:gepetrol_eguros/screens/information_personnelle/information_personnelle.dart';
+import 'package:gepetrol_eguros/screens/plainte/plainte.dart';
 import 'package:gepetrol_eguros/size_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
@@ -12,10 +14,9 @@ import '../../../helper/store.dart';
 import '../../../models/user.dart';
 import '../../../services/api_service.dart';
 import '../../aam/apropos_aam/apropos_screen.dart';
-import '../../contact/contact.dart';
+import '../../aam/contact/contact_screen.dart';
 import '../../splash_screen.dart';
 import 'profile_menu.dart';
-import 'profile_pic.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -293,14 +294,14 @@ class _BodyState extends State<Body> {
             text: "Mis facturas",
             icon: "assets/icons/Error.svg",
             press: () {
-              //Navigator.pushNamed(context, RedevenceScreen.routeName);
+              Navigator.pushNamed(context, FactureScreen.routeName);
             },
           ),
           ProfileMenu(
             text: "Siniestros",
             icon: "assets/icons/Conversation.svg",
             press: () {
-              //Navigator.pushNamed(context, ChatsScreen.routeName);
+              Navigator.pushNamed(context, PlainteScreen.routeName);
             },
           ),
           ProfileMenu(
@@ -314,7 +315,7 @@ class _BodyState extends State<Body> {
             text: "Contacto",
             icon: "assets/icons/Call.svg",
             press: () {
-              Navigator.pushNamed(context, ContactScreen.routeName);
+              Navigator.pushNamed(context, ContactsScreen.routeName);
             },
           ),
           ProfileMenu(
