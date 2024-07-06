@@ -14,7 +14,7 @@ class SuccessScreen extends StatelessWidget {
   SuccessScreen({
     Key? key,
     required this.message,
-    this.title = "Succès",
+    this.title = "suceso",
     required this.redirectTo,
     required this.btnText,
   }) : super(key: key);

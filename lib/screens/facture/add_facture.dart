@@ -153,8 +153,8 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       };
       //Utile.loarder(context);
       Response res = await apiService.addFacture(factureMap);
-      if (res.statusCode == 200) {
-        Utile.messageSuccess(context, res.data["message"]);
+      if (res.statusCode == 200 && res.data["success"]) {
+        // Utile.messageSuccess(context, res.data["message"]);
 
         Navigator.pushReplacement(
           context,

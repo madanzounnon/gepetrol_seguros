@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../components/default_button.dart';
 import '../../constants.dart';
+import '../../helper/form.dart';
 import '../../helper/utile.dart';
 import '../../models/Plainte.dart';
 import '../../services/api_service.dart';
@@ -21,17 +23,19 @@ class _PlainteScreenState extends State<PlainteScreen> {
   bool _isLoading = true;
   List<Plainte> plaintes = [];
   ApiService apiService = ApiService();
-
+  final TextEditingController descripcionController = TextEditingController();
+  final TextEditingController titulosController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
-    getAllDemanadeByAbonne();
+    getAllPlainteByClient();
   }
 
-  Future<void> getAllDemanadeByAbonne() async {
+  Future<void> getAllPlainteByClient() async {
     final res = await apiService.getAllPlainteByClient();
     if (res.statusCode == 200) {
-      final maps = res.data["data"]["data"];
+      final maps = res.data["response"];
       setState(() {
         plaintes = List.generate(maps.length, (i) {
           return Plainte.fromMap(maps[i]);
@@ -74,80 +78,60 @@ class _PlainteScreenState extends State<PlainteScreen> {
       floatingActionButton: FloatingActionButton.extended(
           backgroundColor: kPrimaryColor,
           onPressed: () {
-            _showmenu();
+            _showForm();
           },
-          label: const Text("Enviar una queja"),
+          label: const Text("Enviar un Nuevo Ticket"),
           icon: const Icon(Icons.add, color: Colors.white)),
       //const Text("Envoyer une plainte")),
     );
   }
 
-  _showmenu() async {
+  void _showForm() async {
     showModalBottomSheet(
         context: context,
         elevation: 5,
         isScrollControlled: true,
-        //backgroundColor: Colors.transparent,
         builder: (_) => Container(
-            padding: EdgeInsets.only(
-              top: 15,
-              left: 15,
-              right: 15,
-              // this will prevent the soft keyboard from covering the text fields
-              bottom: MediaQuery.of(context).viewInsets.bottom +
-                  getProportionateScreenHeight(20),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
+              padding: EdgeInsets.only(
+                top: 15,
+                left: getProportionateScreenWidth(20),
+                right: getProportionateScreenWidth(20),
+                //Cela empêchera le clavier logiciel de couvrir les champs de texte
+                bottom: MediaQuery.of(context).viewInsets.bottom +
+                    getProportionateScreenHeight(50),
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    Text("Enviar una queja",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: getProportionateScreenWidth(18))),
+                    SizedBox(height: getProportionateScreenHeight(20)),
+                    inputForm(
+                        name: "Titulos",
+                        controller: titulosController,
+                        estreadonly: false,
+                        hintText: "Títulos",
+                        labeltext: "Títulos"),
+                    inputForm(
+                      type: TextInputType.multiline,
+                      name: "Descripcion",
+                      controller: descripcionController,
+                      labeltext: "Descripción",
+                      minLines: 3,
+                      onChanged: (value) {},
+                    ),
+                    DefaultButton(
+                        press: () async {}, text: "Enviar un Nuevo Ticket")
+                  ],
                 ),
-                Text(
-                  "Selectionnez le type de plainte",
-                  style: TextStyle(fontSize: getProportionateScreenWidth(17)),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
-
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
-                // GestureDetector(
-                //   onTap: () => {
-                //     Navigator.pushNamed(
-                //       context,
-                //       PlaintePartageScreen.routeName,
-                //     ),
-                //   },
-                //   child: Row(
-                //     children: [
-                //       CircleAvatar(
-                //         backgroundColor: Color.fromARGB(255, 231, 231, 231),
-                //         maxRadius: 23,
-                //         child: Icon(Icons.edit_document,
-                //             size: getProportionateScreenWidth(27),
-                //             color: kPrimaryColor),
-                //       ),
-                //       SizedBox(width: getProportionateScreenWidth(20)),
-                //       Expanded(
-                //         child: Text('Plainte de partage',
-                //             maxLines: 1,
-                //             style: TextStyle(
-                //                 fontWeight: FontWeight.w800,
-                //                 color: Colors.black,
-                //                 fontSize: getProportionateScreenWidth(19))),
-                //       ),
-                //       Icon(Icons.chevron_right,
-                //           size: getProportionateScreenWidth(25),
-                //           color: Colors.black),
-                //     ],
-                //   ),
-                // ),
-              ],
-            )));
+              ),
+            ));
   }
 }
 
@@ -156,7 +140,7 @@ AppBar buildAppBar(BuildContext context) {
     automaticallyImplyLeading: false,
     centerTitle: true,
     title: Text(
-      "Liste des plaintes",
+      "lista de denuncias",
       style: TextStyle(
           fontSize: getProportionateScreenWidth(20),
           fontWeight: FontWeight.bold),

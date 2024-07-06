@@ -15,11 +15,11 @@ class DioInterceptor extends Interceptor {
       "Accept": "*/*"
     });
     // get token from the storage
-    // if (token != null) {
-    //   options.headers.addAll({
-    //     "Authorization": "Bearer $token",
-    //   });
-    // }
+    if (token != null) {
+      options.headers.addAll({
+        "Authorization": "Bearer $token",
+      });
+    }
     print(options.headers);
     return super.onRequest(options, handler);
   }

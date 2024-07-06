@@ -75,13 +75,14 @@ class CartFacture extends StatelessWidget {
                                               color: kPrimaryColor,
                                               fontWeight: FontWeight.w800),
                                         ),
-                                        Text("Crée le ${facture.createdAt}",
+                                        Text("crea el ${facture.createdAt}",
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontSize:
                                                     getProportionateScreenWidth(
                                                         11))),
-                                        Text("Statut: ${facture.status}",
+                                        Text(
+                                            "${facture.firstName} ${facture.lastName}",
                                             maxLines: 1,
                                             style: TextStyle(
                                               fontSize:
@@ -216,7 +217,7 @@ class CartFacture extends StatelessWidget {
                           ),*/
                             SecondaryButton(
                               width: 0.8,
-                              text: "Se réabonner",
+                              text: "Enviar por email",
                               backcolor: kPrimaryColor,
                               textcolor: Colors.white,
                               press: () {

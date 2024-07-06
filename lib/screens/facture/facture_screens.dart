@@ -33,8 +33,11 @@ class _FactureScreenState extends State<FactureScreen> {
   Future<void> getFactureById() async {
     final res = await apiService.getFactureById();
     if (res.statusCode == 200) {
-      final maps = res.data["data"]["data"];
+      final maps = res.data["response"];
+
       setState(() {
+        print('mapsmapsmapsmapsmapsmapsmaps');
+        print(maps);
         Factures = List.generate(maps.length, (i) {
           return Facture.fromMap(maps[i]);
         });
@@ -77,7 +80,7 @@ class _FactureScreenState extends State<FactureScreen> {
                                 ]),
                         ),
                       )
-                    : Utile.isEmpty("Vous n'avez pas encore d'factures"),
+                    : Utile.isEmpty("Usted no tiene facturas todavía"),
               ));
   }
 
@@ -127,7 +130,8 @@ class _FactureScreenState extends State<FactureScreen> {
                         });
                       },
                     ),
-                    DefaultButton(press: () async {}, text: "Se réabonner")
+                    DefaultButton(
+                        press: () async {}, text: "Enviar un Nuevo Ticket")
                   ],
                 ),
               ),

@@ -5,6 +5,8 @@ import 'package:gepetrol_eguros/models/marque.dart';
 import 'package:gepetrol_eguros/models/power.dart';
 import 'package:gepetrol_eguros/models/typeRemoque.dart';
 
+import '../helper/utile.dart';
+
 class Facture {
   int? id;
   dynamic userId;
@@ -23,30 +25,29 @@ class Facture {
   String? state;
   int? placeNumber;
   String? code;
-  int? initialPrice;
-  int? attestationPrice;
-  int? subTotal;
-  int? accessoriesPrice;
-  double? vat;
+  dynamic initialPrice;
+  dynamic attestationPrice;
+  dynamic subTotal;
+  dynamic accessoriesPrice;
+  dynamic vat;
   String? regisNumber;
   int? status;
-  double? total;
+  dynamic total;
   String? link;
   dynamic deletedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   int? extraPrice;
-  Marque brand;
-  Power power;
-  TypeRemoque trailer;
-
+  Marque? brand;
+  Power? power;
+  TypeRemoque? trailer;
   Facture({
     this.id,
-    this.userId,
+    required this.userId,
     this.firstName,
     this.lastName,
     this.phone,
-    this.sex,
+    required this.sex,
     this.email,
     this.fuelTypeId,
     this.typeCarId,
@@ -58,22 +59,22 @@ class Facture {
     this.state,
     this.placeNumber,
     this.code,
-    this.initialPrice,
-    this.attestationPrice,
-    this.subTotal,
-    this.accessoriesPrice,
-    this.vat,
+    required this.initialPrice,
+    required this.attestationPrice,
+    required this.subTotal,
+    required this.accessoriesPrice,
+    required this.vat,
     this.regisNumber,
     this.status,
-    this.total,
+    required this.total,
     this.link,
-    this.deletedAt,
+    required this.deletedAt,
     this.createdAt,
     this.updatedAt,
     this.extraPrice,
-    required this.brand,
-    required this.power,
-    required this.trailer,
+    this.brand,
+    this.power,
+    this.trailer,
   });
 
   Map<String, dynamic> toMap() {
@@ -105,12 +106,12 @@ class Facture {
       'total': total,
       'link': link,
       'deletedAt': deletedAt,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'updatedAt': updatedAt?.millisecondsSinceEpoch,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
       'extraPrice': extraPrice,
-      'brand': brand.toMap(),
-      'power': power.toMap(),
-      'trailer': trailer.toMap(),
+      'brand': brand?.toMap(),
+      'power': power?.toMap(),
+      'trailer': trailer?.toMap(),
     };
   }
 
@@ -118,8 +119,8 @@ class Facture {
     return Facture(
       id: map['id'] != null ? map['id'] as int : null,
       userId: map['userId'] as dynamic,
-      firstName: map['firstName'] != null ? map['firstName'] as String : null,
-      lastName: map['lastName'] != null ? map['lastName'] as String : null,
+      firstName: map['first_name'] != null ? map['first_name'] as String : null,
+      lastName: map['last_name'] != null ? map['last_name'] as String : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
       sex: map['sex'] as dynamic,
       email: map['email'] != null ? map['email'] as String : null,
@@ -133,34 +134,32 @@ class Facture {
       model: map['model'] != null ? map['model'] as String : null,
       state: map['state'] != null ? map['state'] as String : null,
       placeNumber:
-          map['placeNumber'] != null ? map['placeNumber'] as int : null,
+          map['place_number'] != null ? map['place_number'] as int : null,
       code: map['code'] != null ? map['code'] as String : null,
-      initialPrice:
-          map['initialPrice'] != null ? map['initialPrice'] as int : null,
-      attestationPrice: map['attestationPrice'] != null
-          ? map['attestationPrice'] as int
-          : null,
-      subTotal: map['subTotal'] != null ? map['subTotal'] as int : null,
-      accessoriesPrice: map['accessoriesPrice'] != null
-          ? map['accessoriesPrice'] as int
-          : null,
-      vat: map['vat'] != null ? map['vat'] as double : null,
+      initialPrice: map['initial_price'] as dynamic,
+      attestationPrice: map['attestation_price'] as dynamic,
+      subTotal: map['sub_total'] as dynamic,
+      accessoriesPrice: map['accessories_price'] as dynamic,
+      vat: map['vat'] as dynamic,
       regisNumber:
-          map['regisNumber'] != null ? map['regisNumber'] as String : null,
+          map['regis_number'] != null ? map['regis_number'] as String : null,
       status: map['status'] != null ? map['status'] as int : null,
-      total: map['total'] != null ? map['total'] as double : null,
+      total: map['total'] as dynamic,
       link: map['link'] != null ? map['link'] as String : null,
       deletedAt: map['deletedAt'] as dynamic,
-      createdAt: map['createdAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+      createdAt: map['created_at'] != ""
+          ? Utile.getFormattedDate(map['created_at'])
+          : '',
+      extraPrice: map['extra_price'] != null ? map['extra_price'] as int : null,
+      brand: map['brand'] != null
+          ? Marque.fromMap(map['brand'] as Map<String, dynamic>)
           : null,
-      updatedAt: map['updatedAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int)
+      power: map['power'] != null
+          ? Power.fromMap(map['power'] as Map<String, dynamic>)
           : null,
-      extraPrice: map['extraPrice'] != null ? map['extraPrice'] as int : null,
-      brand: Marque.fromMap(map['brand'] as Map<String, dynamic>),
-      power: Power.fromMap(map['power'] as Map<String, dynamic>),
-      trailer: TypeRemoque.fromMap(map['trailer'] as Map<String, dynamic>),
+      trailer: map['trailer'] != null
+          ? TypeRemoque.fromMap(map['trailer'] as Map<String, dynamic>)
+          : null,
     );
   }
 

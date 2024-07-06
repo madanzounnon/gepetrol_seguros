@@ -93,7 +93,6 @@ class ApiService {
     try {
       final SharedPreferences sharedPreferences = await _sharedPreferences;
       final abonneId = sharedPreferences.getString("userId");
-      print(abonneId);
       (abonneId != null) ? facturetMap["user_id"] = abonneId : null;
       print(facturetMap);
       print('/brands/${facturetMap["brands"]}/invoice');
@@ -129,9 +128,9 @@ class ApiService {
   }
 
   getFactureById() async {
+    addInterceptors();
     try {
-      print('/invoice');
-      final response = await dio.get('/invoice');
+      final response = await dio.get('/invoices');
       print(response);
       return response;
     } on DioError catch (e) {
@@ -140,6 +139,7 @@ class ApiService {
   }
 
   getAllPlainteByClient() async {
+    addInterceptors();
     try {
       final response = await dio.get('/complaints');
       print(response);
