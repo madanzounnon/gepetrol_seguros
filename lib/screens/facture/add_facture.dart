@@ -154,6 +154,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       });
 
       Map<String, dynamic> factureMap = {
+        "user_id": (userId == 0) ? null : userId,
         "fuel_type": caburantId,
         'brands': marqueId,
         "power": powerId,
@@ -179,9 +180,9 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
           MaterialPageRoute(
             builder: (context) => SuccessScreen(
               redirectTo: "/factures",
-              btnText: "Lista de las facturas",
+              btnText: "Lista de mis Facturas",
               message:
-                  "Informations de la factures \n Precio Inicial = ${res.data['response']['initial_price']} F CFA \n Precio Accesorios = ${res.data['response']['accessories_price']} F CFA \n Precio Atestación = ${res.data['response']['attestation_price']} F CFA  \n Sub-total = ${res.data['response']['sub_total']} F CFA \n VAT=${res.data['response']['vat']} F CFA\n Total = ${res.data['response']['total']} F CFA",
+                  "Información de la Factura \n Precio Inicial = ${res.data['response']['initial_price']} F CFA \n Precio Accesorios = ${res.data['response']['accessories_price']} F CFA \n Precio Atestación = ${res.data['response']['attestation_price']} F CFA  \n Sub-total = ${res.data['response']['sub_total']} F CFA \n IVA=${res.data['response']['vat']} F CFA\n Total = ${res.data['response']['total']} F CFA",
             ),
           ),
         );

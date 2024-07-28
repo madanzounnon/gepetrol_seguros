@@ -36,6 +36,7 @@ class _TypeVehiculeProviderPageState extends State<TypeVehiculeProviderPage> {
     getAllTypeVehicules();
   }
 
+  bool _isLoading = true;
   getAllTypeVehicules() async {
     final res = await apiService.getAllTypeVehicule();
     if (res!.statusCode != null && res.statusCode == 200) {
@@ -50,6 +51,7 @@ class _TypeVehiculeProviderPageState extends State<TypeVehiculeProviderPage> {
         toutbureaux = toutbureau.where(containsSearchText).toList();
         print("toutbureaux.toString()");
         print(toutbureaux.toString());
+        _isLoading = false;
       });
     }
   }
@@ -74,28 +76,32 @@ class _TypeVehiculeProviderPageState extends State<TypeVehiculeProviderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: toutbureaux.map((typeVehicule) {
-                final isSelected = selectedbureaux.contains(typeVehicule);
-                return TypeVehiculeListTileWidget(
-                  typeVehicule: typeVehicule,
-                  isSelected: isSelected,
-                  onSelectedTypeVehicule: selectTypeVehicule,
-                );
-              }).toList(),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView(
+                    children: toutbureaux.map((typeVehicule) {
+                      final isSelected = selectedbureaux.contains(typeVehicule);
+                      return TypeVehiculeListTileWidget(
+                        typeVehicule: typeVehicule,
+                        isSelected: isSelected,
+                        onSelectedTypeVehicule: selectTypeVehicule,
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title: Text('selectionnez le typeVehicule',
+      title: Text('seleccione el tipo de Vector',
           style: TextStyle(
               color: Colors.white, fontSize: getProportionateScreenWidth(20))),
       actions: [
@@ -106,7 +112,7 @@ class _TypeVehiculeProviderPageState extends State<TypeVehiculeProviderPage> {
         const SizedBox(width: 8),
       ],
       titleTextStyle: const TextStyle(color: Colors.white),
-      backgroundColor: kSecondaryColor,
+      backgroundColor: pPrimaryColor,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: SearchWidget(
@@ -116,7 +122,7 @@ class _TypeVehiculeProviderPageState extends State<TypeVehiculeProviderPage> {
             this.toutbureaux =
                 this.toutbureau.where(containsSearchText).toList();
           }),
-          hintText: 'Recherche de typeVehicule',
+          hintText: 'Búsqueda de tipoVehicule',
         ),
       ),
     );

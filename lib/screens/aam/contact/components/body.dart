@@ -22,8 +22,7 @@ class Body extends StatelessWidget {
                     color: pPrimaryColor,
                     fontWeight: FontWeight.w900)),
 
-            Text(
-                "¿Tienes una pregunta, quejas, sugerencias? ¡Hablemos de ello!",
+            Text("¿Tienes alguna pero, queja o sugerencia? Hablemos de ello",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: getProportionateScreenWidth(18),

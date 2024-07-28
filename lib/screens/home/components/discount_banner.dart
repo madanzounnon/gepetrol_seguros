@@ -64,7 +64,7 @@ class DiscountBanner extends StatelessWidget {
                       style:
                           TextStyle(fontSize: getProportionateScreenWidth(13)),
                       text:
-                          "GEPetrol Seguros, S.A. es la primera empresa de seguros de derecho nacional en Guinea Ecuatorial. Disponemos de la licencia CIMA obtenida en diciembre del 2018 y nuestra sede se encuentra en Malabo."),
+                          "Gepetrol Seguros, S.A. es la primera empresa de seguros de derecho Nacional en Guinea Ecuatorial, con Autorizaciones Nacionales e Internacionales."),
                 ],
               ),
             ),

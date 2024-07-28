@@ -26,6 +26,7 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
   List<Categorie> allbureaux = [];
   List<Categorie> toutbureaux = [];
   List<Categorie> toutbureau = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
         toutbureaux = toutbureau.where(containsSearchText).toList();
         print("toutbureaux.toString()");
         print(toutbureaux.toString());
+        _isLoading = false;
       });
     }
   }
@@ -72,28 +74,32 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: toutbureaux.map((categorie) {
-                final isSelected = selectedbureaux.contains(categorie);
-                return CategorieListTileWidget(
-                  categorie: categorie,
-                  isSelected: isSelected,
-                  onSelectedCategorie: selectCategorie,
-                );
-              }).toList(),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView(
+                    children: toutbureaux.map((categorie) {
+                      final isSelected = selectedbureaux.contains(categorie);
+                      return CategorieListTileWidget(
+                        categorie: categorie,
+                        isSelected: isSelected,
+                        onSelectedCategorie: selectCategorie,
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title: Text('selectionnez le categorie',
+      title: Text('seleccione la categoría',
           style: TextStyle(
               color: Colors.white, fontSize: getProportionateScreenWidth(20))),
       actions: [
@@ -104,7 +110,7 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
         const SizedBox(width: 8),
       ],
       titleTextStyle: const TextStyle(color: Colors.white),
-      backgroundColor: kSecondaryColor,
+      backgroundColor: pPrimaryColor,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: SearchWidget(
@@ -114,7 +120,7 @@ class _CategorieProviderPageState extends State<CategorieProviderPage> {
             this.toutbureaux =
                 this.toutbureau.where(containsSearchText).toList();
           }),
-          hintText: 'Recherche de categorie',
+          hintText: 'Búsqueda de categorías',
         ),
       ),
     );

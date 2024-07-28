@@ -34,7 +34,6 @@ class _FactureScreenState extends State<FactureScreen> {
     final res = await apiService.getFactureById();
     if (res.statusCode == 200) {
       final maps = res.data["response"];
-
       setState(() {
         print('mapsmapsmapsmapsmapsmapsmaps');
         print(maps);
@@ -98,7 +97,7 @@ class _FactureScreenState extends State<FactureScreen> {
       automaticallyImplyLeading: false,
       centerTitle: true,
       title: Text(
-        "Mes Factures",
+        "Mis Facturas",
         style: TextStyle(
             fontSize: getProportionateScreenWidth(20),
             fontWeight: FontWeight.bold),

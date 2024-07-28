@@ -94,7 +94,7 @@ class ApiService {
       final SharedPreferences sharedPreferences = await _sharedPreferences;
       final abonneId = sharedPreferences.getString("userId");
 
-      (abonneId != null) ? facturetMap["user_id"] = abonneId : null;
+      // (abonneId != null) ? facturetMap["user_id"] = abonneId : null;
       final response = await dio
           .post('/brands/${facturetMap["brands"]}/invoice', data: facturetMap);
       return response;

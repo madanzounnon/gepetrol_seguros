@@ -599,7 +599,7 @@ class _SouscrireState extends State<Souscrire> {
                                     //mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        "Establece tu contraseña y \nnombre de usuario",
+                                        "Establece tu nombre de usuario \ny contraseña",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize:
@@ -617,6 +617,7 @@ class _SouscrireState extends State<Souscrire> {
                                   controller: usernameCtl,
                                   validInput: true,
                                   labeltext: "Nombre del usuario",
+                                  hintText: "Introduce tu nombre de usuario",
                                 ),
                                 buildPasswordFormField(),
                                 SizedBox(
@@ -923,7 +924,7 @@ class _SouscrireState extends State<Souscrire> {
       },
       decoration: const InputDecoration(
         labelText: "Nombre*",
-        hintText: "Introduzca su nombre",
+        hintText: "Introduce tus nombre",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -951,7 +952,7 @@ class _SouscrireState extends State<Souscrire> {
       },
       decoration: const InputDecoration(
         labelText: "Apellidos*",
-        hintText: "Introduzca su apellidos",
+        hintText: "Introduce tus apellidos",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -1073,7 +1074,7 @@ class _SouscrireState extends State<Souscrire> {
       children: [
         DropdownButtonFormField(
             decoration: const InputDecoration(
-              labelText: "Civilidad*",
+              labelText: "Sexo*",
               hintText: "Elige tu propia civilidad",
               floatingLabelBehavior: FloatingLabelBehavior.always,
               //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Bell.svg"),
@@ -1098,8 +1099,8 @@ class _SouscrireState extends State<Souscrire> {
               return null;
             },
             items: const [
-              DropdownMenuItem(child: Text("Masculin"), value: "Masculin"),
-              DropdownMenuItem(child: Text("Féminim"), value: "Féminim"),
+              DropdownMenuItem(child: Text("Hombre"), value: "Hombre"),
+              DropdownMenuItem(child: Text("Mujer"), value: "Mujer"),
               // DropdownMenuItem(child: Text("Mademoiselle"), value: "Mdme"),
             ])
       ],

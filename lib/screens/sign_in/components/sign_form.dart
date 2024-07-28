@@ -106,7 +106,7 @@ class _SignFormState extends State<SignForm> {
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: const Text(
-                  "¿Olvidé mi contraseña ?",
+                  "¿Olvidé mi contraseña",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: pPrimaryColor),

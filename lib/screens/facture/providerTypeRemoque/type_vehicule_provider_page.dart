@@ -36,6 +36,7 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
     getAllTypeRemoques();
   }
 
+  bool _isLoading = true;
   getAllTypeRemoques() async {
     final res = await apiService.getAllTypeRemoque();
     if (res!.statusCode != null && res.statusCode == 200) {
@@ -50,6 +51,7 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
         toutbureaux = toutbureau.where(containsSearchText).toList();
         print("toutbureaux.toString()");
         print(toutbureaux.toString());
+        _isLoading = false;
       });
     }
   }
@@ -74,28 +76,32 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: toutbureaux.map((typeRemoque) {
-                final isSelected = selectedbureaux.contains(typeRemoque);
-                return TypeRemoqueListTileWidget(
-                  typeRemoque: typeRemoque,
-                  isSelected: isSelected,
-                  onSelectedTypeRemoque: selectTypeRemoque,
-                );
-              }).toList(),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView(
+                    children: toutbureaux.map((typeRemoque) {
+                      final isSelected = selectedbureaux.contains(typeRemoque);
+                      return TypeRemoqueListTileWidget(
+                        typeRemoque: typeRemoque,
+                        isSelected: isSelected,
+                        onSelectedTypeRemoque: selectTypeRemoque,
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title: Text('selectionnez le type de Remorque',
+      title: Text('seleccione el tipo de Remolque',
           style: TextStyle(
               color: Colors.white, fontSize: getProportionateScreenWidth(20))),
       actions: [
@@ -106,7 +112,7 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
         const SizedBox(width: 8),
       ],
       titleTextStyle: const TextStyle(color: Colors.white),
-      backgroundColor: kSecondaryColor,
+      backgroundColor: pPrimaryColor,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: SearchWidget(
@@ -116,7 +122,7 @@ class _TypeRemoqueProviderPageState extends State<TypeRemoqueProviderPage> {
             this.toutbureaux =
                 this.toutbureau.where(containsSearchText).toList();
           }),
-          hintText: 'Recherche de typeRemoque',
+          hintText: 'Búsqueda de tipoRemoque',
         ),
       ),
     );

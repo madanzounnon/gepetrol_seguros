@@ -48,6 +48,7 @@ class _PowerProviderPageState extends State<PowerProviderPage> {
         });
         toutpower = getPrioritizedpowers(allpowers);
         toutpowers = toutpower.where(containsSearchText).toList();
+        _isLoading = false;
       });
     }
   }
@@ -82,7 +83,7 @@ class _PowerProviderPageState extends State<PowerProviderPage> {
         const SizedBox(width: 8),
       ],
       titleTextStyle: const TextStyle(color: Colors.white),
-      backgroundColor: kSecondaryColor,
+      backgroundColor: pPrimaryColor,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: SearchWidget(
@@ -94,6 +95,8 @@ class _PowerProviderPageState extends State<PowerProviderPage> {
     );
   }
 
+  bool _isLoading = true;
+
   void selectPower(Power power) {
     Navigator.pop(context, power);
   }
@@ -104,24 +107,28 @@ class _PowerProviderPageState extends State<PowerProviderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: (allpowers.isEmpty)
-          ? const Center(child: Text("No hay energía para combustible"))
-          : Column(
-              children: <Widget>[
-                Expanded(
-                  child: ListView(
-                    children: toutpowers.map((power) {
-                      final isSelected = selectedpowers.contains(power);
-                      return PowerListTileWidget(
-                        power: power,
-                        isSelected: isSelected,
-                        onSelectedPower: selectPower,
-                      );
-                    }).toList(),
-                  ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : (allpowers.isEmpty)
+              ? const Center(child: Text("No hay energía para combustible"))
+              : Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: ListView(
+                        children: toutpowers.map((power) {
+                          final isSelected = selectedpowers.contains(power);
+                          return PowerListTileWidget(
+                            power: power,
+                            isSelected: isSelected,
+                            onSelectedPower: selectPower,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 }

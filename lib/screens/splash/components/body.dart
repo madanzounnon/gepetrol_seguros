@@ -93,7 +93,7 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 2),
                     DefaultButton(
-                      text: "Continuer",
+                      text: "Continuar",
                       press: () {
                         Navigator.pushAndRemoveUntil(
                             context,

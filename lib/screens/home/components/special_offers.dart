@@ -80,14 +80,14 @@ class _SpecialOffersState extends State<SpecialOffers> {
             ),
             SpecialOfferCard(
               image: "assets/images/o4.jpg",
-              category: "SEGURO MULTIRIESGO HOGAR",
+              category: "Seguros Multiriesgo HogarR",
               numOfBrands:
-                  "Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares, Accidentes en el trayecto entre la casa y el colegio, Gastos medicos",
+                  "Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares,..",
               // press: () {},
             ),
             SpecialOfferCard(
               image: "assets/images/o3.jpg",
-              category: "SEGURO DE ACCIDENTES",
+              category: "Seguros de Accidentes",
               numOfBrands:
                   "Este seguro cubre los accidentes sufridos por el asegurado, bien sea en el ámbito privado como en el profesional.",
               // press: () {},

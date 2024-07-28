@@ -90,7 +90,7 @@ class CartFacture extends StatelessWidget {
                                               color: kPrimaryColor,
                                               fontWeight: FontWeight.w800),
                                         ),
-                                        Text("crea el ${facture.createdAt}",
+                                        Text("Creado el ${facture.createdAt}",
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontSize:
@@ -175,7 +175,7 @@ class CartFacture extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Sous-total:  ".toUpperCase(),
+                        "Sub-total:".toUpperCase(),
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(15),
                         ),

@@ -173,7 +173,7 @@ class _InformationPersonnelleScreenState
                 bottom: getProportionateScreenHeight(20)),
             child: Column(children: [
               ItemElement(
-                cle: "Usuario no",
+                cle: "Usuario",
                 textcolor: pPrimaryColor,
                 valeur: user.username,
               ),
@@ -189,7 +189,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Num de Tél',
+                cle: 'Teléfono',
                 textcolor: pPrimaryColor,
                 valeur: user.phone,
               ),
@@ -233,7 +233,7 @@ class _InformationPersonnelleScreenState
                 bottom: getProportionateScreenHeight(20)),
             child: Column(children: [
               ItemElement(
-                cle: 'Apellido',
+                cle: 'Apellidos',
                 textcolor: pPrimaryColor,
                 valeur: user.first_name,
               ),
@@ -249,7 +249,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Civilidad',
+                cle: 'Sexo',
                 textcolor: pPrimaryColor,
                 valeur: user.sex,
               ),
@@ -257,7 +257,7 @@ class _InformationPersonnelleScreenState
                 height: getProportionateScreenHeight(8),
               ),
               ItemElement(
-                cle: 'Teléfono"',
+                cle: 'Teléfono',
                 textcolor: pPrimaryColor,
                 valeur: user.phone,
               ),

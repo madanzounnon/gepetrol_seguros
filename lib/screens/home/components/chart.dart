@@ -28,11 +28,11 @@ class _ChartClientState extends State<ChartClient> {
       setState(() {
         dataMap["Factura"] =
             double.parse(res.data["response"]["invoices"].toString());
-        dataMap["pending complaints"] =
+        dataMap["Sinietros progresso"] =
             double.parse(res.data["response"]["pending_complaints"].toString());
-        dataMap["opened complaints"] =
+        dataMap["Sinietros abiertos"] =
             double.parse(res.data["response"]["opened_complaints"].toString());
-        dataMap["closed complaints"] =
+        dataMap["Sinietros cerrados"] =
             double.parse(res.data["response"]["closed_complaints"].toString());
         _isLoading = true;
       });
@@ -62,7 +62,7 @@ class _ChartClientState extends State<ChartClient> {
             //   press: () {},
             // ),
             Text(
-              "Mis estadísticas",
+              "Mis Estadísticas",
               style: TextStyle(
                   fontSize: getProportionateScreenWidth(18),
                   color: pPrimaryColor,

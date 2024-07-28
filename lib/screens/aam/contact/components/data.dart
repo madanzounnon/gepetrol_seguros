@@ -3,21 +3,21 @@ import 'package:gepetrol_eguros/constants.dart';
 
 List data = [
   {
-    "name": "Envoyez-nous un e-mail",
-    "url": "mailto:info@gepetrolseguros.org",
-    'subtitle': "info@gepetrolseguros.org",
+    "name": "Mándanos un email",
+    "url": "mailto:info@gepetrol-seguros.com",
+    'subtitle': "info@gepetrol-seguros.com",
     "icon": FontAwesomeIcons.at,
     "color": pPrimaryColor,
   },
   {
     "name": "Llámenos a",
-    'subtitle': "(+229) 21 60 40 25",
-    "url": "tel:+22921604025",
+    'subtitle': "123445566778",
+    "url": "tel:+123445566778 ",
     "icon": FontAwesomeIcons.phone,
     "color": pPrimaryColor,
   },
   {
-    "name": "Envíenos un mensaje de texto",
+    "name": "Envíenos un mensaje",
     'subtitle': "(+240) 333 099 311",
     "url": "sms:+240333099311",
     "icon": FontAwesomeIcons.commentSms,
@@ -25,14 +25,14 @@ List data = [
   },
 
   {
-    "name": "Domicilio Malabo",
+    "name": "Dirección Malabo",
     'subtitle': "C/ Enrique Nvo 89, Malabo EG",
     "url": "https://gepetrol-seguros.com/",
     "icon": FontAwesomeIcons.mapLocation,
     "color": pPrimaryColor,
   },
   {
-    "name": "Domicilio Bata",
+    "name": "Dirección Bata",
     'subtitle': "Ctra. del puerto en Comandachina",
     "url": "https://gepetrol-seguros.com/",
     "icon": FontAwesomeIcons.mapLocation,

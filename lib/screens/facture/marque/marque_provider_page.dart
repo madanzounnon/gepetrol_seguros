@@ -22,6 +22,7 @@ class MarqueProviderPage extends StatefulWidget {
 class _MarqueProviderPageState extends State<MarqueProviderPage> {
   String text = '';
   final ApiService apiService = ApiService();
+  bool _isLoading = true;
 
   List<Marque> selectedbureaux = [];
   List<Marque> allbureaux = [];
@@ -47,6 +48,7 @@ class _MarqueProviderPageState extends State<MarqueProviderPage> {
         print(allbureaux);
         toutbureaux = toutbureau.where(containsSearchText).toList();
         print(toutbureaux.toString());
+        _isLoading = false;
       });
     }
   }
@@ -71,28 +73,34 @@ class _MarqueProviderPageState extends State<MarqueProviderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: toutbureaux.map((marque) {
-                final isSelected = selectedbureaux.contains(marque);
-                return MarqueListTileWidget(
-                  marque: marque,
-                  isSelected: isSelected,
-                  onSelectedMarque: selectMarque,
-                );
-              }).toList(),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView(
+                    padding: EdgeInsets.only(
+                        bottom: getProportionateScreenHeight(5)),
+                    children: toutbureaux.map((marque) {
+                      final isSelected = selectedbureaux.contains(marque);
+                      return MarqueListTileWidget(
+                        marque: marque,
+                        isSelected: isSelected,
+                        onSelectedMarque: selectMarque,
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
   PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title: Text('selectionnez le marque',
+      title: Text('seleccione la marca',
           style: TextStyle(
               color: Colors.white, fontSize: getProportionateScreenWidth(20))),
       actions: [
@@ -103,7 +111,7 @@ class _MarqueProviderPageState extends State<MarqueProviderPage> {
         const SizedBox(width: 8),
       ],
       titleTextStyle: const TextStyle(color: Colors.white),
-      backgroundColor: kSecondaryColor,
+      backgroundColor: pPrimaryColor,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: SearchWidget(
@@ -113,7 +121,7 @@ class _MarqueProviderPageState extends State<MarqueProviderPage> {
             this.toutbureaux =
                 this.toutbureau.where(containsSearchText).toList();
           }),
-          hintText: 'Recherche de marque',
+          hintText: 'Búsqueda de marca',
         ),
       ),
     );

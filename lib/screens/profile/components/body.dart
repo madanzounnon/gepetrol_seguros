@@ -235,7 +235,7 @@ class _BodyState extends State<Body> {
                                         setState(() {});
                                       },
                                       child: const Text(
-                                        'Modifier',
+                                        'Modificar',
                                         style: TextStyle(color: pPrimaryColor),
                                       ),
                                     ),
