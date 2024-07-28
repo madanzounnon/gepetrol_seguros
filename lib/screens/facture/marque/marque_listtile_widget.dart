@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:gepetrol_eguros/constants.dart';
 import '../../../models/marque.dart';
 import '../../../size_config.dart';
 
@@ -44,6 +45,7 @@ class MarqueListTileWidget extends StatelessWidget {
       leading: (marque.image != null)
           ? CircleAvatar(
               radius: 30,
+              backgroundColor: Colors.white,
               backgroundImage:
                   NetworkImage("https://seguros.fifonsi.net${marque.image}"),
             )
@@ -51,7 +53,7 @@ class MarqueListTileWidget extends StatelessWidget {
               radius: 30,
               // backgroundImage:
               //     NetworkImage("https://seguros.fifonsi.net${marque.image}"),
-              backgroundColor: color.withOpacity(0.30),
+              backgroundColor: kPrimaryColor,
               child: Text(
                 marque.title.split('')[0],
                 style: TextStyle(

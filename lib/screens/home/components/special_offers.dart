@@ -80,7 +80,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
             ),
             SpecialOfferCard(
               image: "assets/images/o4.jpg",
-              category: "Seguros Multiriesgo HogarR",
+              category: "Seguros Multiriesgo Hogar",
               numOfBrands:
                   "Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares,..",
               // press: () {},
