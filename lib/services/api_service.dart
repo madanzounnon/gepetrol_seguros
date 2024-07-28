@@ -93,12 +93,20 @@ class ApiService {
     try {
       final SharedPreferences sharedPreferences = await _sharedPreferences;
       final abonneId = sharedPreferences.getString("userId");
+
       (abonneId != null) ? facturetMap["user_id"] = abonneId : null;
-      print(facturetMap);
-      print('/brands/${facturetMap["brands"]}/invoice');
       final response = await dio
           .post('/brands/${facturetMap["brands"]}/invoice', data: facturetMap);
-      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response!;
+    }
+  }
+
+  Future<Response> addPlainte(Map<String, dynamic> plaintMap) async {
+    addInterceptors();
+    try {
+      final response = await dio.post('/complaints', data: plaintMap);
       return response;
     } on DioError catch (e) {
       return e.response!;
@@ -124,6 +132,27 @@ class ApiService {
       return response;
     } on DioError catch (e) {
       return e.response;
+    }
+  }
+
+  Future<Response?> getSatat() async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/stats');
+      print(response);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  sendEmail(int id) async {
+    addInterceptors();
+    try {
+      final response = await dio.get('/invoices/$id/send');
+      return response;
+    } on DioError catch (e) {
+      return e.response!;
     }
   }
 

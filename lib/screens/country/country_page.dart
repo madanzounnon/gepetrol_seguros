@@ -11,7 +11,7 @@ import 'utils.dart';
 
 class CountryPage extends StatefulWidget {
   final bool isMultiSelection;
-  final List<Country> countries;
+  final List<Countryz> countries;
   //static String routeName ="country";
   const CountryPage({
     Key? key,
@@ -25,7 +25,7 @@ class CountryPage extends StatefulWidget {
 
 class _CountryPageState extends State<CountryPage> {
   String text = '';
-  List<Country> selectedCountries = [];
+  List<Countryz> selectedCountries = [];
   bool isNative = false;
 
   @override
@@ -35,7 +35,7 @@ class _CountryPageState extends State<CountryPage> {
     selectedCountries = widget.countries;
   }
 
-  bool containsSearchText(Country country) {
+  bool containsSearchText(Countryz country) {
     final name = isNative ? country.nativeName : country.name;
     final textLower = text.toLowerCase();
     final countryLower = name.toLowerCase();
@@ -43,7 +43,7 @@ class _CountryPageState extends State<CountryPage> {
     return countryLower.contains(textLower);
   }
 
-  List<Country> getPrioritizedCountries(List<Country> countries) {
+  List<Countryz> getPrioritizedCountries(List<Countryz> countries) {
     final notSelectedCountries = List.of(countries)
       ..removeWhere((country) => selectedCountries.contains(country));
 
@@ -131,7 +131,7 @@ class _CountryPageState extends State<CountryPage> {
     );
   }
 
-  void selectCountry(Country country) {
+  void selectCountry(Countryz country) {
     if (widget.isMultiSelection) {
       final isSelected = selectedCountries.contains(country);
       setState(() => isSelected

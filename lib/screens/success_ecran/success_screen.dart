@@ -62,7 +62,14 @@ class SuccessScreen extends StatelessWidget {
                 text: btnText,
                 press: () {
                   //Navigator.pushReplacementNamed(context, redirectTo);
-                  Navigator.pushReplacementNamed(context, redirectTo);
+                  // Navigator.pushReplacementNamed(context, redirectTo);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EntryPoint(
+                              currentPage: 3,
+                            )),
+                  );
                 },
               ),
             ],

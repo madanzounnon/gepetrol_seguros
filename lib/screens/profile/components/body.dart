@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gepetrol_eguros/helper/utile.dart';
+import 'package:gepetrol_eguros/screens/entry_point.dart';
 import 'package:gepetrol_eguros/screens/facture/facture_screens.dart';
 import 'package:gepetrol_eguros/screens/information_personnelle/information_personnelle.dart';
 import 'package:gepetrol_eguros/screens/plainte/plainte.dart';
@@ -294,14 +295,26 @@ class _BodyState extends State<Body> {
             text: "Mis facturas",
             icon: "assets/icons/Error.svg",
             press: () {
-              Navigator.pushNamed(context, FactureScreen.routeName);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EntryPoint(
+                          currentPage: 3,
+                        )),
+              );
             },
           ),
           ProfileMenu(
             text: "Siniestros",
             icon: "assets/icons/Conversation.svg",
             press: () {
-              Navigator.pushNamed(context, PlainteScreen.routeName);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EntryPoint(
+                          currentPage: 1,
+                        )),
+              );
             },
           ),
           ProfileMenu(

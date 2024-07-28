@@ -3,10 +3,10 @@ import 'package:gepetrol_eguros/models/country.dart';
 import 'package:gepetrol_eguros/screens/country/component/flag_widget.dart';
 
 class CountryListTileWidget extends StatelessWidget {
-  final Country country;
+  final Countryz country;
   final bool isNative;
   final bool isSelected;
-  final ValueChanged<Country> onSelectedCountry;
+  final ValueChanged<Countryz> onSelectedCountry;
 
   const CountryListTileWidget({
     Key? key,

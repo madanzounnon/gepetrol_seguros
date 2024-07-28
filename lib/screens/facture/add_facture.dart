@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gepetrol_eguros/helper/CustomInputFormatter.dart';
+import 'package:gepetrol_eguros/models/user.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../components/custom_surfix_icon.dart';
@@ -10,6 +13,7 @@ import '../../components/form_error.dart';
 import '../../components/secondary_button.dart';
 import '../../constants.dart';
 import '../../helper/form.dart';
+import '../../helper/store.dart';
 import '../../helper/utile.dart';
 import '../../models/accessorie.dart';
 import '../../models/api_error.dart';
@@ -83,6 +87,18 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
       });
   }
 
+  getUser() async {
+    User users = await StoreAuth().getUser();
+    print(users);
+    firstnameCtl.text = users.first_name;
+    lastnameCtl.text = users.last_name;
+    emailCtl.text = users.email;
+    telephoneCtl.text = users.phone!;
+    setState(() {
+      userId = users.id;
+    });
+  }
+
   final List<String?> errors = [];
 
   void removeError({String? error}) {
@@ -94,11 +110,13 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
 
   List<String>? userInfos;
   int total = 0;
+  int userId = 0;
   @override
   void initState() {
     super.initState();
     total = 0;
     getAccessories();
+    getUser();
   }
 
   Future<void> getAccessories() async {
@@ -304,6 +322,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                             labeltext: "¿Y el modelo? ",
                             validInput: true,
                             estreadonly: false),
+
                         inputForm(
                             name: 'regisNumberCtl',
                             controller: regisNumberCtl,
@@ -418,7 +437,40 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                           buildLastNameFormField(),
                           SizedBox(height: getProportionateScreenHeight(20)),
                           IntlPhoneField(
-                            //controller: telephoneCtl,
+                            controller: telephoneCtl,
+                            countries: const [
+                              Country(
+                                name: "Equatorial Guinea",
+                                nameTranslations: {
+                                  "sk": "Rovníková Guinea",
+                                  "se": "Ekvatoriála Guinea",
+                                  "pl": "Gwinea Równikowa",
+                                  "no": "Ekvatorial-Guinea",
+                                  "ja": "赤道ギニア",
+                                  "it": "Guinea Equatoriale",
+                                  "zh": "赤道几内亚",
+                                  "nl": "Equatoriaal-Guinea",
+                                  "de": "Äquatorialguinea",
+                                  "fr": "Guinée équatoriale",
+                                  "es": "Guinea Ecuatorial",
+                                  "en": "Equatorial Guinea",
+                                  "pt_BR": "Guiné Equatorial",
+                                  "sr-Cyrl": "Екваторијална Гвинеја",
+                                  "sr-Latn": "Ekvatorijalna Gvineja",
+                                  "zh_TW": "赤道幾內亞",
+                                  "tr": "Ekvator Ginesi",
+                                  "ro": "Guineea Ecuatorială",
+                                  "ar": "غينيا الاستوائية",
+                                  "fa": "گینه استوایی",
+                                  "yue": "赤道幾內亞"
+                                },
+                                flag: "🇬🇶",
+                                code: "GQ",
+                                dialCode: "240",
+                                minLength: 9,
+                                maxLength: 9,
+                              ),
+                            ],
                             onSaved: (newValue) =>
                                 telephoneCtl.text = newValue!.number,
                             showCountryFlag: true,
@@ -426,6 +478,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                               Icons.arrow_drop_down,
                               color: Colors.grey,
                             ),
+                            showDropdownIcon: false,
                             decoration: const InputDecoration(
                               labelText: "Teléfono",
                               hintText: "Teléfono",
@@ -434,7 +487,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                               filled: false,
                               suffixIcon: Icon(FontAwesomeIcons.phone),
                             ),
-                            initialCountryCode: 'BJ',
+                            initialCountryCode: 'GQ',
                             onChanged: (text) => setState(() {
                               if (text.isValidNumber()) {
                                 telephoneCtl.text = text.number;

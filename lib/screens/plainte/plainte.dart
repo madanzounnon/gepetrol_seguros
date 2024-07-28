@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gepetrol_eguros/models/api_error.dart';
 
 import '../../components/default_button.dart';
 import '../../constants.dart';
@@ -42,7 +44,25 @@ class _PlainteScreenState extends State<PlainteScreen> {
         });
         _isLoading = false;
       });
-      print(plaintes.toString());
+    }
+  }
+
+  Future<void> addPlainte() async {
+    Map<String, dynamic> plaintMap = {
+      "title": titulosController.text.trim(),
+      'description': descripcionController.text.trim(),
+    };
+    if (_formKey.currentState!.validate()) {
+      //Utile.loarder(context);
+      Response res = await apiService.addPlainte(plaintMap);
+      if (res.statusCode == 200 && res.data["success"]) {
+        Navigator.of(context).pop();
+        Utile.messageSuccess(context, res.data["message"]);
+        getAllPlainteByClient();
+      } else {
+        ApiError apiError = ApiError.fromMap(res.data);
+        Utile.messageErro(context, '${apiError.message}');
+      }
     }
   }
 
@@ -98,7 +118,7 @@ class _PlainteScreenState extends State<PlainteScreen> {
                 right: getProportionateScreenWidth(20),
                 //Cela empêchera le clavier logiciel de couvrir les champs de texte
                 bottom: MediaQuery.of(context).viewInsets.bottom +
-                    getProportionateScreenHeight(50),
+                    getProportionateScreenHeight(100),
               ),
               child: Form(
                 key: _formKey,
@@ -115,19 +135,26 @@ class _PlainteScreenState extends State<PlainteScreen> {
                     inputForm(
                         name: "Titulos",
                         controller: titulosController,
+                        validInput: true,
                         estreadonly: false,
                         hintText: "Títulos",
                         labeltext: "Títulos"),
                     inputForm(
                       type: TextInputType.multiline,
+                      maxLines: 7,
+                      minLines: 7,
                       name: "Descripcion",
                       controller: descripcionController,
                       labeltext: "Descripción",
-                      minLines: 3,
+                      hintText: '',
+                      validInput: true,
                       onChanged: (value) {},
                     ),
                     DefaultButton(
-                        press: () async {}, text: "Enviar un Nuevo Ticket")
+                        press: () async {
+                          addPlainte();
+                        },
+                        text: "Enviar un Nuevo Ticket")
                   ],
                 ),
               ),

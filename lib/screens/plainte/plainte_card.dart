@@ -26,7 +26,7 @@ class PlainteCard extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: kPrimaryColor,
                     maxRadius: 27,
-                    child: Text(plainte.status.toString()),
+                    child: Text(plainte.status.split('')[0]),
                   ),
                   SizedBox(
                     width: getProportionateScreenWidth(16),
@@ -54,7 +54,7 @@ class PlainteCard extends StatelessWidget {
                           Text.rich(
                             TextSpan(text: "Statut: ", children: [
                               TextSpan(
-                                  text: plainte.status.toString(),
+                                  text: plainte.status,
                                   style: const TextStyle(
                                       color: kPrimaryColor,
                                       fontWeight: FontWeight.w700)),

@@ -46,6 +46,13 @@ class _FactureScreenState extends State<FactureScreen> {
     }
   }
 
+  Future<void> sendMail(int? id) async {
+    final res = await apiService.sendEmail(id!);
+    if (res.statusCode == 200) {
+      Utile.messageSuccess(context, res.data["message"]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +78,10 @@ class _FactureScreenState extends State<FactureScreen> {
                                         const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) =>
                                         CartFacture(
-                                            facture: Factures[index],
-                                            addRefacture: _showForm),
+                                      facture: Factures[index],
+                                      context: context,
+                                      //sendMail:sendMail(Factures[index].id)
+                                    ),
                                   ),
                                   SizedBox(
                                     height: getProportionateScreenHeight(45),
@@ -82,60 +91,6 @@ class _FactureScreenState extends State<FactureScreen> {
                       )
                     : Utile.isEmpty("Usted no tiene facturas todavía"),
               ));
-  }
-
-  void _showForm(Facture Facture) async {
-    _FactureController.text = Facture.id.toString();
-    showModalBottomSheet(
-        context: context,
-        elevation: 5,
-        isScrollControlled: true,
-        builder: (_) => Container(
-              padding: EdgeInsets.only(
-                top: 15,
-                left: getProportionateScreenWidth(20),
-                right: getProportionateScreenWidth(20),
-                //Cela empêchera le clavier logiciel de couvrir les champs de texte
-                bottom: MediaQuery.of(context).viewInsets.bottom +
-                    getProportionateScreenHeight(100),
-              ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: getProportionateScreenHeight(20)),
-                    Text("Se réabonner à ${Facture.code}",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: getProportionateScreenWidth(18))),
-                    SizedBox(height: getProportionateScreenHeight(20)),
-                    inputForm(
-                        name: "Titulos",
-                        controller: titulosController,
-                        estreadonly: false,
-                        type: TextInputType.multiline,
-                        maxLines: 5,
-                        hintText: "Títulos",
-                        labeltext: "Títulos"),
-                    inputForm(
-                      type: TextInputType.number,
-                      name: "Descripción",
-                      controller: descripcionController,
-                      labeltext: "Descripción",
-                      onChanged: (value) {
-                        setState(() {
-                          titulosController.text = (Facture.total).toString();
-                        });
-                      },
-                    ),
-                    DefaultButton(
-                        press: () async {}, text: "Enviar un Nuevo Ticket")
-                  ],
-                ),
-              ),
-            ));
   }
 
   AppBar buildAppBar(BuildContext context) {

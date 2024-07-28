@@ -31,24 +31,24 @@ class _BodyState extends State<Body> {
     {
       "text": "Seguro Médico",
       "content": "Una vida sin Seguro Médico, es una vida sin tranquilidad  ",
-      "image": "assets/images/3.png"
+      "image": "assets/images/seguro-medico.png"
     },
     {
       "text": "Seguros de Automóvil",
       "content": "¿Quieres Asegurar tu vehículo sin tener que desplazarte?",
-      "image": "assets/images/4.png"
+      "image": "assets/images/coche2.png"
     },
     {
       "text": "SEGURO MULTIRIESGO HOGAR",
       "content":
           """Cuyas garantias son: Responsabilidad civil, Accidentes ocurridos en el centro y extraescolares, Accidentes en el trayecto entre la casa y el colegio, Gastos medicos""",
-      "image": "assets/images/5.png"
+      "image": "assets/images/seguro-multiriesgo.png"
     },
     {
-      "text": "SEGURO MULTIRIESGO HOGAR",
+      "text": "Seguro Escolar",
       "content":
-          "Este seguro cubre la reparación de los daños que sufra su inmueble (vivienda) a consecuencia de:Incendio,Robo, Filtración de agua, Responsabilidad civil",
-      "image": "assets/images/6.png"
+          "El Seguro escolar es una póliza que cubre los daños sufridos y ocasionados por los estudiantes durante las actividades escolares y extra-escolares bajo supervisión de algún tutor asignado del centro.",
+      "image": "assets/images/seguro-escolar.png"
     },
   ];
   @override

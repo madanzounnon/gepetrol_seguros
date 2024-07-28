@@ -13,20 +13,20 @@ class CountryProvider with ChangeNotifier {
     });
   }
 
-  List<Country> _countries = [];
+  List<Countryz> _countries = [];
 
-  List<Country> get countries => _countries;
+  List<Countryz> get countries => _countries;
 
   Future loadCountries() async {
     final data = await rootBundle.loadString('assets/country_codes.json');
     final countriesJson = json.decode(data);
     //print(data);
     // print(countriesJson);
-    return countriesJson.keys.map<Country>((code) {
+    return countriesJson.keys.map<Countryz>((code) {
       final json = countriesJson[code];
       final newJson = json..addAll({'code': code.toLowerCase()});
       //print(newJson);
-      return Country.fromJson(newJson);
+      return Countryz.fromJson(newJson);
     }).toList()
       ..sort(Utils.ascendingSort);
   }

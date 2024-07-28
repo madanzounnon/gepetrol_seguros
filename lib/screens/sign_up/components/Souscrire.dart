@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:gepetrol_eguros/components/custom_surfix_icon.dart';
 import 'package:gepetrol_eguros/components/default_button.dart';
@@ -328,6 +329,39 @@ class _SouscrireState extends State<Souscrire> {
                                 SizedBox(
                                     height: getProportionateScreenHeight(20)),
                                 IntlPhoneField(
+                                  countries: const [
+                                    Country(
+                                      name: "Equatorial Guinea",
+                                      nameTranslations: {
+                                        "sk": "Rovníková Guinea",
+                                        "se": "Ekvatoriála Guinea",
+                                        "pl": "Gwinea Równikowa",
+                                        "no": "Ekvatorial-Guinea",
+                                        "ja": "赤道ギニア",
+                                        "it": "Guinea Equatoriale",
+                                        "zh": "赤道几内亚",
+                                        "nl": "Equatoriaal-Guinea",
+                                        "de": "Äquatorialguinea",
+                                        "fr": "Guinée équatoriale",
+                                        "es": "Guinea Ecuatorial",
+                                        "en": "Equatorial Guinea",
+                                        "pt_BR": "Guiné Equatorial",
+                                        "sr-Cyrl": "Екваторијална Гвинеја",
+                                        "sr-Latn": "Ekvatorijalna Gvineja",
+                                        "zh_TW": "赤道幾內亞",
+                                        "tr": "Ekvator Ginesi",
+                                        "ro": "Guineea Ecuatorială",
+                                        "ar": "غينيا الاستوائية",
+                                        "fa": "گینه استوایی",
+                                        "yue": "赤道幾內亞"
+                                      },
+                                      flag: "🇬🇶",
+                                      code: "GQ",
+                                      dialCode: "240",
+                                      minLength: 9,
+                                      maxLength: 9,
+                                    ),
+                                  ],
                                   //controller: telephoneCtl,
                                   onSaved: (newValue) =>
                                       telephoneCtl.text = newValue!.number,
@@ -336,6 +370,7 @@ class _SouscrireState extends State<Souscrire> {
                                     Icons.arrow_drop_down,
                                     color: Colors.grey,
                                   ),
+                                  invalidNumberMessage: "Invalid Mobile Number",
                                   decoration: const InputDecoration(
                                     labelText: "Teléfono",
                                     hintText: "Teléfono",
@@ -344,7 +379,7 @@ class _SouscrireState extends State<Souscrire> {
                                     filled: false,
                                     suffixIcon: Icon(FontAwesomeIcons.phone),
                                   ),
-                                  initialCountryCode: 'BJ',
+                                  initialCountryCode: 'GQ',
                                   onChanged: (text) => setState(() {
                                     if (text.isValidNumber()) {
                                       telephoneCtl.text = text.number;

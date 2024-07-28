@@ -13,7 +13,7 @@ class DiscountBanner extends StatelessWidget {
 
   launchURL() async {
     final Uri url = Uri.parse(
-        'https://www.africabourse-am.net/index.php?option=com_content&view=article&id=2&catid=2/&Itemid=311&lang=fr#who');
+        'https://gepetrol-seguros.com/servicios/seguros-particulares/');
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }

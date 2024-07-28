@@ -37,7 +37,8 @@ class Body extends StatelessWidget {
               ],
             ),
             Text(
-                " Creación de GEPETROL SEGUROS S.A por GEPETROL, S.A. mediante Decreto presidencial número 56/2007. NIF. 01983GS-21. Registro de comercio Núm. 2794. Capital social 5.000.000.000 FCFA....",
+                """2007: Creación de GEPETROL SEGUROS S.A por GEPETROL, S.A. mediante Decreto presidencial número 56/2007. NIF. 01983GS-21. Registro de comercio Núm. 2794. Capital social 5.000.000.000 FCFA. 2018 : Dictamen favorable de la CIMA.
+CIMA: Conferencia Inter-africana del Mercado de Seguros compuesto de 14 Estados : Benín, Burkina Faso, Camerún, Centro África, Comoras, Congo(Brazzaville), Costa de Marfil, Gabón, Guinea Ecuatorial, Mali, Níger, Senegal, Chad y Togo.""",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontSize: getProportionateScreenWidth(13),

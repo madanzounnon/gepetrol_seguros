@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../helper/store.dart';
 import '../../../models/user.dart';
@@ -37,6 +38,14 @@ class _SpecialOffersState extends State<SpecialOffers> {
     getUser();
   }
 
+  launchURL() async {
+    final Uri url = Uri.parse(
+        'https://gepetrol-seguros.com/servicios/seguros-particulares/');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,7 +56,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
           child: SectionTitle(
             title: "Nuestros servicios",
             press: () {
-              //_launchURL();
+              launchURL();
             },
           ),
         ),

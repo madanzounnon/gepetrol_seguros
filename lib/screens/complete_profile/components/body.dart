@@ -17,18 +17,19 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
                 // Text("PASSER UN ORDRE", style: headingStyle),
-                Text(
+                const Text(
                   "Renseignez vos informations",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.03),
                 CompleteProfileForm(),
                 SizedBox(height: getProportionateScreenHeight(30)),
-                Text(
-                  "En continuant, confirmez que vous acceptez \n nos termes et conditions",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
-                ),
+                const Text(
+                    "En continuant, confirmez que vous acceptez \n nos termes et conditions",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(decoration: TextDecoration.underline)
+                    // Theme.of(context).textTheme.caption,
+                    ),
               ],
             ),
           ),

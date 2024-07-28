@@ -1,4 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+
+import 'package:gepetrol_eguros/services/api_service.dart';
 
 import '../../components/secondary_button.dart';
 import '../../constants.dart';
@@ -8,12 +13,22 @@ import '../../size_config.dart';
 
 class CartFacture extends StatelessWidget {
   final Facture facture;
-  final ValueChanged<Facture> addRefacture;
-  const CartFacture({
+  final BuildContext context;
+  // final Future<void> sendMail;
+  CartFacture({
     Key? key,
     required this.facture,
-    required this.addRefacture,
+    required this.context,
   }) : super(key: key);
+  ApiService apiService = ApiService();
+
+  Future<void> sendMail(int? id) async {
+    final res = await apiService.sendEmail(id!);
+    print(res.data);
+    if (res.statusCode == 200) {
+      Utile.messageSuccess(context, res.data["message"]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +82,7 @@ class CartFacture extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          facture.code!.toUpperCase(),
+                                          "${facture.code!.toUpperCase()} (${facture.regisNumber})",
                                           style: TextStyle(
                                               fontSize:
                                                   getProportionateScreenWidth(
@@ -82,7 +97,7 @@ class CartFacture extends StatelessWidget {
                                                     getProportionateScreenWidth(
                                                         11))),
                                         Text(
-                                            "${facture.firstName} ${facture.lastName}",
+                                            "${facture.firstName} ${facture.lastName}(${facture.regisNumber})",
                                             maxLines: 1,
                                             style: TextStyle(
                                               fontSize:
@@ -221,11 +236,7 @@ class CartFacture extends StatelessWidget {
                               backcolor: kPrimaryColor,
                               textcolor: Colors.white,
                               press: () {
-                                addRefacture(facture);
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (BuildContext context) {}));
+                                sendMail(facture.id);
                               },
                             ),
                           ]))

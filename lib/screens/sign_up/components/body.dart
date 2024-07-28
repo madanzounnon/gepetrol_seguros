@@ -44,11 +44,10 @@ class Body extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
-                Text(
-                  'En continuant, confirmez que vous acceptez \nnos termes et conditions',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
-                )
+                const Text(
+                    'En continuant, confirmez que vous acceptez \nnos termes et conditions',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(decoration: TextDecoration.underline))
               ],
             ),
           ),

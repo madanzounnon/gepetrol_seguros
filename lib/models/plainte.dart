@@ -1,11 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Plainte {
   final int id;
   final String title;
+  final String status;
   final String? description;
-  final int status;
+
   Plainte({
     required this.id,
     required this.title,
@@ -28,7 +28,7 @@ class Plainte {
       title: map['title'] as String,
       description:
           map['description'] != null ? map['description'] as String : null,
-      status: map['status'] as int,
+      status: map['state'] as String,
     );
   }
 
