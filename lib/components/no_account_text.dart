@@ -15,7 +15,7 @@ class NoAccountText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "¿Aún no eres cliente? ? ",
+          "¿Aún no eres cliente? ",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
