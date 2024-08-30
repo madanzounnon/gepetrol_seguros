@@ -32,6 +32,7 @@ import 'providerCategories/categorie_provider_page.dart';
 import 'providerPower/power_provider_page.dart';
 import 'providerTypeRemoque/type_vehicule_provider_page.dart';
 import 'providerTypeVehicule/type_vehicule_provider_page.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class AddFactureScreen extends StatefulWidget {
   const AddFactureScreen({super.key});
@@ -59,6 +60,15 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
   TextEditingController regisNumberCtl = TextEditingController();
   TextEditingController modeloCtl = TextEditingController();
   TextEditingController powerCtl = TextEditingController();
+
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: ' AA-###-AS',
+      filter: {
+        "#": RegExp(r'[0-9]'),
+        "A": RegExp(r'[A-Z]'),
+        "S": RegExp(r'[A-Z]?'),
+      },
+      type: MaskAutoCompletionType.lazy);
 
   final _formKey4 = GlobalKey<FormState>();
   String? email = '';
@@ -323,18 +333,44 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                             labeltext: "¿Y el modelo? ",
                             validInput: true,
                             estreadonly: false),
-
-                        inputForm(
-                            name: 'regisNumberCtl',
-                            controller: regisNumberCtl,
-                            labeltext: "¿Cuál es la matrícula de tu coche? *",
-                            hintText: "ej. AN - 252 - AZ",
-                            validInput: true,
-                            estreadonly: false,
-                            regExp: RegExp(
-                                r'^[A-Z]{2}\s*-\s*[0-9]{3}\s*-\s*[A-Z]{1,2}$'),
-                            regExpmessage:
-                                "Formato no válido.Formato esperado: XX-000-XX"),
+                        // inputForm(
+                        //     name: 'regisNumberCtl',
+                        //     controller: regisNumberCtl,
+                        //     labeltext: "¿Cuál es la matrícula de tu coche? *",
+                        //     hintText: "ej. AN - 252 - AZ",
+                        //     validInput: true,
+                        //     estreadonly: false,
+                        //     inputFormatters: [maskFormatter],
+                        //     regExp: RegExp(
+                        //         r'^[A-Z]{2}\s*-\s*[0-9]{3}\s*-\s*[A-Z]{1,2}$'),
+                        //     regExpmessage:
+                        //         "Formato no válido.Formato esperado: XX-000-XX"),
+                        TextFormField(
+                          controller: regisNumberCtl,
+                          inputFormatters: [maskFormatter],
+                          decoration: const InputDecoration(
+                            labelText: "¿Cuál es la matrícula de tu coche? *",
+                            hintText: "ej. AN-252-AZ",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            //suffixIcon:CustomSurffixIcon(svgIcon: widget.urlsvgicon),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, la matrícula';
+                            }
+                            if (!RegExp(
+                                    r'^[A-Z]{2}\s*-\s*[0-9]{3}\s*-\s*[A-Z]{1,2}$')
+                                .hasMatch(value.trim())) {
+                              print(value);
+                              return 'Formato no válido.Formato esperado: XX-000-XX';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
                         inputForm(
                           name: 'placeNumberCtl',
                           type: TextInputType.number,
@@ -428,8 +464,7 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
                                 // ),
                                 SizedBox(
                                     height: getProportionateScreenHeight(10)),
-                                const Text(
-                                    "Sírvase proporcionar la información",
+                                const Text("Datos del Conductor",
                                     textAlign: TextAlign.center),
                               ]),
                           SizedBox(height: getProportionateScreenHeight(20)),
@@ -911,5 +946,31 @@ class _AddFactureScreenState extends State<AddFactureScreen> {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.chevron_right)),
     );
+  }
+}
+
+class SpecialMaskTextInputFormatter extends MaskTextInputFormatter {
+  static String maskA = "S.####";
+  static String maskB = "S.######";
+
+  SpecialMaskTextInputFormatter({String? initialText})
+      : super(
+            mask: maskA,
+            filter: {"#": RegExp('[0-9]'), "S": RegExp('[AB]')},
+            initialText: initialText);
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.startsWith("A")) {
+      if (getMask() != maskA) {
+        updateMask(mask: maskA);
+      }
+    } else {
+      if (getMask() != maskB) {
+        updateMask(mask: maskB);
+      }
+    }
+    return super.formatEditUpdate(oldValue, newValue);
   }
 }

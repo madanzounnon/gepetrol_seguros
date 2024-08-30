@@ -74,7 +74,7 @@ class _EntryPointState extends State<EntryPoint> {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Acogida',
+            label: 'Inicio',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(

@@ -92,7 +92,7 @@ class _PlainteScreenState extends State<PlainteScreen> {
                           )
                         ]),
                       ))
-                  : Utile.isEmpty("No tiene ninguna queja pendiente")),
+                  : Utile.isEmpty("NSin Siniestros")),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton.extended(
@@ -100,7 +100,7 @@ class _PlainteScreenState extends State<PlainteScreen> {
           onPressed: () {
             _showForm();
           },
-          label: const Text("Enviar un Nuevo Ticket"),
+          label: const Text("Enviar un nuevo Siniestro"),
           icon: const Icon(Icons.add, color: Colors.white)),
       //const Text("Envoyer une plainte")),
     );
@@ -127,18 +127,18 @@ class _PlainteScreenState extends State<PlainteScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: getProportionateScreenHeight(20)),
-                    Text("Enviar una queja",
+                    Text("Nuevo Siniestro",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: getProportionateScreenWidth(18))),
                     SizedBox(height: getProportionateScreenHeight(20)),
                     inputForm(
-                        name: "Titulos",
+                        name: "Título ",
                         controller: titulosController,
                         validInput: true,
                         estreadonly: false,
-                        hintText: "Títulos",
-                        labeltext: "Títulos"),
+                        hintText: "Título ",
+                        labeltext: "Título "),
                     inputForm(
                       type: TextInputType.multiline,
                       maxLines: 7,
@@ -154,7 +154,7 @@ class _PlainteScreenState extends State<PlainteScreen> {
                         press: () async {
                           addPlainte();
                         },
-                        text: "Enviar un Nuevo Ticket")
+                        text: "Enviar")
                   ],
                 ),
               ),
@@ -167,7 +167,7 @@ AppBar buildAppBar(BuildContext context) {
     automaticallyImplyLeading: false,
     centerTitle: true,
     title: Text(
-      "Lista de denuncias",
+      "Lista de Siniestros",
       style: TextStyle(
           fontSize: getProportionateScreenWidth(20),
           fontWeight: FontWeight.bold),

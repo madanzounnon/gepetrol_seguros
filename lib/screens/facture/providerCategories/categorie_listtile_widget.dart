@@ -55,10 +55,10 @@ class CategorieListTileWidget extends StatelessWidget {
         "${categorie.title} (code: ${categorie.code_category})",
         style: style,
       ),
-      subtitle: Text(
-        "code: ${categorie.code_category}",
-        maxLines: 1,
-      ),
+      // subtitle: Text(
+      //   "code: ${categorie.code_category}",
+      //   maxLines: 1,
+      // ),
       trailing:
           isSelected ? Icon(Icons.check, color: selectedColor, size: 26) : null,
     );

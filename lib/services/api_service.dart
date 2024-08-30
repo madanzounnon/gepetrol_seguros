@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gepetrol_eguros/services/dioInterceptor.dart';
 
 class ApiService {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://seguros.fifonsi.net/api"));
+  Dio dio = Dio(BaseOptions(baseUrl: "https://app.gepetrol-seguros.com/api"));
   final Future<SharedPreferences> _sharedPreferences =
       SharedPreferences.getInstance();
   addInterceptors() {

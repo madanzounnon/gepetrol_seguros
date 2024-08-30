@@ -54,10 +54,10 @@ class CaburantListTileWidget extends StatelessWidget {
         "${caburant.title} (code: ${caburant.code})",
         style: style,
       ),
-      subtitle: Text(
-        "code: ${caburant.code}",
-        maxLines: 1,
-      ),
+      // subtitle: Text(
+      //   "code: ${caburant.code}",
+      //   maxLines: 1,
+      // ),
       trailing:
           isSelected ? Icon(Icons.check, color: selectedColor, size: 26) : null,
     );

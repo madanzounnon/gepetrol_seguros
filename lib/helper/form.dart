@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../size_config.dart';
 
 class inputForm extends StatefulWidget {
@@ -17,25 +18,27 @@ class inputForm extends StatefulWidget {
   bool estreadonly;
   bool validInput;
   Function? onChanged;
+  List<TextInputFormatter>? inputFormatters;
 
-  inputForm({
-    Key? key,
-    this.controller,
-    this.obscureText = false,
-    this.type,
-    this.isNotEmptyMessage = "est obligatoire",
-    this.labeltext,
-    this.hintText,
-    this.regExp,
-    this.regExpmessage,
-    this.urlsvgicon = "assets/icons/Flash Icon.svg",
-    this.name,
-    this.maxLines = 1,
-    this.minLines = 1,
-    this.estreadonly = false,
-    this.validInput = true,
-    this.onChanged,
-  }) : super(key: key);
+  inputForm(
+      {Key? key,
+      this.controller,
+      this.obscureText = false,
+      this.type,
+      this.isNotEmptyMessage = "est obligatoire",
+      this.labeltext,
+      this.hintText,
+      this.regExp,
+      this.regExpmessage,
+      this.urlsvgicon = "assets/icons/Flash Icon.svg",
+      this.name,
+      this.maxLines = 1,
+      this.minLines = 1,
+      this.estreadonly = false,
+      this.validInput = true,
+      this.onChanged,
+      this.inputFormatters})
+      : super(key: key);
 
   @override
   State<inputForm> createState() => _inputFormState();
@@ -77,7 +80,9 @@ class _inputFormState extends State<inputForm> {
         obscureText: widget.obscureText,
         readOnly: widget.estreadonly,
         controller: widget.controller,
+        autovalidateMode: AutovalidateMode.always,
         keyboardType: widget.type,
+        inputFormatters: widget.inputFormatters,
         maxLines: widget.maxLines,
         minLines: widget.minLines,
         onSaved: (newValue) => widget.name = newValue,
