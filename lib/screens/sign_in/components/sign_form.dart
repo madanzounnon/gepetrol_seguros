@@ -54,10 +54,12 @@ class _SignFormState extends State<SignForm> {
   }
 
   Future<void> loginUser(String email, String password) async {
+    print("print(res);print(res);print(res);");
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       Utile.loarder(context);
       Response res = await Auth().authenticate(email, password);
+      print(res);
       if (res.statusCode == 200) {
         StoreAuth().restoreUser();
         LoginSuccess loginSuccess = LoginSuccess.fromMap(res.data);

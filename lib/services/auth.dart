@@ -5,10 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gepetrol_eguros/services/dioInterceptor.dart';
 
 class Auth {
-  String _baseUrl = "https://seguros.fifonsi.net/api";
+  String _baseUrl = "https://app.gepetrol-seguros.com/api";
 
   Dio dio = Dio(BaseOptions(
-    baseUrl: "https://seguros.fifonsi.net/api",
+    baseUrl: "https://app.gepetrol-seguros.com/api",
   ));
   addInterceptors() {
     dio.options.validateStatus = (status) {
@@ -22,7 +22,7 @@ class Auth {
 
   Future<http.Response?> sendVerifyCodes(String email) async {
     try {
-      var url = Uri.parse('https://seguros.fifonsi.net/api/check-email');
+      var url = Uri.parse('https://app.gepetrol-seguros.com/api/check-email');
 
       // Les données que vous souhaitez envoyer
       Map<String, String> headers = {
